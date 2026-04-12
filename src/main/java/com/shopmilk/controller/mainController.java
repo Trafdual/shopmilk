@@ -40,13 +40,14 @@ public class mainController {
 
 	@Autowired
 	private OrderService orderService;
-	
+
 	@Autowired
 	private OrderDetailService detailService;
 
-	@Autowired UserService userService;
-	
-	@RequestMapping("/home")
+	@Autowired
+	UserService userService;
+
+	@RequestMapping({ "/", "/home" })
 	public String index(ModelMap model) {
 		model.addAttribute("categories", categoryService.findAll());
 		// model.addAttribute("bestSeller", productService.getByBestSeller(4));
@@ -126,25 +127,25 @@ public class mainController {
 		return "checkout";
 	}
 
-	@PostMapping("/order") 
+	@PostMapping("/order")
 	public String addOrder(@ModelAttribute("orderForm") Order order,
 			ModelMap model, HttpServletRequest request) {
 		// SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		order.setDate(new Date());
 		System.out.println("Tên: " + order.getCustomerName() + " Địa chỉ: " + order.getAddress());
 		orderService.save(order);
-		
+
 		int noProduct = Integer.parseInt(request.getParameter("noProductInCart"));
 		for (int i = 1; i <= noProduct; i++) {
 			Product product = productService.findByName(request.getParameter("productName" + i));
 			int noProductInCart = Integer.parseInt(request.getParameter("productQuantity" + i));
-			
+
 			int noProductInStock = product.getQuantity();
-			if(noProductInStock > noProductInCart || noProductInStock == noProductInCart) {
+			if (noProductInStock > noProductInCart || noProductInStock == noProductInCart) {
 				product.setQuantity(product.getQuantity() - noProductInCart);
 				productService.update(product);
 			}
-			
+
 			long total = product.getPrice() * noProductInCart;
 			OrderDetail orderDetail = new OrderDetail();
 			orderDetail.setId(new OrderDetailId(order.getId(), product.getId()));
@@ -161,12 +162,12 @@ public class mainController {
 	public String contact() {
 		return "contact";
 	}
-	
+
 	@GetMapping("/khuyenmai")
 	public String khuyenmai() {
 		return "contact2";
 	}
-	
+
 	@GetMapping("/dinhduong")
 	public String dinhduong() {
 		return "contact3";
@@ -176,57 +177,46 @@ public class mainController {
 	public String login() {
 		return "login";
 	}
-	
-//	@PostMapping("/login")
-	
-	
-	
+
+	// @PostMapping("/login")
+
 	// phần controller xử lý đăng ký tài khoản.
-	
-	//controller này trả về view khi có request đến /register
-	 @RequestMapping(value = { "/register" }, method = RequestMethod.GET) public
-	  String index(final ModelMap model, final HttpServletRequest request, final
-	  HttpServletResponse response) throws IOException {
-//		 ResponseDTOs res = new ResponseDTOs("301","Email đã tồn tại");
-//		 model.addAttribute("res", res);
-		 User userEntity = new User();
-	model.addAttribute("ac",userEntity);
-	return "register";// tên của file jsp trong thư mục view }
-	  }
-	
-	 
-	 //controller này xử lý khi người dùng bấm đăng ký. Nó sẽ post lên server 1 model, với các trường trùng với UserEntity dựa vào các past trong view. ex : path="password" 
-	 @RequestMapping(value = {"/save-ac"}, method = RequestMethod.POST)
-		public String saveAc(@ModelAttribute("ac") User ac
-				, final ModelMap model, final HttpServletRequest request, final HttpServletResponse response) throws IOException {
-		 // test xem lấy đc dữ liệu
-//			System.out.println(ac.getFirstName());
-//			System.out.println(userService.addUser(ac));
-			if(!userService.addUser(ac))
-			{
-				
-				ResponseDTOs res = new ResponseDTOs("301","Email đã tồn tại");
-				 User userEntity = new User();
-				 model.addAttribute("ac",userEntity);
-				 model.addAttribute("res", res);
-				
-				return "register";
-			}
-			else
-			{
-				
-				return "login";
-			}
-			
-			
-			
+
+	// controller này trả về view khi có request đến /register
+	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
+	public String index(final ModelMap model, final HttpServletRequest request, final HttpServletResponse response)
+			throws IOException {
+		// ResponseDTOs res = new ResponseDTOs("301","Email đã tồn tại");
+		// model.addAttribute("res", res);
+		User userEntity = new User();
+		model.addAttribute("ac", userEntity);
+		return "register";// tên của file jsp trong thư mục view }
+	}
+
+	// controller này xử lý khi người dùng bấm đăng ký. Nó sẽ post lên server 1
+	// model, với các trường trùng với UserEntity dựa vào các past trong view. ex :
+	// path="password"
+	@RequestMapping(value = { "/save-ac" }, method = RequestMethod.POST)
+	public String saveAc(@ModelAttribute("ac") User ac, final ModelMap model, final HttpServletRequest request,
+			final HttpServletResponse response) throws IOException {
+		// test xem lấy đc dữ liệu
+		// System.out.println(ac.getFirstName());
+		// System.out.println(userService.addUser(ac));
+		if (!userService.addUser(ac)) {
+
+			ResponseDTOs res = new ResponseDTOs("301", "Email đã tồn tại");
+			User userEntity = new User();
+			model.addAttribute("ac", userEntity);
+			model.addAttribute("res", res);
+
+			return "register";
+		} else {
+
+			return "login";
 		}
-	 
-	 
-	 
-	 
-	 
-	 
+
+	}
+
 	@GetMapping("/index")
 	public String index() {
 		return "index";
