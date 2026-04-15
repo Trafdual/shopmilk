@@ -34,8 +34,7 @@
 						display = "none";
 						}
 
-						<!-- System.out.println("ROLE = " + role);
-						System.out.println("LENGTH = " + role.length()); -->
+	
 
 						}
 						%>
