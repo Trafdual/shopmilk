@@ -1,248 +1,393 @@
-<%@ page pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page pageEncoding="utf-8"%> <%@ taglib
+uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> <%@ taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html>
-<head>
-<title>Shop Milk | Order</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!--Custom Theme files -->
-<link href="static/css/bootstrap.css" rel="stylesheet" type="text/css"
-	media="all" />
-<link href="static/css/style.css" rel="stylesheet" type="text/css"
-	media="all" />
-<link rel="stylesheet" href="static/css/flexslider.css" type="text/css"
-	media="screen" />
-<!--//Custom Theme files -->
-<!--js-->
-<script src="static/js/jquery-1.11.1.min.js"></script>
-<script src="static/js/modernizr.custom.js"></script>
-<!--//js-->
-<!--animation-effect-->
-<link href="static/css/animate.min.css" rel="stylesheet">
-<link
-	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-	rel="stylesheet">
-<script src="static/js/wow.min.js"></script>
-<script>
-	 new WOW().init();
-	</script>
-<!--//animation-effect-->
-<!--start-smooth-scrolling-->
-<script type="text/javascript" src="static/js/move-top.js"></script>
-<script type="text/javascript" src="static/js/easing.js"></script>
-<!--//end-smooth-scrolling-->
-</head>
-<body>
-	<!-- header -->
-	<jsp:include page="website/header.jsp" />
-	<!-- header -->
+  <head>
+    <title>Shop Milk | Đặt Hàng</title>
+    <jsp:include page="website/head.jsp" />
+    <link
+      href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      #cartDetail tr:not(:first-child) {
+        border-bottom: 1px solid #f3f4f6;
+      }
+      #cartDetail td {
+        padding: 1rem 1rem;
+        color: #4b5563;
+        font-weight: 500;
+        font-size: 0.875rem;
+      }
+      #cartDetail tr:not(:first-child) td:nth-child(1) {
+        text-align: center;
+        color: #9ca3af;
+      }
+      #cartDetail tr:not(:first-child) td:nth-child(2) {
+        color: #1f2937;
+        font-weight: 700;
+        padding-right: 1rem;
+      }
+      #cartDetail tr:not(:first-child) td:nth-child(3) {
+        color: #dc2626;
+        font-weight: 800;
+      }
+      #cartDetail tr:not(:first-child) td:nth-child(4) {
+        text-align: center;
+        font-weight: 700;
+        color: #2563eb;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-milk font-sans selection:bg-brand-DEFAULT selection:text-white"
+  >
+    <!-- header -->
+    <jsp:include page="website/header.jsp" />
+    <!-- header -->
 
-	<div class="breadcrumbs">
-		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft"
-				data-wow-delay=".5s">
-				<li><a href="home.html"><span
-						class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Đặt Hàng</li>
-			</ol>
-		</div>
-	</div>
-	<!--//breadcrumbs-->
-	<!--contact-->
-	<div class="address">
-		<!--address-->
-		<div class="container">
-			<div class="address-row">
-				<div class="col-md-6 address-left wow fadeInLeft animated"
-					data-wow-delay=".5s">
-					<div class="address-grid">
-						<h4 class="wow fadeIndown animated" data-wow-delay=".5s">Thông
-							tin khách hàng</h4>
-						<form:form id="orderForm" modelAttribute="orderForm">
-							<form:input path="customerName" placeholder="Họ tên Quý khách" />
-							<form:input path="phoneNumber" placeholder="Số điện thoại"
-								maxlength="10" />
-							<form:textarea path="address" placeholder="Địa chỉ" />
-							<form:input id="orderTotal" type="hidden" path="total" />
-							<button id="btnSave" type="button" onclick="return datHang()">Đặt
-								hàng</button>
-							<input id="noProductInCart" type="hidden" name="noProductInCart" />
-						</form:form>
-					</div>
-				</div>
-				<div class="col-md-6 address-right">
-					<div class="address-info wow fadeInRight animated"
-						data-wow-delay=".5s">
-						<h4>Hình thức vận chuyển</h4>
+    <!-- Breadcrumbs -->
+    <div class="bg-white border-b border-gray-100 mb-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <nav
+          class="flex text-sm font-medium text-gray-500"
+          aria-label="Breadcrumb"
+        >
+          <ol class="flex items-center space-x-2 sm:space-x-4">
+            <li>
+              <a
+                href="home"
+                class="hover:text-brand-DEFAULT transition-colors flex items-center"
+                ><i class="ph ph-house mr-1.5 text-lg"></i> Trang Chủ</a
+              >
+            </li>
+            <li><i class="ph ph-caret-right text-gray-400"></i></li>
+            <li class="text-brand-DEFAULT font-semibold" aria-current="page">
+              Đặt Hàng
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
 
-						<p>
-							<input type="radio" /> GIAO HÀNG NHANH
-						</p>
-						<br>
-						<p>
-							<input type="radio" /> GIAO HÀNG THƯỜNG
-						</p>
-					</div>
-					<div style="height: 322px;"
-						class="address-info address-mdl wow fadeInRight animated"
-						data-wow-delay=".7s">
-						<h4 style="text-align: center;">Xác nhận Đơn hàng</h4>
-					
-						<table id="cartDetail">
-							<tr>
-								<td style="width: 50px;">STT</td>
-								<td style="width: 175px;">Tên SP</td>
-								<td style="width: 150px;">Giá</td>
-								<td style="width: 50px;">SL</td>
-							</tr>
+    <!-- Checkout Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Left Column: Customer Information -->
+        <div class="w-full lg:w-3/5">
+          <div
+            class="bg-white rounded-[2rem] p-8 lg:p-10 shadow-sm border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-extrabold text-gray-900 mb-8 pb-4 border-b border-gray-100 flex items-center"
+            >
+              <i
+                class="ph-fill ph-user-circle text-brand-DEFAULT mr-3 text-3xl"
+              ></i>
+              Thông Tin Khách Hàng
+            </h2>
+            <form:form
+              id="orderForm"
+              modelAttribute="orderForm"
+              class="space-y-6"
+            >
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-2"
+                    >Họ Tên Quý Khách</label
+                  >
+                  <form:input
+                    path="customerName"
+                    id="customerName"
+                    placeholder="Nhập họ và tên..."
+                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-DEFAULT/50 focus:bg-white transition-colors"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-2"
+                    >Số Điện Thoại</label
+                  >
+                  <form:input
+                    path="phoneNumber"
+                    id="phoneNumber"
+                    placeholder="Nhập số điện thoại..."
+                    maxlength="10"
+                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-DEFAULT/50 focus:bg-white transition-colors"
+                  />
+                </div>
+              </div>
 
-						</table>
-						<table>
-							<tr>
-								<td style="width: 50px;">Tổng:</td>
-								<td style="width: 175px;" id="TotalCart"></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2"
+                  >Địa Chỉ Giao Hàng</label
+                >
+                <form:textarea
+                  path="address"
+                  id="address"
+                  placeholder="Nhập địa chỉ nhận hàng chi tiết..."
+                  rows="3"
+                  class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-DEFAULT/50 focus:bg-white transition-colors"
+                />
+              </div>
 
-	<!--footer-->
-	<jsp:include page="website/footer.jsp" />
-	<!--footer-->
+              <form:input id="orderTotal" type="hidden" path="total" />
+              <input
+                id="noProductInCart"
+                type="hidden"
+                name="noProductInCart"
+              />
 
-	<!--search jQuery-->
-	<script src="static/js/main.js"></script>
-	<!--//search jQuery-->
-	<script src="static/js/minicart.js"></script>
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-	<!--smooth-scrolling-of-move-up-->
+              <div class="mt-10 pt-6 border-t border-gray-100 flex justify-end">
+                <button
+                  id="btnSave"
+                  type="button"
+                  onclick="return datHang();"
+                  class="bg-brand-DEFAULT hover:bg-brand-600 text-white font-bold text-lg rounded-xl px-10 py-4 shadow-lg shadow-brand-DEFAULT/30 hover:shadow-xl transition-all active:scale-95 flex items-center w-full sm:w-auto justify-center"
+                >
+                  <i class="ph-fill ph-check-circle mr-2 text-xl"></i> Xác Nhận
+                  Đặt Hàng
+                </button>
+              </div>
+            </form:form>
+          </div>
+        </div>
 
-	<script src="static/js/Order.js"></script>
-	<script type="text/javascript">
-	
-	   $(document).ready(function(){
-		  
-		   $(".scroll").click(function(event){		
-				event.preventDefault();
-				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-			});
-		   var items = paypal.minicart.cart.items(),
-   		cartTotal = paypal.minicart.cart.total(),
-   		productPrice = 0,
-			quantity = 0;
-		if(items.length > 0) {
-			for (var i = 0; i < items.length; i++) {
-				quantity = items[i].get('quantity');
-				productPrice = items[i].get('amount');
-				document.getElementById("cartDetail").innerHTML +=
-					"<tr> <td>" + (i + 1) + "</td> <td>" +
-					items[i].get('item_name') + "</td> <td>" +
-					productPrice + "</td> <td>" + quantity + "</td> </tr>";
-				document.getElementById('orderForm').innerHTML +=
-					'<input type="hidden" value="' + items[i].get('item_name') + '" name="productName' + (i+1) + '" />' +
-					'<input type="hidden" value="' + quantity + '" name="productQuantity' + (i+1) + '" />';
-			}
-			if(quantity > 0) {
-				document.getElementById("cart-box").innerHTML =
-					'<a style="background-color: #DCDCDC; border: 1px solid #FFF; padding: 5px 21px;" href="order">ĐẶT HÀNG</a>';
-			}
-			document.getElementById('noProductInCart').value = items.length;
-			document.getElementById("cartTotal").innerHTML = cartTotal + " VNĐ (" + quantity + ")";
-		} else {
-			document.getElementById("cartTotal").innerHTML = "0 VNĐ (0)";
-		}
-		document.getElementById('TotalCart').innerHTML = cartTotal + ' VNĐ';
-		document.getElementById('orderTotal').value = cartTotal;
-	   })
-	    
-	</script>
-</body>
+        <!-- Right Column: Order Summary -->
+        <div class="w-full lg:w-2/5">
+          <!-- Delivery Method -->
+          <div
+            class="bg-brand-50 rounded-[2rem] p-8 mb-6 border border-brand-100/50"
+          >
+            <h3 class="text-xl font-bold text-brand-DEFAULT mb-4">
+              Hình thức vận chuyển
+            </h3>
+            <div class="space-y-3">
+              <label
+                class="flex items-center space-x-3 cursor-pointer group bg-white p-4 rounded-xl shadow-sm border border-brand-100 transition-all hover:border-brand-DEFAULT"
+              >
+                <input
+                  type="radio"
+                  name="delivery"
+                  checked
+                  class="form-radio h-5 w-5 text-brand-DEFAULT focus:ring-brand-DEFAULT"
+                />
+                <span class="text-sm font-bold text-gray-800"
+                  >GIAO HÀNG NHANH</span
+                >
+              </label>
+              <label
+                class="flex items-center space-x-3 cursor-pointer group bg-white/50 p-4 rounded-xl border border-transparent transition-all hover:bg-white hover:border-gray-200"
+              >
+                <input
+                  type="radio"
+                  name="delivery"
+                  class="form-radio h-5 w-5 text-gray-400 focus:ring-brand-DEFAULT"
+                />
+                <span class="text-sm font-medium text-gray-500"
+                  >GIAO HÀNG THƯỜNG</span
+                >
+              </label>
+            </div>
+          </div>
 
-<!--//smooth-scrolling-of-move-up-->
-<!--Bootstrap core JavaScript
-    ================================================== -->
-<!--Placed at the end of the document so the pages load faster -->
-<script src="static/js/bootstrap.js"></script>
+          <!-- Cart Details -->
+          <div
+            class="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 relative overflow-hidden"
+          >
+            <div
+              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-300 to-brand-DEFAULT"
+            ></div>
+            <h3
+              class="text-xl font-bold text-gray-900 mb-6 flex items-center justify-between"
+            >
+              <span>Thông Tin Đơn Hàng</span>
+              <i class="ph-fill ph-receipt text-brand-DEFAULT/30 text-3xl"></i>
+            </h3>
 
-<script>
-    paypal.minicart.render({
-    	strings: {
-            button: "VNĐ",
-            buttonAlt: "Tổng tiền:",
-            discount: "Giảm giá:"
+            <div
+              class="overflow-x-auto text-sm mb-6 rounded-xl border border-gray-100 overflow-hidden"
+            >
+              <!-- Notice: cartDetail element must receive innerHTML via JS -->
+              <table class="w-full text-left bg-white" id="cartDetail">
+                <tr
+                  class="bg-gray-50 text-gray-600 font-bold border-b border-gray-100"
+                >
+                  <td
+                    class="py-3 px-4 text-center w-12 rounded-tl-xl border-r border-gray-100"
+                  >
+                    STT
+                  </td>
+                  <td class="py-3 px-4 border-r border-gray-100">Tên SP</td>
+                  <td class="py-3 px-4 border-r border-gray-100">Giá</td>
+                  <td class="py-3 px-4 text-center w-16 rounded-tr-xl">SL</td>
+                </tr>
+                <!-- JS appends items here -->
+              </table>
+            </div>
+
+            <div
+              class="bg-gray-50 rounded-xl p-6 flex justify-between items-center border border-gray-100"
+            >
+              <span
+                class="font-bold text-gray-600 uppercase tracking-widest text-sm"
+                >Tổng cộng</span
+              >
+              <span
+                id="TotalCart"
+                class="text-2xl font-black text-brand-DEFAULT tracking-tight"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--footer-->
+    <jsp:include page="website/footer.jsp" />
+    <!--footer-->
+
+    <!--search jQuery-->
+    <script src="static/js/main.js"></script>
+    <!--//search jQuery-->
+    <script src="static/js/minicart.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!--smooth-scrolling-of-move-up-->
+
+    <script src="static/js/Order.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".scroll").click(function (event) {
+          event.preventDefault();
+          $("html,body").animate(
+            { scrollTop: $(this.hash).offset().top },
+            1000,
+          );
+        });
+        var items = paypal.minicart.cart.items(),
+          cartTotal = paypal.minicart.cart.total(),
+          productPrice = 0,
+          quantity = 0;
+        if (items.length > 0) {
+          for (var i = 0; i < items.length; i++) {
+            quantity = items[i].get("quantity");
+            productPrice = items[i].get("amount");
+            document.getElementById("cartDetail").innerHTML +=
+              "<tr> <td>" +
+              (i + 1) +
+              "</td> <td>" +
+              items[i].get("item_name") +
+              "</td> <td>" +
+              productPrice +
+              "</td> <td>" +
+              quantity +
+              "</td> </tr>";
+            document.getElementById("orderForm").innerHTML +=
+              '<input type="hidden" value="' +
+              items[i].get("item_name") +
+              '" name="productName' +
+              (i + 1) +
+              '" />' +
+              '<input type="hidden" value="' +
+              quantity +
+              '" name="productQuantity' +
+              (i + 1) +
+              '" />';
+          }
+          if (quantity > 0) {
+            document.getElementById("cart-box").innerHTML =
+              '<a style="background-color: #DCDCDC; border: 1px solid #FFF; padding: 5px 21px;" href="order">ĐẶT HÀNG</a>';
+          }
+          document.getElementById("noProductInCart").value = items.length;
+          document.getElementById("cartTotal").innerHTML =
+            cartTotal + " VNĐ (" + quantity + ")";
+        } else {
+          document.getElementById("cartTotal").innerHTML = "0 VNĐ (0)";
         }
-    });
-   
-    
-    
-    
-    
-    
-    //function datHang có toarst thông báo thành công
-    function datHang(){
-	    var customerName=document.getElementById("customerName").value;
-		   var phoneNumber=document.getElementById("phoneNumber").value;
-		   var address=document.getElementById("address").value;
-		   var orderTotal=Number.parseInt(document.getElementById("orderTotal").value);
-	    	
-	    	if(customerName==""){
-	    		toastr.error("Họ Tên không được để trống");
-	    		return;
-	    	}
-	    	if(phoneNumber==""){
-	    		toastr.error("Số điện thoại không được để trống");
-	    		return;
-	    	}
-	    	if(address==""){
-	    		toastr.error("Địa chỉ không được để trống");
-	    		return;
-	    	}
-	    
-	    	$.ajax({
-	    			url:'/order',
-	    			method:"post",
-	    			data:$("#orderForm").serialize(),
-	    			success:function(res){
-	    				toastr.success('Đặt hàng thành công', {timeOut: 5000})
-	    				setTimeout(()=>{
-	    					window.location.href = "/home"
-	    				},1000)
-	    			}
-	   
-	    		})
-	    };
-    
-    paypal.minicart.cart.on('add', function() {
-    	var items = this.items(),
-			quantity = 0,
-			price = 0,
-			total = this.total();
-	
-		for (var i = 0; i < items.length; i++) {
-			quantity += items[i].get('quantity');
-			price = items[i].get('amount');
-		}
-		document.getElementById("cartTotal").innerHTML = total + " VNĐ" + " (" + quantity + ")";
+        document.getElementById("TotalCart").innerHTML = cartTotal + " VNĐ";
+        document.getElementById("orderTotal").value = cartTotal;
+      });
+    </script>
+  </body>
+
+  <!--//smooth-scrolling-of-move-up-->
+  <!--Bootstrap core JavaScript
+    ================================================== -->
+  <!--Placed at the end of the document so the pages load faster -->
+  <script src="static/js/bootstrap.js"></script>
+
+  <script>
+    paypal.minicart.render({
+      strings: {
+        button: "VNĐ",
+        buttonAlt: "Tổng tiền:",
+        discount: "Giảm giá:",
+      },
     });
 
-    paypal.minicart.cart.on('remove', function() { 
-    	var items = this.items(),
-    		quantity = 0,
-    		total = this.total();
-		for (var i = 0; i < items.length; i++) {
-			quantity += items[i].get('quantity');
-		}
-		document.getElementById("cartTotal").innerHTML = total + " VNĐ" + " (" + quantity + ")";
+    //function datHang có toarst thông báo thành công
+    function datHang() {
+      var customerName = document.getElementById("customerName").value;
+      var phoneNumber = document.getElementById("phoneNumber").value;
+      var address = document.getElementById("address").value;
+      var orderTotal = Number.parseInt(
+        document.getElementById("orderTotal").value,
+      );
+
+      if (customerName == "") {
+        toastr.error("Họ Tên không được để trống");
+        return;
+      }
+      if (phoneNumber == "") {
+        toastr.error("Số điện thoại không được để trống");
+        return;
+      }
+      if (address == "") {
+        toastr.error("Địa chỉ không được để trống");
+        return;
+      }
+
+      $.ajax({
+        url: "/order",
+        method: "post",
+        data: $("#orderForm").serialize(),
+        success: function (res) {
+          toastr.success("Đặt hàng thành công", { timeOut: 5000 });
+          setTimeout(() => {
+            window.location.href = "/home";
+          }, 1000);
+        },
+      });
+    }
+
+    paypal.minicart.cart.on("add", function () {
+      var items = this.items(),
+        quantity = 0,
+        price = 0,
+        total = this.total();
+
+      for (var i = 0; i < items.length; i++) {
+        quantity += items[i].get("quantity");
+        price = items[i].get("amount");
+      }
+      document.getElementById("cartTotal").innerHTML =
+        total + " VNĐ" + " (" + quantity + ")";
     });
-	
-    if (~window.location.search.indexOf('reset=true')) {
-		paypal.minicart.reset();
-	}
-</script>
+
+    paypal.minicart.cart.on("remove", function () {
+      var items = this.items(),
+        quantity = 0,
+        total = this.total();
+      for (var i = 0; i < items.length; i++) {
+        quantity += items[i].get("quantity");
+      }
+      document.getElementById("cartTotal").innerHTML =
+        total + " VNĐ" + " (" + quantity + ")";
+    });
+
+    if (~window.location.search.indexOf("reset=true")) {
+      paypal.minicart.reset();
+    }
+  </script>
 </html>

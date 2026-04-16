@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +16,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepo orderRepo;
-	
-	@Autowired
-	private SessionFactory factory;
 
 	@Override
 	public Iterable<Order> findAll() {
@@ -28,9 +24,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-public Order findById(int id) {
-    return orderRepo.findById(id).orElse(null);
-}
+	public Order findById(int id) {
+		return orderRepo.findById(id).orElse(null);
+	}
 
 	@Override
 	public void save(Order order) {
@@ -45,19 +41,13 @@ public Order findById(int id) {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<Order> getNewOrder() {
-		// TODO Auto-generated method stub
-		String hql = "FROM Order WHERE status = 0";
-		return factory.getCurrentSession().createQuery(hql).list();
+		return orderRepo.findByStatus(false);
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<Order> getCheckedOrder() {
-		// TODO Auto-generated method stub
-		String hql = "FROM Order WHERE status = 1";
-		return factory.getCurrentSession().createQuery(hql).list();
+		return orderRepo.findByStatus(true);
 	}
 
 }

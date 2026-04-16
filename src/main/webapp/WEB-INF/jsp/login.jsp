@@ -1,75 +1,140 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Shop  Admin</title>
-        <link href="static/css/styles.css" rel="stylesheet" type="text/css" media="all" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" ></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" ></script>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body class="bg-primary">
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
-                
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
-                                    <div class="card-body">
-                                        <form method="post" action="${pageContext.request.contextPath}/perform_login">
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                <input class="form-control py-4" id="inputEmailAddress" type="text" name="username"  placeholder="Enter email address" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="inputPassword">Password</label>
-                                                <input class="form-control py-4" id="inputPassword" type="password" name="password" placeholder="Enter password" />
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password">Forgot Password?</a>
-                                                <input class="btn btn-primary" type="submit" value="Login"/>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="card-footer text-center">
-                                        <div class="small"><a href="register">Need an account? Sign up!</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-               
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>ShopMilk | Đăng nhập</title>
+    <!-- Include Global Tailwind Config -->
+    <jsp:include page="website/head.jsp" />
+  </head>
+  <body
+    class="bg-gray-50 flex items-center justify-center min-h-screen relative overflow-hidden"
+  >
+    <!-- Background Decoration -->
+    <div
+      class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-light opacity-50 blur-[100px] z-0 pointer-events-none"
+    ></div>
+    <div
+      class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-100 opacity-50 blur-[100px] z-0 pointer-events-none"
+    ></div>
+
+    <div
+      class="relative z-10 w-full max-w-md p-8 m-4 bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl rounded-3xl"
+    >
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+          Chào mừng quay lại
+        </h2>
+        <p class="text-gray-500 mt-2 text-sm">
+          Đăng nhập để tiếp tục mua sắm cùng ShopMilk
+        </p>
+      </div>
+
+      <form
+        method="post"
+        action="${pageContext.request.contextPath}/perform_login"
+        class="space-y-6"
+      >
+        <div>
+          <label
+            class="block text-sm font-semibold text-gray-700 mb-2"
+            for="inputEmailAddress"
+            >Email liên hệ</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+            >
+              <i class="ph ph-envelope text-gray-400 text-xl"></i>
             </div>
-            <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Website 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
+            <input
+              class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-brand-DEFAULT/30 focus:border-brand-DEFAULT outline-none transition-all placeholder-gray-400 text-gray-800 font-medium"
+              id="inputEmailAddress"
+              type="text"
+              name="username"
+              placeholder="Nhập địa chỉ email"
+              required
+            />
+          </div>
         </div>
-    </body>
+
+        <div>
+          <label
+            class="block text-sm font-semibold text-gray-700 mb-2"
+            for="inputPassword"
+            >Mật khẩu</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+            >
+              <i class="ph ph-lock text-gray-400 text-xl"></i>
+            </div>
+            <input
+              class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-brand-DEFAULT/30 focus:border-brand-DEFAULT outline-none transition-all placeholder-gray-400 text-gray-800 font-medium"
+              id="inputPassword"
+              type="password"
+              name="password"
+              placeholder="Nhập mật khẩu"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <label class="flex items-center cursor-pointer group">
+            <div class="relative flex items-center">
+              <input
+                class="w-5 h-5 text-brand-DEFAULT bg-gray-100 border-gray-300 rounded focus:ring-brand-DEFAULT focus:ring-2 transition-all cursor-pointer"
+                id="rememberPasswordCheck"
+                type="checkbox"
+              />
+            </div>
+            <span
+              class="ml-2.5 text-sm font-semibold text-gray-600 group-hover:text-gray-800 transition-colors"
+              >Ghi nhớ đăng nhập</span
+            >
+          </label>
+          <a
+            class="text-sm font-bold text-brand-DEFAULT hover:text-brand-dark transition-colors"
+            href="password"
+            >Quên mật khẩu?</a
+          >
+        </div>
+
+        <div class="mt-8 pt-4">
+          <button
+            type="submit"
+            class="w-full py-3.5 px-4 rounded-xl bg-brand-DEFAULT hover:bg-brand-dark hover:shadow-lg hover:-translate-y-0.5 text-white font-bold text-[1.1rem] transition-all active:scale-95 flex items-center justify-center gap-2"
+          >
+            <span>Đăng nhập</span>
+            <i class="ph ph-sign-in font-bold text-xl"></i>
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-8 mb-2 text-center text-sm font-medium text-gray-500">
+        <span>Chưa có tài khoản? </span>
+        <a href="register" class="text-brand-DEFAULT font-bold hover:underline"
+          >Đăng ký ngay</a
+        >
+      </div>
+
+      <!-- Optional return home link -->
+      <div class="mt-6 pt-6 border-t border-gray-100 flex justify-center">
+        <a
+          href="${pageContext.request.contextPath}/"
+          class="text-sm font-semibold text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-1.5 hover:-translate-x-1"
+        >
+          <i class="ph ph-arrow-left text-lg"></i>
+          <span>Trở về trang chủ</span>
+        </a>
+      </div>
+    </div>
+  </body>
 </html>
