@@ -1,176 +1,149 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!--new-->
-<div class="new">
-	<div class="container">
-		<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
-			<h3 class="title">BÁN CHẠY</h3>
-			<p>TOP 4 SẢN PHẨM BÁN CHẠY NHẤT</p>
-		</div>
-		<div class="new-info">
-			<div class="col-md-3 new-grid simpleCart_shelfItem wow flipInY animated"
-				data-wow-delay=".5s">
-				<div class="new-top">
-					<a href="single.html"><img src="static/images/phone/suavina.jpg"
-						class="img-responsive" alt="" /></a>
-					<div class="new-text">
-						<ul>
-							<li><a class="item_add" href="">Xem Chi Tiết </a></li>
-							<li><input type="number" class="item_quantity" min="1" value="1"></li>
-							<li><a href="">Thêm vào Giỏ </a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="new-bottom">
-					<h5>
-						<a class="name" href="single.html" style="font-family: Arial;">Sữa Bột Vinamilk</a>
-					</h5>
-					<div class="rating">
-						<span class="on">☆</span> <span class="on">☆</span> <span class="on">☆</span>
-						<span class="on">☆</span> <span class="on">☆</span>
-					</div>
-					<div class="ofr">
-						<p>
-							<span class="item_price">500.000đ</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div
-				class="col-md-3 new-grid new-mdl simpleCart_shelfItem wow flipInY animated"
-				data-wow-delay=".7s">
-				<div class="new-top">
-					<a href="single.html"><img src="static/images/phone/ensure.jpg"
-						class="img-responsive" alt="" /></a>
-					<div class="new-text">
-						<ul>
-							<li><a class="item_add" href="">Xem Chi Tiết </a></li>
-							<li><input type="number" class="item_quantity" min="1" value="1"></li>
-							<li><a href="">Thêm vào Giỏ </a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="new-bottom">
-					<h5>
-						<a class="name" href="single.html">Sữa Bột Ensure Úc</a>
-					</h5>
-					<div class="rating">
-						<span class="on">☆</span> <span class="on">☆</span> <span class="on">☆</span>
-						<span class="on">☆</span> <span class="on">☆</span>
-					</div>
-					<div class="ofr">
-						<p>
-							<span class="item_price">500.000đ</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div
-				class="col-md-3 new-grid new-mdl1 simpleCart_shelfItem wow flipInY animated"
-				data-wow-delay=".9s">
-				<div class="new-top">
-					<a href="single.html"><img src="static/images/phone/dielac.jpg"
-						class="img-responsive" alt="" /></a>
-					<div class="new-text">
-						<ul>
-							<li><a class="item_add" href="">Xem Chi Tiết </a></li>
-							<li><input type="number" class="item_quantity" min="1" value="1"></li>
-							<li><a href="">Thêm vào Giỏ </a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="new-bottom">
-					<h5>
-						<a class="name" href="single.html">Sữa Bột Dielac</a>
-					</h5>
-					<div class="rating">
-						<span class="on">☆</span> <span class="on">☆</span> <span class="on">☆</span>
-						<span class="on">☆</span> <span class="on">☆</span>
-					</div>
-					<div class="ofr">
-						<p>
-							<span class="item_price">500.000đ</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 new-grid simpleCart_shelfItem wow flipInY animated"
-				data-wow-delay="1.1s">
-				<div class="new-top">
-					<a href="single.html"><img src="static/images/phone/pedia.jpg"
-						class="img-responsive" alt="" /></a>
-					<div class="new-text">
-						<ul>
-							<li><a class="item_add" href="">Xem Chi Tiết </a></li>
-							<li><input type="number" class="item_quantity" min="1" value="1"></li>
-							<li><a href="">Thêm vào Giỏ </a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="new-bottom">
-					<h5>
-						<a class="name" href="single.html">Sữa Bột Pediasure</a>
-					</h5>
-					<div class="rating">
-						<span class="on">☆</span> <span class="on">☆</span> <span class="on">☆</span>
-						<span class="on">☆</span> <span class="on">☆</span>
-					</div>
-					<div class="ofr">
-						<p>
-							<span class="item_price">500.000đ</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-</div>
-<!--//new-->
-<!--gallery-->
-<div class="gallery">
-	<div class="container">
-		<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
-			<h3 class="title">XEM NHIỀU NHẤT</h3>
-			<p>SẢN PHẨM CÓ SỐ LƯỢT XEM NHIỀU NHẤT</p>
-		</div>
-		<div class="gallery-info">
-			<c:forEach var="product" varStatus="status" items="${mostViews}">
-				<div class="col-md-3 gallery-grid wow fadeInUp animated" data-wow-delay=".5s">
-					<a href="productDetail?cateID=${product.category.id}&productID=${product.id}">
-						<img src="${product.image}", width="100%", height="180px" />
-					</a>
-					<div class="gallery-text simpleCart_shelfItem" style="padding-top: 10px;">
-						<h6>
-							<a class="name" href="productDetail?cateID=${product.category.id}&productID=${product.id}">${product.name}</a>
-						</h6>
-						<p>
-							<span class="item_price">${product.price} VND</span>
-						</p>
-						<h4 class="sizes"></h4>
-						<ul>
-							<li>
-								<a href="#">
-									<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li>
-								<a class="item_add" href="#">
-									<span class="glyphicon glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<span class="glyphicon glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</c:forEach>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-</div>
-<!--//gallery-->
+<section class="py-16 lg:py-24 relative bg-milk">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section: BÁN CHẠY -->
+        <div class="mb-20">
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+                <h3 class="text-3xl lg:text-4xl font-extrabold text-dark tracking-tight mb-3">TOP BÁN CHẠY</h3>
+                <div class="w-24 h-1 bg-brand-DEFAULT mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-500 text-sm tracking-widest uppercase font-medium">Top 4 sản phẩm bán chạy nhất</p>
+            </div>
+
+            <!-- Product Grid: Grid layout using Tailwind -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Hardcoded bestsellers matching old JSP to keep data structure -->
+                <!-- Item 1 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-5 bg-gray-50">
+                        <img src="static/images/phone/suavina.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Vinamilk" />
+                        <!-- Quick Actions overlay -->
+                        <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2">
+                                <i class="ph ph-eye text-xl"></i>
+                            </a>
+                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2">
+                                <i class="ph ph-shopping-cart-simple text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center px-2">
+                        <div class="flex justify-center text-yellow-400 text-sm mb-2">
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                        </div>
+                        <a href="single.html" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">Sữa Bột Vinamilk</a>
+                        <div class="mt-auto pt-4 flex justify-center items-center">
+                            <span class="text-xl font-extrabold text-brand-DEFAULT">500.000đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-5 bg-gray-50">
+                        <img src="static/images/phone/ensure.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Ensure Úc" />
+                        <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
+                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center px-2">
+                        <div class="flex justify-center text-yellow-400 text-sm mb-2"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <a href="single.html" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">Sữa Bột Ensure Úc</a>
+                        <div class="mt-auto pt-4 flex justify-center items-center">
+                            <span class="text-xl font-extrabold text-brand-DEFAULT">500.000đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-5 bg-gray-50">
+                        <img src="static/images/phone/dielac.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Dielac" />
+                        <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
+                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center px-2">
+                        <div class="flex justify-center text-yellow-400 text-sm mb-2"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <a href="single.html" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">Sữa Bột Dielac</a>
+                        <div class="mt-auto pt-4 flex justify-center items-center">
+                            <span class="text-xl font-extrabold text-brand-DEFAULT">500.000đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-5 bg-gray-50">
+                        <img src="static/images/phone/pedia.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Pediasure" />
+                        <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
+                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center px-2">
+                        <div class="flex justify-center text-yellow-400 text-sm mb-2"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <a href="single.html" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">Sữa Bột Pediasure</a>
+                        <div class="mt-auto pt-4 flex justify-center items-center">
+                            <span class="text-xl font-extrabold text-brand-DEFAULT">500.000đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: XEM NHIỀU NHẤT -->
+        <div class="mt-24">
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+                <h3 class="text-3xl lg:text-4xl font-extrabold text-dark tracking-tight mb-3">XEM NHIỀU NHẤT</h3>
+                <div class="w-24 h-1 bg-brand-DEFAULT mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-500 text-sm tracking-widest uppercase font-medium">Sản phẩm có lượt xem cao</p>
+            </div>
+
+            <!-- Dynamic Product Grid from ${mostViews} -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <c:forEach var="product" varStatus="status" items="${mostViews}">
+                    <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                        <!-- Image Box -->
+                        <div class="relative w-full aspect-square bg-gray-50 p-4 mb-5 mix-blend-multiply flex items-center justify-center overflow-hidden">
+                            <a href="productDetail?cateID=${product.category.id}&productID=${product.id}">
+                                <c:choose>
+                                    <c:when test="${not empty product.image}">
+                                        <img src="${product.image}" onerror="this.onerror=null; this.src='https://cdn-files.hacom.vn/hacom/cdn/web/16042026/sua-bot-ensure-gold-vani-lon-400g-202104230836132948.jpg'" class="object-contain max-h-full max-w-full drop-shadow-sm group-hover:scale-110 transition-transform duration-500 ease-out" alt="${product.name}" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="https://cdn-files.hacom.vn/hacom/cdn/web/16042026/sua-bot-ensure-gold-vani-lon-400g-202104230836132948.jpg" class="object-contain max-h-full max-w-full drop-shadow-sm group-hover:scale-110 transition-transform duration-500 ease-out" alt="${product.name}" />
+                                    </c:otherwise>
+                                </c:choose>
+                            </a>
+                            <!-- Quick actions overlay -->
+                            <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <a href="productDetail?cateID=${product.category.id}&productID=${product.id}" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
+                                <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-grow text-center px-2">
+                            <a href="productDetail?cateID=${product.category.id}&productID=${product.id}" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">${product.name}</a>
+                            <div class="mt-auto pt-4 flex justify-center items-center">
+                                <span class="text-xl font-extrabold text-brand-DEFAULT">${product.price} VNĐ</span>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <c:if test="${empty mostViews}">
+                <div class="text-center py-12 text-gray-400">
+                    <i class="ph ph-package text-6xl mb-4 text-gray-300"></i>
+                    <p>Chưa có dữ liệu sản phẩm.</p>
+                </div>
+            </c:if>
+        </div>
+
+    </div>
+</section>

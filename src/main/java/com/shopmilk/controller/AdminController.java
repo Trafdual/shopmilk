@@ -32,10 +32,10 @@ public class AdminController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private OrderService orderService;
-	
+
 	@Autowired
 	private OrderDetailService detailService;
 
@@ -66,51 +66,51 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/categoryManager/save", method = RequestMethod.POST)
-	public String saveCategory(ModelMap model, @ModelAttribute("categoryForm") Category category, BindingResult validateForm) {
-		if(category.getName().trim().length()==0){
+	public String saveCategory(ModelMap model, @ModelAttribute("categoryForm") Category category,
+			BindingResult validateForm) {
+		if (category.getName().trim().length() == 0) {
 			validateForm.rejectValue("name", "category", "Vui long nhap ten!");
 		}
-		if(validateForm.hasErrors()){
+		if (validateForm.hasErrors()) {
 			model.addAttribute("message", "Vui long sua loi!");
-			
-		}
-		else{
+
+		} else {
 			model.addAttribute("message", "Them moi thanh cong!");
 			categoryService.save(category);
 		}
-		
+
 		return "redirect:/admin/categoryManager";
 	}
 
-//	@GetMapping("/category/edit")
-//	public String editCategory(@PathVariable int id, ModelMap model) {
-////		model.addAttribute("categories", categoryService.findOne(id));
-//		return "formUpdateCategory";
-//
-//	}
-	
+	// @GetMapping("/category/edit")
+	// public String editCategory(@PathVariable int id, ModelMap model) {
+	//// model.addAttribute("categories", categoryService.findOne(id));
+	// return "formUpdateCategory";
+	//
+	// }
+
 	@GetMapping("/editCategory")
-	public String updateCategory(ModelMap model, @RequestParam("cateID") int id) {	 
-		
+	public String updateCategory(ModelMap model, @RequestParam("cateID") int id) {
+
 		model.addAttribute("categoryForm", categoryService.findById(id));
 		return "formUpdateCategory";
 	}
-	
+
 	@PostMapping("/saveChangeCategory")
-	public String saveChangeCategory(ModelMap model, @Validated @ModelAttribute("categoryForm") Category category, BindingResult validateForm){
-		if(category.getName().trim().length()==0){
+	public String saveChangeCategory(ModelMap model, @Validated @ModelAttribute("categoryForm") Category category,
+			BindingResult validateForm) {
+		if (category.getName().trim().length() == 0) {
 			validateForm.rejectValue("name", "category", "Vui long nhap ten!");
 		}
-		if(validateForm.hasErrors()){
+		if (validateForm.hasErrors()) {
 			model.addAttribute("message", "Vui long sua loi!");
-			
-		}
-		else{
+
+		} else {
 			model.addAttribute("message", "Them moi thanh cong!");
 			System.out.println(category.getName());
 			categoryService.save(category);
 		}
-		
+
 		return "redirect:/admin/categoryManager";
 	}
 	// End Category
@@ -118,34 +118,51 @@ public class AdminController {
 	// Start Product
 	// ---------------------------------------------------------------------
 	@GetMapping("/editProduct")
-	public String updateProduct(ModelMap model, @RequestParam("proID") int id){
+	public String updateProduct(ModelMap model, @RequestParam("proID") int id) {
 		model.addAttribute("Categories", categoryService.findAll());
 		model.addAttribute("productForm", productService.findById(id));
 		return "formUpdateProduct";
-		
-	} 
-	
+
+	}
+
 	@PostMapping("/saveChangeProduct")
-	public String saveChangeProduct(ModelMap model, @ModelAttribute("productForm") Product product, BindingResult validateForm){
-		if(product.getName().trim().length()==0){
+	public String saveChangeProduct(ModelMap model, @ModelAttribute("productForm") Product product,
+			BindingResult validateForm, HttpServletRequest request,
+			@RequestParam(value = "category.id", required = false) Integer categoryId) {
+		if (product.getName().trim().length() == 0) {
 			validateForm.rejectValue("name", "product", "Vui long nhap ten!");
 		}
-		if(product.getPrice() < 0){
+		if (product.getPrice() < 0) {
 			validateForm.rejectValue("price", "product", "Gia khong nho hon 0!");
 		}
-		if(product.getQuantity() < 0){
+		if (product.getQuantity() < 0) {
 			validateForm.rejectValue("quantity", "product", "So luong khong nho hon 0!");
 		}
-		if(validateForm.hasErrors()){
+		if (product.getCategory() == null && categoryId == null) {
+			validateForm.rejectValue("category", "product", "Vui lòng chọn danh mục!");
+		}
+		if (validateForm.hasErrors()) {
 			model.addAttribute("message", "Vui long sua loi!");
-		}else{
-			model.addAttribute("message", "Them moi thanh cong!");
+			model.addAttribute("Categories", categoryService.findAll());
+		} else {
+			// Use @RequestParam value which works better with multipart forms
+			if (categoryId != null) {
+				product.setCategory(categoryService.findById(categoryId));
+			} else if (product.getCategory() != null && product.getCategory().getId() != null) {
+				// Fallback to bound object if parameter is missing
+				product.setCategory(categoryService.findById(product.getCategory().getId()));
+			}
+
+			// Only prepend path if image is relative
+			if (product.getImage() != null && !product.getImage().startsWith("static/")) {
+				product.setImage("static/images/phone/" + product.getImage());
+			}
 			productService.save(product);
 		}
-		
+
 		return "redirect:/admin/productManager";
 	}
-	
+
 	@GetMapping("/productManager")
 	public String product(ModelMap model) {
 		model.addAttribute("products", productService.findAll());
@@ -166,59 +183,75 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/productManager/save", method = RequestMethod.POST)
-	public String saveProduct(ModelMap model, @ModelAttribute("productForm") Product product, BindingResult validateForm) {
-		if(product.getName().trim().length()==0){
+	public String saveProduct(ModelMap model, @ModelAttribute("productForm") Product product,
+			BindingResult validateForm, HttpServletRequest request,
+			@RequestParam(value = "category.id", required = false) Integer categoryId) {
+		if (product.getName().trim().length() == 0) {
 			validateForm.rejectValue("name", "product", "Vui long nhap ten!");
 		}
-		if(product.getPrice() < 0){
+		if (product.getPrice() < 0) {
 			validateForm.rejectValue("price", "product", "Gia khong nho hon 0!");
 		}
-		if(product.getQuantity() < 0 ){
+		if (product.getQuantity() < 0) {
 			validateForm.rejectValue("quantity", "product", "So luong khong nho hon 0!");
 		}
-		if(validateForm.hasErrors()){
+		if (product.getCategory() == null && categoryId == null) {
+			validateForm.rejectValue("category", "product", "Vui lòng chọn danh mục!");
+		}
+		if (validateForm.hasErrors()) {
 			model.addAttribute("message", "Vui long sua loi!");
-			
-		}else{
-			model.addAttribute("message", "Them moi thanh cong!");
-			product.setImage("static/images/phone/" + product.getImage());
+			model.addAttribute("Categories", categoryService.findAll());
+		} else {
+			model.addAttribute("message", "Thêm mới thành công!");
+			// Use @RequestParam value which works better with multipart forms
+			if (categoryId != null) {
+				product.setCategory(categoryService.findById(categoryId));
+			} else if (product.getCategory() != null && product.getCategory().getId() != null) {
+				// Fallback to bound object if parameter is missing
+				product.setCategory(categoryService.findById(product.getCategory().getId()));
+			}
+
+			if (product.getImage() != null && !product.getImage().isEmpty()) {
+				product.setImage("static/images/phone/" + product.getImage());
+			} else {
+				product.setImage("static/images/phone/default.jpg"); // Ảnh mặc định nếu trống
+			}
 			productService.save(product);
 		}
-		
+
 		return "redirect:/admin/productManager";
 	}
 	// closeProduct
-	
 
-	//Start Order
-		@GetMapping("/orderManagerr")
-		public String orderManager(ModelMap model) {
-			model.addAttribute("newOrder", orderService.getNewOrder());
-			model.addAttribute("checkedOrder", orderService.getCheckedOrder());
-			return "oderManager";
+	// Start Order
+	@GetMapping("/orderManagerr")
+	public String orderManager(ModelMap model) {
+		model.addAttribute("newOrder", orderService.getNewOrder());
+		model.addAttribute("checkedOrder", orderService.getCheckedOrder());
+		return "oderManager";
+	}
+
+	@GetMapping("/viewOrderDetail")
+	public String viewOrderDetail(@RequestParam("orderID") int orderID, ModelMap model) {
+		model.addAttribute("mode", "viewDetail");
+		model.addAttribute("orderID", orderID);
+		model.addAttribute("orderDetails", detailService.findByOrderID(orderID));
+		return "oderManager";
+	}
+
+	@PostMapping("/checkedOrder")
+	public String checkedOrder(HttpServletRequest request) {
+		int orderID = Integer.parseInt(request.getParameter("orderID"));
+		int orderStatus = Integer.parseInt(request.getParameter("orderStatus"));
+		boolean check = false;
+		if (orderStatus == 1) {
+			check = true;
 		}
-		
-		@GetMapping("/viewOrderDetail")
-		public String viewOrderDetail(@RequestParam("orderID") int orderID, ModelMap model) {
-			model.addAttribute("mode", "viewDetail");
-			model.addAttribute("orderID", orderID);
-			model.addAttribute("orderDetails", detailService.findByOrderID(orderID));
-			return "oderManager";
-		}
-		
-		@PostMapping("/checkedOrder")
-		public String checkedOrder(HttpServletRequest request) {
-			int orderID = Integer.parseInt(request.getParameter("orderID"));
-			int orderStatus = Integer.parseInt(request.getParameter("orderStatus"));
-			boolean check = false;
-			if(orderStatus == 1) {
-				check = true;
-			}
-			Order order = orderService.findById(orderID);
-			order.setStatus(check);
-			orderService.update(order);
-			return "oderManager";
-		}
-		//End Order
-	
+		Order order = orderService.findById(orderID);
+		order.setStatus(check);
+		orderService.update(order);
+		return "oderManager";
+	}
+	// End Order
+
 }

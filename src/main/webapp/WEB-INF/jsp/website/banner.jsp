@@ -1,138 +1,68 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<script src="static/js/jssor.slider-24.1.5.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        jssor_1_slider_init = function() {
+<section class="relative pt-8 pb-12 lg:pt-16 lg:pb-24 overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute inset-0 bg-milk z-[-2]"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-50 rounded-bl-[100px] z-[-1] hidden lg:block opacity-50"></div>
+    <div class="absolute top-20 right-20 w-64 h-64 bg-brand-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse z-[-1]"></div>
 
-            var jssor_1_SlideoTransitions = [
-              [{b:900,d:2000,x:-379,e:{x:7}}],
-              [{b:900,d:2000,x:-379,e:{x:7}}],
-              [{b:-1,d:1,o:-1,sX:2,sY:2},{b:0,d:900,x:-171,y:-341,o:1,sX:-2,sY:-2,e:{x:3,y:3,sX:3,sY:3}},{b:900,d:1600,x:-283,o:-1,e:{x:16}}]
-            ];
-
-            var jssor_1_options = {
-              $AutoPlay: 1,
-              $SlideDuration: 800,
-              $SlideEasing: $Jease$.$OutQuint,
-              $CaptionSliderOptions: {
-                $Class: $JssorCaptionSlideo$,
-                $Transitions: jssor_1_SlideoTransitions
-              },
-              $ArrowNavigatorOptions: {
-                $Class: $JssorArrowNavigator$
-              },
-              $BulletNavigatorOptions: {
-                $Class: $JssorBulletNavigator$
-              }
-            };
-
-            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
-
-            /*responsive code begin*/
-            /*remove responsive code if you don't want the slider scales while window resizing*/
-            function ScaleSlider() {
-                var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
-                if (refSize) {
-                    refSize = Math.min(refSize, 1920);
-                    jssor_1_slider.$ScaleWidth(refSize);
-                }
-                else {
-                    window.setTimeout(ScaleSlider, 30);
-                }
-            }
-            ScaleSlider();
-            $Jssor$.$AddEvent(window, "load", ScaleSlider);
-            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
-            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
-            /*responsive code end*/
-        };
-    </script>
-    <style>
-        /* jssor slider bullet navigator skin 05 css */
-        /*
-        .jssorb05 div           (normal)
-        .jssorb05 div:hover     (normal mouseover)
-        .jssorb05 .av           (active)
-        .jssorb05 .av:hover     (active mouseover)
-        .jssorb05 .dn           (mousedown)
-        */
-        .jssorb05 {
-            position: absolute;
-        }
-        .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
-            position: absolute;
-            /* size of bullet elment */
-            width: 30px;
-            height: 30px;
-            background: url('static/images/slider/b05.png') no-repeat;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .jssorb05 div { background-position: -7px -7px; }
-        .jssorb05 div:hover, .jssorb05 .av:hover { background-position: -37px -7px; }
-        .jssorb05 .av { background-position: -67px -7px; }
-        .jssorb05 .dn, .jssorb05 .dn:hover { background-position: -97px -7px; }
-
-        .jssora031 {display:block;position:absolute;cursor:pointer;}
-        .jssora031 .a {fill:#fff;}
-        .jssora031:hover {opacity:.8;}
-        .jssora031.jssora031dn {opacity:.5;}
-        .jssora031.jssora031ds { opacity: .3; pointer-events: none; }
-    </style>
-
-<div class="banner">
-	<div class="container">
-		<div class="banner-text">
-			<div class="col-sm-5 banner-left wow fadeInLeft animated" data-wow-delay=".5s">
-				<h3>DANH MỤC</h3>
-				<div class="count main-row">
-					<ul id="example">
-						<c:forEach var="category" items="${categories}">
-							<a href="searchProduct?cateID=${category.id}">
-								<li><span>${category.name}</span></li>
-							</a>
-						</c:forEach>
-					</ul>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-			<div class="col-sm-7 banner-right wow fadeInRight animated"	data-wow-delay=".5s">
-				<div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:1800px;height:800px;overflow:hidden;visibility:hidden;border:5px solid #FFF;">
-        <!-- Loading Screen -->
-        <div data-u="loading" style="position:absolute;top:0px;left:0px;background:url('static/images/slider/loading.gif') no-repeat 50% 50%;background-color:rgba(0, 0, 0, 0.7);"></div>
-        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1800px;height:800px;overflow:hidden;">
-            <div>
-                <img data-u="image" src="static/images/slider/img3.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="static/images/slider/img2.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="static/images/slider/img1.jpg" />
-            </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
             
-        </div>
-        <!-- Bullet Navigator -->
-        <div data-u="navigator" class="jssorb05" style="bottom:16px;right:16px;" data-autocenter="1">
-            <!-- bullet navigator item prototype -->
-            <div data-u="prototype" style="width:16px;height:16px;"></div>
-        </div>
-        <!-- Arrow Navigator -->
-        <div data-u="arrowleft" class="jssora031" style="width:50px;height:50px;top:0px;left:20px;" data-autocenter="2">
-            <svg viewbox="-12986 -2977 16000 16000" style="width:100%;height:100%;">
-                <polygon class="a" points="-1182.1,12825.5 -792,12435.4 -8204.5,5023 -792,-2389.4 -1182.1,-2779.5 -8984.8,5023"></polygon>
-            </svg>
-        </div>
-        <div data-u="arrowright" class="jssora031" style="width:50px;height:50px;top:0px;right:20px;" data-autocenter="2">
-            <svg viewbox="-12986 -2977 16000 16000" style="width:100%;height:100%;">
-                <polygon class="a" points="-8594.7,12825.5 -8984.8,12435.4 -1572.3,5023 -8984.8,-2389.4 -8594.7,-2779.5 -792,5023"></polygon>
-            </svg>
+            <!-- Sidebar Categories (Left) -->
+            <div class="w-full lg:w-1/4 z-10 hidden md:block">
+                <div class="bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl shadow-brand-DEFAULT/5 rounded-2xl overflow-hidden h-full">
+                    <div class="px-6 py-5 border-b border-gray-100/50 bg-gradient-to-r from-brand-50 to-transparent">
+                        <h3 class="text-sm font-bold text-gray-800 uppercase tracking-widest flex items-center">
+                            <i class="ph ph-list-bold text-brand-DEFAULT mr-2 text-lg"></i> Danh Mục
+                        </h3>
+                    </div>
+                    <div class="p-3">
+                        <ul class="space-y-1">
+                            <c:forEach var="category" items="${categories}">
+                                <li>
+                                    <a href="searchProduct?cateID=${category.id}" class="group flex items-center px-4 py-3 text-sm font-medium text-gray-600 rounded-xl hover:bg-brand-DEFAULT hover:text-white hover:shadow-md hover:shadow-brand-DEFAULT/20 transition-all select-none">
+                                        <i class="ph ph-caret-right text-gray-300 group-hover:text-white mr-3 transition-colors text-xs"></i>
+                                        ${category.name}
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Banner (Right) -->
+            <div class="w-full lg:w-3/4 flex-1">
+                <div class="relative w-full h-[400px] md:h-[500px] lg:h-[550px] rounded-[2rem] overflow-hidden shadow-2xl shadow-brand-DEFAULT/10 group">
+                    <!-- Banner Image with subtle zoom on hover -->
+                    <img src="static/images/slider/img3.jpg" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-in-out" alt="Banner Sữa">
+                    
+                    <!-- Overlay Dark/Gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent"></div>
+
+                    <!-- Content inside Banner -->
+                    <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 z-10 w-full md:w-3/4">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-bold tracking-widest text-white uppercase w-max mb-4">
+                            Khuyến mãi mới
+                        </span>
+                        <h2 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4 drop-shadow-sm">
+                            Đỉnh Cao Dinh Dưỡng<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-100 to-white">Cho Gia Đình Của Bạn</span>
+                        </h2>
+                        <p class="text-gray-200 text-sm md:text-base mb-8 max-w-lg leading-relaxed drop-shadow-sm">
+                            Khám phá hàng loạt các sản phẩm sữa chất lượng cao giúp tăng cường miễn dịch và phát triển toàn diện.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="allProduct" class="px-8 py-3.5 bg-brand-DEFAULT text-white text-sm font-bold uppercase tracking-wider rounded-xl hover:bg-white hover:text-brand-DEFAULT shadow-lg shadow-brand-DEFAULT/30 hover:shadow-xl transition-all active:scale-95 flex items-center justify-center">
+                                Xem Ngay <i class="ph ph-arrow-right-bold ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <script type="text/javascript">jssor_1_slider_init();</script>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-</div>
+</section>
