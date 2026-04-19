@@ -19,7 +19,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Iterable<Order> findAll() {
-		// TODO Auto-generated method stub
 		return orderRepo.findAll();
 	}
 
@@ -30,24 +29,45 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void save(Order order) {
-		// TODO Auto-generated method stub
 		orderRepo.save(order);
 	}
 
 	@Override
 	public void update(Order order) {
-		// TODO Auto-generated method stub
 		orderRepo.save(order);
 	}
 
+	// status=0: Chờ xác nhận
 	@Override
 	public List<Order> getNewOrder() {
-		return orderRepo.findByStatus(false);
+		return orderRepo.findByStatus(0);
+	}
+
+	// status=2: Hoàn thành (tương thích cũ)
+	@Override
+	public List<Order> getCheckedOrder() {
+		return orderRepo.findByStatus(2);
 	}
 
 	@Override
-	public List<Order> getCheckedOrder() {
-		return orderRepo.findByStatus(true);
+	public List<Order> getByStatus(int status) {
+		return orderRepo.findByStatus(status);
+	}
+
+	@Override
+	public List<Object[]> getMonthlyRevenue() {
+		return orderRepo.getMonthlyRevenue();
+	}
+
+	@Override
+	public List<Object[]> getWeeklyRevenue() {
+		return orderRepo.getWeeklyRevenue();
+	}
+
+	@Override
+	public long countByStatus(int status) {
+		return orderRepo.countByStatus(status);
 	}
 
 }
+

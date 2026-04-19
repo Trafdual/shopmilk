@@ -46,7 +46,7 @@ public class mainController {
 
 	@Autowired UserService userService;
 	
-	@RequestMapping("/home")
+	@RequestMapping(value = {"/", "/home"})
 	public String index(ModelMap model) {
 		model.addAttribute("categories", categoryService.findAll());
 		// model.addAttribute("bestSeller", productService.getByBestSeller(4));
@@ -227,8 +227,4 @@ public class mainController {
 	 
 	 
 	 
-	@GetMapping("/index")
-	public String index() {
-		return "index";
-	}
 }

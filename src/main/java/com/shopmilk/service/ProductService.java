@@ -30,4 +30,10 @@ public interface ProductService {
 
 	void delete(int id);
 
+	// Thống kê tồn kho và đã bán
+	List<Object[]> getProductStockAndSold(int limit);
+
+	long countProducts();
+
 }
+
