@@ -1,5 +1,10 @@
 package com.shopmilk.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shopmilk.entities.Category;
 import com.shopmilk.entities.Order;
@@ -22,6 +28,7 @@ import com.shopmilk.service.CategoryService;
 import com.shopmilk.service.OrderDetailService;
 import com.shopmilk.service.OrderService;
 import com.shopmilk.service.ProductService;
+import com.shopmilk.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
@@ -39,13 +46,55 @@ public class AdminController {
 	@Autowired
 	private OrderDetailService detailService;
 
+	@Autowired
+	private UserService userService;
+
+	// =========================================================
+	// DASHBOARD
+	// =========================================================
+	@Autowired
+	private javax.persistence.EntityManager em;
+
+	@javax.annotation.PostConstruct
+	@org.springframework.transaction.annotation.Transactional
+	public void fixDb() {
+		try {
+			em.createNativeQuery("ALTER TABLE `order` MODIFY COLUMN status INT(11) NOT NULL DEFAULT 0").executeUpdate();
+		} catch(Exception e) {}
+	}
+
 	@GetMapping("")
-	public String index() {
+	public String index(ModelMap model) {
+		// Stat boxes
+		model.addAttribute("totalProducts", productService.countProducts());
+		model.addAttribute("totalUsers", userService.countUsers());
+		model.addAttribute("pendingOrders", orderService.countByStatus(0));
+		model.addAttribute("shippingOrders", orderService.countByStatus(1));
+		model.addAttribute("completedOrders", orderService.countByStatus(2));
+		model.addAttribute("cancelledOrders", orderService.countByStatus(3));
+
+		// Doanh thu tháng: [[month, revenue], ...]
+		List<Object[]> rawRevenue = orderService.getMonthlyRevenue();
+		long[] revenueByMonth = new long[12];
+		for (Object[] row : rawRevenue) {
+			int month = ((Number) row[0]).intValue() - 1; // 0-indexed
+			long rev = ((Number) row[1]).longValue();
+			revenueByMonth[month] = rev;
+		}
+		model.addAttribute("revenueByMonth", revenueByMonth);
+
+		// Đơn hàng gần đây (10 đơn mới nhất - status=0)
+		model.addAttribute("recentOrders", orderService.getNewOrder());
+
+		// Top sản phẩm bán chạy (top 5)
+		model.addAttribute("topSellers", productService.getByBestSeller(5));
+
 		return "ad_index";
 	}
 
-	// Start
-	// Category-------------------------------------------------------------
+	// =========================================================
+	// CATEGORY
+	// =========================================================
 	@GetMapping("/categoryManager")
 	public String category(ModelMap model) {
 		model.addAttribute("categories", categoryService.findAll());
@@ -56,7 +105,6 @@ public class AdminController {
 	public String deleteCategory(@PathVariable int id, ModelMap model) {
 		categoryService.delete(id);
 		return "redirect:/admin/categoryManager";
-
 	}
 
 	@GetMapping("/addCategory")
@@ -69,29 +117,19 @@ public class AdminController {
 	public String saveCategory(ModelMap model, @ModelAttribute("categoryForm") Category category,
 			BindingResult validateForm) {
 		if (category.getName().trim().length() == 0) {
-			validateForm.rejectValue("name", "category", "Vui long nhap ten!");
+			validateForm.rejectValue("name", "category", "Vui lòng nhập tên!");
 		}
 		if (validateForm.hasErrors()) {
-			model.addAttribute("message", "Vui long sua loi!");
-
+			model.addAttribute("message", "Vui lòng sửa lỗi!");
 		} else {
-			model.addAttribute("message", "Them moi thanh cong!");
+			model.addAttribute("message", "Thêm mới thành công!");
 			categoryService.save(category);
 		}
-
 		return "redirect:/admin/categoryManager";
 	}
 
-	// @GetMapping("/category/edit")
-	// public String editCategory(@PathVariable int id, ModelMap model) {
-	//// model.addAttribute("categories", categoryService.findOne(id));
-	// return "formUpdateCategory";
-	//
-	// }
-
 	@GetMapping("/editCategory")
 	public String updateCategory(ModelMap model, @RequestParam("cateID") int id) {
-
 		model.addAttribute("categoryForm", categoryService.findById(id));
 		return "formUpdateCategory";
 	}
@@ -100,69 +138,19 @@ public class AdminController {
 	public String saveChangeCategory(ModelMap model, @Validated @ModelAttribute("categoryForm") Category category,
 			BindingResult validateForm) {
 		if (category.getName().trim().length() == 0) {
-			validateForm.rejectValue("name", "category", "Vui long nhap ten!");
+			validateForm.rejectValue("name", "category", "Vui lòng nhập tên!");
 		}
 		if (validateForm.hasErrors()) {
-			model.addAttribute("message", "Vui long sua loi!");
-
+			model.addAttribute("message", "Vui lòng sửa lỗi!");
 		} else {
-			model.addAttribute("message", "Them moi thanh cong!");
-			System.out.println(category.getName());
 			categoryService.save(category);
 		}
-
 		return "redirect:/admin/categoryManager";
 	}
-	// End Category
 
-	// Start Product
-	// ---------------------------------------------------------------------
-	@GetMapping("/editProduct")
-	public String updateProduct(ModelMap model, @RequestParam("proID") int id) {
-		model.addAttribute("Categories", categoryService.findAll());
-		model.addAttribute("productForm", productService.findById(id));
-		return "formUpdateProduct";
-
-	}
-
-	@PostMapping("/saveChangeProduct")
-	public String saveChangeProduct(ModelMap model, @ModelAttribute("productForm") Product product,
-			BindingResult validateForm, HttpServletRequest request,
-			@RequestParam(value = "category.id", required = false) Integer categoryId) {
-		if (product.getName().trim().length() == 0) {
-			validateForm.rejectValue("name", "product", "Vui long nhap ten!");
-		}
-		if (product.getPrice() < 0) {
-			validateForm.rejectValue("price", "product", "Gia khong nho hon 0!");
-		}
-		if (product.getQuantity() < 0) {
-			validateForm.rejectValue("quantity", "product", "So luong khong nho hon 0!");
-		}
-		if (product.getCategory() == null && categoryId == null) {
-			validateForm.rejectValue("category", "product", "Vui lòng chọn danh mục!");
-		}
-		if (validateForm.hasErrors()) {
-			model.addAttribute("message", "Vui long sua loi!");
-			model.addAttribute("Categories", categoryService.findAll());
-		} else {
-			// Use @RequestParam value which works better with multipart forms
-			if (categoryId != null) {
-				product.setCategory(categoryService.findById(categoryId));
-			} else if (product.getCategory() != null && product.getCategory().getId() != null) {
-				// Fallback to bound object if parameter is missing
-				product.setCategory(categoryService.findById(product.getCategory().getId()));
-			}
-
-			// Only prepend path if image is relative
-			if (product.getImage() != null && !product.getImage().startsWith("static/")) {
-				product.setImage("static/images/phone/" + product.getImage());
-			}
-			productService.save(product);
-		}
-
-		return "redirect:/admin/productManager";
-	}
-
+	// =========================================================
+	// PRODUCT
+	// =========================================================
 	@GetMapping("/productManager")
 	public String product(ModelMap model) {
 		model.addAttribute("products", productService.findAll());
@@ -187,71 +175,247 @@ public class AdminController {
 			BindingResult validateForm, HttpServletRequest request,
 			@RequestParam(value = "category.id", required = false) Integer categoryId) {
 		if (product.getName().trim().length() == 0) {
-			validateForm.rejectValue("name", "product", "Vui long nhap ten!");
+			validateForm.rejectValue("name", "product", "Vui lòng nhập tên!");
 		}
 		if (product.getPrice() < 0) {
-			validateForm.rejectValue("price", "product", "Gia khong nho hon 0!");
+			validateForm.rejectValue("price", "product", "Giá không nhỏ hơn 0!");
 		}
 		if (product.getQuantity() < 0) {
-			validateForm.rejectValue("quantity", "product", "So luong khong nho hon 0!");
+			validateForm.rejectValue("quantity", "product", "Số lượng không nhỏ hơn 0!");
 		}
 		if (product.getCategory() == null && categoryId == null) {
 			validateForm.rejectValue("category", "product", "Vui lòng chọn danh mục!");
 		}
 		if (validateForm.hasErrors()) {
-			model.addAttribute("message", "Vui long sua loi!");
+			model.addAttribute("message", "Vui lòng sửa lỗi!");
 			model.addAttribute("Categories", categoryService.findAll());
 		} else {
 			model.addAttribute("message", "Thêm mới thành công!");
-			// Use @RequestParam value which works better with multipart forms
 			if (categoryId != null) {
 				product.setCategory(categoryService.findById(categoryId));
 			} else if (product.getCategory() != null && product.getCategory().getId() != null) {
-				// Fallback to bound object if parameter is missing
 				product.setCategory(categoryService.findById(product.getCategory().getId()));
 			}
-
 			if (product.getImage() != null && !product.getImage().isEmpty()) {
 				product.setImage("static/images/phone/" + product.getImage());
 			} else {
-				product.setImage("static/images/phone/default.jpg"); // Ảnh mặc định nếu trống
+				product.setImage("static/images/phone/default.jpg");
 			}
 			productService.save(product);
 		}
-
 		return "redirect:/admin/productManager";
 	}
-	// closeProduct
 
-	// Start Order
+	@GetMapping("/editProduct")
+	public String updateProduct(ModelMap model, @RequestParam("proID") int id) {
+		model.addAttribute("Categories", categoryService.findAll());
+		model.addAttribute("productForm", productService.findById(id));
+		return "formUpdateProduct";
+	}
+
+	@PostMapping("/saveChangeProduct")
+	public String saveChangeProduct(ModelMap model, @ModelAttribute("productForm") Product product,
+			BindingResult validateForm, HttpServletRequest request,
+			@RequestParam(value = "category.id", required = false) Integer categoryId) {
+		if (product.getName().trim().length() == 0) {
+			validateForm.rejectValue("name", "product", "Vui lòng nhập tên!");
+		}
+		if (product.getPrice() < 0) {
+			validateForm.rejectValue("price", "product", "Giá không nhỏ hơn 0!");
+		}
+		if (product.getQuantity() < 0) {
+			validateForm.rejectValue("quantity", "product", "Số lượng không nhỏ hơn 0!");
+		}
+		if (product.getCategory() == null && categoryId == null) {
+			validateForm.rejectValue("category", "product", "Vui lòng chọn danh mục!");
+		}
+		if (validateForm.hasErrors()) {
+			model.addAttribute("message", "Vui lòng sửa lỗi!");
+			model.addAttribute("Categories", categoryService.findAll());
+		} else {
+			if (categoryId != null) {
+				product.setCategory(categoryService.findById(categoryId));
+			} else if (product.getCategory() != null && product.getCategory().getId() != null) {
+				product.setCategory(categoryService.findById(product.getCategory().getId()));
+			}
+			if (product.getImage() != null && !product.getImage().startsWith("static/")) {
+				product.setImage("static/images/phone/" + product.getImage());
+			}
+			productService.save(product);
+		}
+		return "redirect:/admin/productManager";
+	}
+
+	// =========================================================
+	// ORDER MANAGEMENT - 4 trạng thái
+	// 0=Chờ xác nhận, 1=Đang giao, 2=Hoàn thành, 3=Hủy
+	// =========================================================
+	@GetMapping("/orderManager")
+	public String orderManager(ModelMap model,
+			@RequestParam(value = "status", required = false, defaultValue = "-1") int status) {
+		if (status == -1) {
+			model.addAttribute("orders", orderService.findAll());
+			model.addAttribute("currentStatus", -1);
+		} else {
+			model.addAttribute("orders", orderService.getByStatus(status));
+			model.addAttribute("currentStatus", status);
+		}
+		model.addAttribute("countPending", orderService.countByStatus(0));
+		model.addAttribute("countShipping", orderService.countByStatus(1));
+		model.addAttribute("countCompleted", orderService.countByStatus(2));
+		model.addAttribute("countCancelled", orderService.countByStatus(3));
+		return "orderManager";
+	}
+
+	// Giữ URL cũ để không bị lỗi 404
 	@GetMapping("/orderManagerr")
-	public String orderManager(ModelMap model) {
-		model.addAttribute("newOrder", orderService.getNewOrder());
-		model.addAttribute("checkedOrder", orderService.getCheckedOrder());
-		return "oderManager";
+	public String orderManagerOld(ModelMap model) {
+		return "redirect:/admin/orderManager";
 	}
 
 	@GetMapping("/viewOrderDetail")
 	public String viewOrderDetail(@RequestParam("orderID") int orderID, ModelMap model) {
 		model.addAttribute("mode", "viewDetail");
 		model.addAttribute("orderID", orderID);
+		model.addAttribute("selectedOrder", orderService.findById(orderID));
 		model.addAttribute("orderDetails", detailService.findByOrderID(orderID));
-		return "oderManager";
+		
+		// Load the background orders list and stats so the UI doesn't break
+		model.addAttribute("orders", orderService.findAll());
+		model.addAttribute("currentStatus", -1);
+		model.addAttribute("countPending", orderService.countByStatus(0));
+		model.addAttribute("countShipping", orderService.countByStatus(1));
+		model.addAttribute("countCompleted", orderService.countByStatus(2));
+		model.addAttribute("countCancelled", orderService.countByStatus(3));
+		
+		return "orderManager";
 	}
 
+	@PostMapping("/updateOrderStatus")
+	public String updateOrderStatus(@RequestParam("orderID") int orderID,
+			@RequestParam("orderStatus") int orderStatus) {
+		Order order = orderService.findById(orderID);
+		if (order != null) {
+			order.setStatus(orderStatus);
+			orderService.update(order);
+		}
+		return "redirect:/admin/orderManager";
+	}
+
+	// Tương thích cũ (boolean → int)
 	@PostMapping("/checkedOrder")
 	public String checkedOrder(HttpServletRequest request) {
 		int orderID = Integer.parseInt(request.getParameter("orderID"));
 		int orderStatus = Integer.parseInt(request.getParameter("orderStatus"));
-		boolean check = false;
-		if (orderStatus == 1) {
-			check = true;
-		}
 		Order order = orderService.findById(orderID);
-		order.setStatus(check);
-		orderService.update(order);
-		return "oderManager";
+		if (order != null) {
+			order.setStatus(orderStatus);
+			orderService.update(order);
+		}
+		return "redirect:/admin/orderManager";
 	}
-	// End Order
 
+	@PostMapping("/bulkUpdateOrderStatus")
+	public String bulkUpdateOrderStatus(@RequestParam(value = "orderIds", required = false) List<Integer> orderIds,
+			@RequestParam("bulkStatus") int bulkStatus) {
+		if (orderIds != null && !orderIds.isEmpty()) {
+			for (Integer id : orderIds) {
+				Order order = orderService.findById(id);
+				if (order != null) {
+					order.setStatus(bulkStatus);
+					orderService.update(order);
+				}
+			}
+		}
+		return "redirect:/admin/orderManager";
+	}
+
+	// =========================================================
+	// USER MANAGEMENT
+	// =========================================================
+	@GetMapping("/userManager")
+	public String userManager(ModelMap model) {
+		model.addAttribute("users", userService.findAll());
+		model.addAttribute("totalUsers", userService.countUsers());
+		return "userManager";
+	}
+
+	@PostMapping("/updateUserRole")
+	public String updateUserRole(@RequestParam("userId") int userId,
+			@RequestParam("role") String role) {
+		userService.updateRole(userId, role);
+		return "redirect:/admin/userManager";
+	}
+
+	@GetMapping("/user/{id}/delete")
+	public String deleteUser(@PathVariable int id) {
+		userService.deleteUser(id);
+		return "redirect:/admin/userManager";
+	}
+
+	// =========================================================
+	// STATISTICS
+	// =========================================================
+	@GetMapping("/statistics")
+	public String statistics(ModelMap model) {
+		// Doanh thu theo tháng
+		List<Object[]> rawRevenue = orderService.getMonthlyRevenue();
+		long[] revenueByMonth = new long[12];
+		for (Object[] row : rawRevenue) {
+			int month = ((Number) row[0]).intValue() - 1;
+			long rev = ((Number) row[1]).longValue();
+			revenueByMonth[month] = rev;
+		}
+		model.addAttribute("revenueByMonth", revenueByMonth);
+
+		// Thống kê trạng thái đơn hàng
+		model.addAttribute("countPending", orderService.countByStatus(0));
+		model.addAttribute("countShipping", orderService.countByStatus(1));
+		model.addAttribute("countCompleted", orderService.countByStatus(2));
+		model.addAttribute("countCancelled", orderService.countByStatus(3));
+
+		List<Object[]> stockData = productService.getProductStockAndSold(10);
+		List<String> productNames = new ArrayList<>();
+		List<Long> stockList = new ArrayList<>();
+		List<Long> soldList = new ArrayList<>();
+		long totalStock = 0;
+		long totalSold = 0;
+		for (Object[] row : stockData) {
+			productNames.add((String) row[1]);
+			long stock = ((Number) row[2]).longValue();
+			long sold = ((Number) row[3]).longValue();
+			stockList.add(stock);
+			soldList.add(sold);
+			totalStock += stock;
+			totalSold += sold;
+		}
+		model.addAttribute("productNames", productNames);
+		model.addAttribute("stockList", stockList);
+		model.addAttribute("soldList", soldList);
+		model.addAttribute("sumStock", totalStock);
+		model.addAttribute("sumSold", totalSold);
+
+		// Tổng thống kê
+		model.addAttribute("totalProducts", productService.countProducts());
+
+		model.addAttribute("totalUsers", userService.countUsers());
+
+		return "statistics";
+	}
+
+	// API JSON cho biểu đồ doanh thu (optional, cho AJAX)
+	@GetMapping("/api/revenue")
+	@ResponseBody
+	public Map<String, Object> getRevenueData() {
+		List<Object[]> rawRevenue = orderService.getMonthlyRevenue();
+		long[] revenueByMonth = new long[12];
+		for (Object[] row : rawRevenue) {
+			int month = ((Number) row[0]).intValue() - 1;
+			long rev = ((Number) row[1]).longValue();
+			revenueByMonth[month] = rev;
+		}
+		Map<String, Object> data = new HashMap<>();
+		data.put("revenue", revenueByMonth);
+		return data;
+	}
 }
