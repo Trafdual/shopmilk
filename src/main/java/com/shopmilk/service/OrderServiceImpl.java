@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Iterable<Order> findAll() {
-		return orderRepo.findAll();
+		return orderRepo.findAllByOrderByIdDesc();
 	}
 
 	@Override
@@ -40,18 +40,18 @@ public class OrderServiceImpl implements OrderService {
 	// status=0: Chờ xác nhận
 	@Override
 	public List<Order> getNewOrder() {
-		return orderRepo.findByStatus(0);
+		return orderRepo.findByStatusOrderByIdDesc(0);
 	}
 
 	// status=2: Hoàn thành (tương thích cũ)
 	@Override
 	public List<Order> getCheckedOrder() {
-		return orderRepo.findByStatus(2);
+		return orderRepo.findByStatusOrderByIdDesc(2);
 	}
 
 	@Override
 	public List<Order> getByStatus(int status) {
-		return orderRepo.findByStatus(status);
+		return orderRepo.findByStatusOrderByIdDesc(status);
 	}
 
 	@Override
@@ -70,4 +70,3 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 }
-
