@@ -269,20 +269,24 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
           cartTotal = paypal.minicart.cart.total(),
           productPrice = 0,
           quantity = 0;
+
         if (items.length > 0) {
           for (var i = 0; i < items.length; i++) {
             quantity = items[i].get("quantity");
             productPrice = items[i].get("amount");
+            var formattedPrice = Number(productPrice).toLocaleString("vi-VN");
+
             document.getElementById("cartDetail").innerHTML +=
               "<tr> <td>" +
               (i + 1) +
               "</td> <td>" +
               items[i].get("item_name") +
               "</td> <td>" +
-              productPrice +
-              "</td> <td>" +
+              formattedPrice +
+              " đ</td> <td>" +
               quantity +
               "</td> </tr>";
+
             document.getElementById("orderForm").innerHTML +=
               '<input type="hidden" value="' +
               items[i].get("item_name") +
@@ -295,18 +299,43 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
               (i + 1) +
               '" />';
           }
-          if (quantity > 0) {
-            document.getElementById("cart-box").innerHTML =
+
+          var cartBox = document.getElementById("cart-box");
+          if (quantity > 0 && cartBox) {
+            cartBox.innerHTML =
               '<a style="background-color: #DCDCDC; border: 1px solid #FFF; padding: 5px 21px;" href="order">ĐẶT HÀNG</a>';
           }
-          document.getElementById("noProductInCart").value = items.length;
-          document.getElementById("cartTotal").innerHTML =
-            cartTotal + " VNĐ (" + quantity + ")";
+
+          var noProductInCart = document.getElementById("noProductInCart");
+          if (noProductInCart) {
+            noProductInCart.value = items.length;
+          }
+
+          var topCartTotal = document.getElementById("cartTotal");
+          if (topCartTotal) {
+            topCartTotal.innerHTML =
+              Number(cartTotal).toLocaleString("vi-VN") +
+              " đ (" +
+              quantity +
+              ")";
+          }
         } else {
-          document.getElementById("cartTotal").innerHTML = "0 VNĐ (0)";
+          var topCartTotal = document.getElementById("cartTotal");
+          if (topCartTotal) {
+            topCartTotal.innerHTML = "0 đ (0)";
+          }
         }
-        document.getElementById("TotalCart").innerHTML = cartTotal + " VNĐ";
-        document.getElementById("orderTotal").value = cartTotal;
+
+        var mainCartTotal = document.getElementById("TotalCart");
+        if (mainCartTotal) {
+          mainCartTotal.innerHTML =
+            Number(cartTotal).toLocaleString("vi-VN") + " đ";
+        }
+
+        var orderTotalInput = document.getElementById("orderTotal");
+        if (orderTotalInput) {
+          orderTotalInput.value = cartTotal;
+        }
       });
     </script>
   </body>

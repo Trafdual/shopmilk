@@ -471,7 +471,8 @@ $(function() {
     "order": [[1, "desc"]], // column 1 is # (ID)
     "pageLength": 15,
     "columnDefs": [
-      { "orderable": false, "targets": 0 } // disable sorting on checkbox column
+      { "orderable": false, "targets": 0 }, // disable sorting on checkbox column
+      { "type": "num", "targets": 1 } // force column 1 to be sorted as a number
     ]
   });
 

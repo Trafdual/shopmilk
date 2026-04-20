@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import com.shopmilk.entities.Order;
 
 public interface OrderRepo extends JpaRepository<Order, Integer> {
-    List<Order> findByStatus(int status);
+    List<Order> findByStatusOrderByIdDesc(int status);
+
+    List<Order> findAllByOrderByIdDesc();
 
     @Query("SELECT MONTH(o.date), SUM(o.total) FROM Order o WHERE o.status = 2 GROUP BY MONTH(o.date) ORDER BY MONTH(o.date)")
     List<Object[]> getMonthlyRevenue();
@@ -18,4 +20,3 @@ public interface OrderRepo extends JpaRepository<Order, Integer> {
     @Query("SELECT COUNT(o) FROM Order o WHERE o.status = :status")
     long countByStatus(int status);
 }
-
