@@ -31,7 +31,23 @@
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+<![endif]-->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body, .main-header .logo, .main-sidebar { font-family: 'Inter', sans-serif; }
+  .skin-blue .main-header .logo { background: #0c1a2e; }
+  .skin-blue .main-header .navbar { background: #0c1a2e; }
+  .skin-blue .main-sidebar { background: #0c1a2e; }
+  .skin-blue .sidebar-menu > li.active > a,
+  .skin-blue .sidebar-menu > li:hover > a { background: #1a73e8; }
+  .skin-blue .sidebar-menu > li > a { color: #b0bec5; }
+  .skin-blue .sidebar-menu > li > a:hover { color: #fff; }
+  .sidebar-menu .treeview-menu > li > a { color: #90a4ae !important; }
+  .sidebar-menu .treeview-menu > li.active > a { color: #fff !important; }
+  .main-header .logo span { color: #4fc3f7; font-weight: 700; }
+  .main-header .navbar .sidebar-toggle { color: #90caf9; }
+  body { background: #f4f6fb; }
+</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -40,53 +56,80 @@
 
 		<jsp:include page="admin/sidebar.jsp" />
 
-		<div class="content-wrapper">
-		
-		
+		<div class="content-wrapper" style="background:#f4f6fb;">
+			<section class="content-header" style="background:#0c1a2e; padding: 16px 24px;">
+              <h1 style="color:#fff; font-size:20px; font-weight:700; margin:0;">
+                <i class="fa fa-edit" style="color:#4fc3f7; margin-right:8px;"></i>
+                Cập Nhật Sản Phẩm
+              </h1>
+              <ol class="breadcrumb" style="background:transparent; margin:4px 0 0; padding:0;">
+                <li><a href="/admin" style="color:#90caf9;"><i class="fa fa-dashboard"></i> Trang Chủ</a></li>
+                <li class="active" style="color:#fff;">Cập Nhật Sản Phẩm</li>
+              </ol>
+            </section>
 
-			<!-- Main content -->
-			<h3>Cập nhật sản phẩm</h3>
-			${message}
-			<form:form action="saveChangeProduct" modelAttribute="productForm" method="post">
-				<table>
-				<tr>
-					<td>Mã Sản Phẩm: </td>
-					<td><form:input path="id"/></td>
-				</tr>
-				<tr>
-					<td> Danh Mục: </td>
-					<td>
-						<form:select path="category.id" items="${Categories}"
-						itemValue="id" itemLabel="name"></form:select>
-					</td>
-				</tr>
-				<tr>
-					<td> Tên Sản Phẩm: </td>
-					<td><form:input path="name"/></td>
-					<td><form:errors path="name"/></td>
-				</tr>
-				<tr>
-					<td>Đơn giá: </td>
-					<td><form:input type="number" path="price"/></td>
-					<td><form:errors path="price"/></td>
-				</tr>
-				<tr>
-					<td>Số Lượng :</td>
-					<td><form:input type="number" path="quantity"/></td>
-					<td><form:errors path="quantity"/></td>
-				</tr>
-				<tr>
-					<td>Hình Ảnh: </td>
-					<td><form:input type="file" path="image"/></td>
-				</tr>
-				
-				<tr>
-					<td colspan="2"><input type="submit" value="update"/></td>
-				</tr>
-				</table>
-			</form:form>
-			
-			<!-- /.content -->
+			<section class="content">
+                <div class="box box-primary" style="border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-top-color: #1a73e8;">
+                    <div class="box-body" style="padding: 30px;">
+						<c:if test="${not empty message}">
+							<div class="alert alert-info">${message}</div>
+						</c:if>
+						<form:form action="saveChangeProduct" modelAttribute="productForm" method="post" cssClass="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-2 control-label" style="font-weight:600; color:#444;">Mã Sản Phẩm</label>
+								<div class="col-sm-8">
+									<form:input path="id" readonly="true" cssClass="form-control" style="border-radius:6px; box-shadow:none; border:1px solid #ccc; height:40px; background:#f9f9f9; cursor:not-allowed;"/>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label" style="font-weight:600; color:#444;">Danh Mục</label>
+								<div class="col-sm-8">
+									<form:select path="category.id" items="${Categories}" itemValue="id" itemLabel="name" cssClass="form-control" style="border-radius:6px; box-shadow:none; border:1px solid #ccc; height:40px;"/>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label" style="font-weight:600; color:#444;">Tên Sản Phẩm</label>
+								<div class="col-sm-8">
+									<form:input path="name" cssClass="form-control" placeholder="Nhập tên sản phẩm..." style="border-radius:6px; box-shadow:none; border:1px solid #ccc; height:40px;"/>
+									<form:errors path="name" cssClass="text-danger" style="margin-top:5px; display:block;"/>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label" style="font-weight:600; color:#444;">Đơn Giá</label>
+								<div class="col-sm-8">
+									<form:input type="number" path="price" cssClass="form-control" placeholder="Ví dụ: 150000" style="border-radius:6px; box-shadow:none; border:1px solid #ccc; height:40px;"/>
+									<form:errors path="price" cssClass="text-danger" style="margin-top:5px; display:block;"/>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label" style="font-weight:600; color:#444;">Số Lượng</label>
+								<div class="col-sm-8">
+									<form:input type="number" path="quantity" cssClass="form-control" placeholder="Số lượng trong kho" style="border-radius:6px; box-shadow:none; border:1px solid #ccc; height:40px;"/>
+									<form:errors path="quantity" cssClass="text-danger" style="margin-top:5px; display:block;"/>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label" style="font-weight:600; color:#444;">Hình Ảnh</label>
+								<div class="col-sm-8">
+									<form:input type="file" path="image" cssClass="form-control" style="border-radius:6px; box-shadow:none; border:1px solid #ccc; height:40px; padding-top:8px;"/>
+								</div>
+							</div>
+							
+							<div class="form-group" style="margin-top:40px;">
+								<div class="col-sm-offset-2 col-sm-8">
+									<button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #1a73e8, #4facfe); border:none; padding:10px 30px; border-radius:8px; font-weight:600; box-shadow: 0 4px 12px rgba(26,115,232,0.3);"><i class="fa fa-save"></i> Cập Nhật</button>
+									<a href="/admin/productManager.html" class="btn btn-default" style="padding:10px 30px; border-radius:8px; margin-left:10px; font-weight:600;">Hủy Bỏ</a>
+								</div>
+							</div>
+						</form:form>
+					</div>
+				</div>
+			</section>
 		</div>
 		<!-- /.content-wrapper -->
 

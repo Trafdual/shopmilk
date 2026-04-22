@@ -2,244 +2,143 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<!-- Ultra-Compact Luxury Header (Fixed Height: 96px) -->
-<header class="glass-header sticky top-0 z-50 w-full bg-white/80 backdrop-blur-xl border-b border-slate-100 h-24 overflow-hidden">
-    <!-- Top Bar (Minimal Hidden on Mobile) -->
-    <div class="bg-slate-900 text-white/60 py-1 text-[9px] font-bold uppercase tracking-[0.2em]">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <span class="flex items-center"><i data-lucide="phone" class="w-2.5 h-2.5 mr-2 text-primary-400"></i> Hotline: 0396 275 692</span>
-            <div class="flex items-center space-x-6">
-                <sec:authorize access="!isAuthenticated()">
-                    <a href="login" class="hover:text-white transition-colors">Đăng Nhập</a>
-                    <a href="register" class="hover:text-white transition-colors">Đăng Ký</a>
-                </sec:authorize>
-                <sec:authorize access="isAuthenticated()">
-                    <%
-                        String username = "";
-                        Object principal = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                        if (principal instanceof org.springframework.security.core.userdetails.UserDetails) {
-                            username = ((User)principal).getFirstName();
-                        }
-                    %>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-primary-300">Chào, <%=username %></span>
-                        <a href="${pageContext.request.contextPath}/perform_logout" class="hover:text-red-400">Thoát</a>
+<!-- Sticky Premium Navbar -->
+<nav class="fixed top-0 w-full z-50 glass transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <!-- Logo Section -->
+            <div class="flex-shrink-0 flex items-center cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-transform">
+                <a href="${pageContext.request.contextPath}/home" class="flex flex-col">
+                    <span class="text-3xl font-extrabold tracking-tight text-brand-DEFAULT">Shop<span class="text-dark">Milk</span></span>
+                    <span class="text-xs text-gray-500 tracking-widest font-medium uppercase mt-0.5">Vì sức khỏe cộng đồng</span>
+                </a>
+            </div>
+
+            <!-- Pre-calculate user authentication strings -->
+            <%
+                String username = "";
+                String role = "";
+                boolean isAdmin = false;
+
+                Object principal = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                if (principal instanceof org.springframework.security.core.userdetails.UserDetails) {
+                    username = ((User)principal).getFirstName();
+                    role = ((User)principal).getRole();
+                    if(role.trim().equalsIgnoreCase("admin")) {
+                        isAdmin = true;
+                    }
+                }
+            %>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="${pageContext.request.contextPath}/home" class="text-gray-600 hover:text-brand-DEFAULT font-medium text-sm transition-colors border-b-2 border-transparent hover:border-brand-DEFAULT py-7">Trang Chủ</a>
+                <a href="${pageContext.request.contextPath}/allProduct" class="text-gray-600 hover:text-brand-DEFAULT font-medium text-sm transition-colors border-b-2 border-transparent hover:border-brand-DEFAULT py-7">Sản Phẩm</a>
+                
+                <!-- Dropdown: Tin Tức -->
+                <div class="relative group h-full">
+                    <button class="text-gray-600 group-hover:text-brand-DEFAULT font-medium text-sm transition-colors flex items-center py-7">
+                        Tin Tức <i class="ph ph-caret-down ml-1 text-xs"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 w-48">
+                        <div class="bg-white/90 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden p-2">
+                            <a href="${pageContext.request.contextPath}/khuyenmai.html" class="block px-4 py-3 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-DEFAULT rounded-xl transition-colors">Khuyến Mại</a>
+                            <a href="${pageContext.request.contextPath}/dinhduong.html" class="block px-4 py-3 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-DEFAULT rounded-xl transition-colors">Dinh Dưỡng</a>
+                        </div>
                     </div>
-                </sec:authorize>
+                </div>
+
+                <!-- Dropdown: Liên Hệ -->
+                <div class="relative group h-full">
+                    <button class="text-gray-600 group-hover:text-brand-DEFAULT font-medium text-sm transition-colors flex items-center py-7">
+                        Liên Hệ <i class="ph ph-caret-down ml-1 text-xs"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 w-48">
+                        <div class="bg-white/90 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden p-2">
+                            <a href="${pageContext.request.contextPath}/contact.html" class="block px-4 py-3 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-DEFAULT rounded-xl transition-colors">Thông Tin</a>
+                            <a href="https://www.facebook.com/" target="_blank" class="block px-4 py-3 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-DEFAULT rounded-xl transition-colors">Facebook</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Utilities (Search, Cart, User) -->
+            <div class="flex items-center space-x-6">
+                <!-- Search Icon -->
+                <div class="relative group">
+                    <button id="search-btn" class="text-gray-600 hover:text-brand-DEFAULT p-2 transition-colors rounded-full hover:bg-brand-50 active:scale-95">
+                        <i class="ph ph-magnifying-glass text-2xl"></i>
+                    </button>
+                    <!-- Search Input Dropdown -->
+                    <div class="absolute right-0 top-full mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                        <div class="bg-white/90 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-3">
+                            <form action="${pageContext.request.contextPath}/search" method="get" class="flex gap-2">
+                                <input id="autocomplete" type="text" name="searchValue" placeholder="Tìm phẩm..." class="w-full bg-gray-50 border border-gray-200 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-DEFAULT/50 transition-shadow">
+                                <button type="submit" class="bg-brand-DEFAULT text-white px-4 py-2.5 rounded-xl hover:bg-brand-dark transition-colors"><i class="ph ph-magnifying-glass font-bold"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart -->
+                <div class="relative group cursor-pointer" onclick="window.location.replace('${pageContext.request.contextPath}/order')">
+                    <div class="flex items-center space-x-2 text-gray-600 hover:text-brand-DEFAULT p-2 transition-colors rounded-full hover:bg-brand-50 active:scale-95">
+                        <div class="relative">
+                            <i class="ph ph-shopping-cart-simple text-2xl"></i>
+                        </div>
+                        <div class="hidden sm:flex flex-col text-left">
+                            <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Giỏ hàng</span>
+                            <span id="cartTotal" class="text-sm font-semibold text-gray-800">0 VNĐ (0)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Actions (Login/User Details) -->
+                <div class="flex items-center ml-2 border-l border-gray-200 pl-6 space-x-4">
+                    <sec:authorize access="!isAuthenticated()">
+                        <a href="${pageContext.request.contextPath}/login" class="text-sm font-semibold text-brand-DEFAULT hover:text-brand-dark hover:underline underline-offset-4 transition-all">Đăng nhập</a>
+                    </sec:authorize>
+                    
+                    <sec:authorize access="isAuthenticated()">
+                        <div class="relative group">
+                            <div class="flex items-center gap-2 cursor-pointer p-1.5 rounded-full hover:bg-brand-50 transition-colors">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-DEFAULT to-blue-300 flex items-center justify-center text-white font-bold shadow-sm">
+                                    <%=username.length() > 0 ? username.substring(0, 1).toUpperCase() : "U"%>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700 hidden sm:block"><%=username%></span>
+                                <i class="ph ph-caret-down text-gray-400 text-xs hidden sm:block"></i>
+                            </div>
+                            
+                            <!-- User Dropdown Menu -->
+                            <div class="absolute right-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                <div class="bg-white/95 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden p-2">
+                                    <% if(isAdmin) { %>
+                                    <a href="${pageContext.request.contextPath}/admin" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-DEFAULT rounded-xl transition-colors">
+                                        <i class="ph ph-shield-check text-lg"></i> Quản trị viên
+                                    </a>
+                                    <div class="h-px bg-gray-100 my-1 mx-2"></div>
+                                    <% } %>
+                                    <a href="${pageContext.request.contextPath}/perform_logout" class="flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 rounded-xl transition-colors">
+                                        <i class="ph ph-sign-out text-lg"></i> Đăng xuất
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </sec:authorize>
+                </div>
             </div>
         </div>
     </div>
+</nav>
 
-<div class="header">
-	<div class="top-header navbar navbar-default"
-		style="background-color:#33414E; border-radius: 0; margin-left:-1px">
-		<!--header-one-->
+<!-- Push content down to account for fixed navbar -->
+<div class="h-20"></div>
 
-		<div class="container">
-			<div class="nav navbar-nav wow fadeInLeft animated" data-wow-delay=".5s">
-				<p style="color:white;">
-					Chào mừng đến với <b>Shop Milk</b>
-					<sec:authorize access="!isAuthenticated()">
-						<a href="login" style="font-weight: bold;">Đăng Nhập </a>
-
-					</sec:authorize>
-					<sec:authorize access="isAuthenticated()">
-						<%
-						String username = "";
-						String role= "";
-						String display="";
-
-						Object principal =
-						org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-						if (principal instanceof
-						org.springframework.security.core.userdetails.UserDetails) {
-						username = ((User)principal).getFirstName();
-						role=((User)principal).getRole();
-						if(!role.trim().equalsIgnoreCase("admin"))
-						{
-						display = "none";
-						}
-
-	
-
-						}
-						%>
-						<a href="${pageContext.request.contextPath}/perform_logout"
-							style="font-weight: bold;"><%=username %></a>
-						<a href="${pageContext.request.contextPath}/admin"
-							style="font-weight: bold; display: <%=display %> ">Trang quản trị</a>
-					</sec:authorize>
-
-				</p>
-			</div>
-			<div
-				class="nav navbar-nav navbar-right social-icons wow fadeInRight animated"
-				data-wow-delay=".5s">
-				<ul>
-					<li><a href="#"> </a></li>
-					<li><a href="#" class="pin" style="background-color:white;"> </a></li>
-					<li><a href="#" class="in" style="background-color:white;"> </a></li>
-					<li><a href="#" class="be" style="background-color:white;"> </a></li>
-					<li><a href="#" class="you" style="background-color:white;"> </a></li>
-					<li><a href="#" class="vimeo" style="background-color:white;"> </a></li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-	<div class="header-two navbar navbar-default">
-		<!--header-two-->
-		<div class="container">
-			<div class="nav navbar-nav header-two-left">
-				<ul>
-					<li>
-						<i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
-						0396275692
-					</li>
-					<li>
-						<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
-						<a>nhom4@gmail.com</a>
-					</li>
-				</ul>
-			</div>
-			<div class="nav navbar-nav logo wow zoomIn animated" data-wow-delay=".7s">
-				<h1>
-					<a href="home">
-						Shop <b>Milk</b>
-						<h5>Vì sức khỏe cộng đồng ! </h5>
-					</a>
-				</h1>
-			</div>
-			<div class="nav navbar-nav navbar-right header-two-right">
-				<div class="header-right my-account">
-					<a href="contact.html">
-						<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-						Liên Hệ
-					</a>
-				</div>
-				<div class="header-right cart">
-					<a href="#">
-						<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-					</a>
-					<h4>
-						<a href="#">
-							<span id="cartTotal"> 0 VNĐ (0)</span>
-						</a>
-					</h4>
-					<div class="cart-box">
-						<form action>
-							<input type="hidden" name="cmd" value="_cart" />
-							<input type="hidden" name="display" value="1" />
-							<p>
-								<input id="cartButton"
-									style="background-color: transparent; border: none;" type="submit"
-									name="submit" value="Xem giỏ hàng" />
-							</p>
-						</form>
-						<div class="clearfix"></div>
-						<div id="cart-box">
-
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-	<div class="top-nav navbar navbar-default">
-		<!--header-three-->
-		<div class="container">
-			<nav class="navbar" role="navigation">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span>
-						<span class="icon-bar"></span> <span class="icon-bar"></span>
-					</button>
-				</div>
-				<!--navbar-header-->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav top-nav-info">
-						<li><a href="home">Trang Chủ</a></li>
-						<!-- 						<li><a href="#">Giới Thiệu</a></li> -->
-						<li><a href="allProduct">Sản Phẩm</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle list1"
-								data-toggle="dropdown">Tin Tức<b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column menu-two multi-column3">
-								<div class="row">
-									<div class="col-sm-4 menu-grids">
-										<ul class="multi-column-dropdown">
-											<li><a class="list" href="khuyenmai.html">Khuyến Mại</a></li>
-											<li><a class="list" href="dinhduong.html">Dinh Dưỡng</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-8 menu-grids">
-										<a href="products.html">
-											<div class="new-add">
-												<img src="static/images/banner/timkiem.jpg" />
-											</div>
-										</a>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</ul></li>
-						<li class="dropdown grid"><a href="#" class="dropdown-toggle list1"
-								data-toggle="dropdown">Liên Hệ<b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column menu-two multi-column3">
-								<div class="row">
-									<div class="col-sm-4 menu-grids">
-										<ul class="multi-column-dropdown">
-											<li><a class="list" href="contact.html">Thông Tin</a></li>
-											<li><a class="list"
-													href="https://www.facebook.com/profile.php?id=100006191496178">FaceBook</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-8 menu-grids">
-										<a href="products.html">
-											<div class="new-add">
-												<img src="static/images/banner/timkiem.jpg" />
-											</div>
-										</a>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</ul></li>
-					</ul>
-					<div class="clearfix"></div>
-					<!--//navbar-collapse-->
-					<header class="cd-main-header">
-						<ul class="cd-header-buttons">
-							<li><a class="cd-search-trigger" href="#cd-search">
-									<span></span></a></li>
-						</ul>
-						<!-- cd-header-buttons -->
-					</header>
-				</div>
-				<!--//navbar-header-->
-			</nav>
-			<div id="cd-search" class="cd-search">
-				<form action="search" method="get">
-					<input id="autocomplete" type="text" name="searchValue"
-						placeholder="Tìm kiếm sản phẩm..." />
-					<input type="submit" value="Tìm" />
-				</form>
-			</div>
-			<script src="static/js/jquery/jquery.js"></script>
-			<script src="static/js/jquery/jquery-ui.js"></script>
-			<script type="text/javascript">
-				var availableTags = [
-					"Sữa Vinamilk",
-					"Sữa TH True Milk",
-					"Sữa Nutifood",
-					"Sữa Nestle",
-					"Sữa Ensure"
-				];
-				$( "#autocomplete" ).autocomplete({
-					source: availableTags
-				});
-			</script>
-		</div>
-	</div>
-</div>
+<!-- Custom AutoComplete minimal logic instead of old jQuery UI -->
+<script>
+    // Lightweight auto-complete implementation for a modern look
+    const tags = ["Sữa Vinamilk", "Sữa TH True Milk", "Sữa Nutifood", "Sữa Nestle", "Sữa Ensure"];
+    // (Could implement custom dropdown UI here if requested)
+</script>

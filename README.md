@@ -1,51 +1,52 @@
-# ShopMilk - Spring Boot Application
+# ShopMilk - Website Bán Sữa
 
-Dự án quản lý bán sữa được xây dựng trên nền tảng Spring Boot.
+Dự án này là một ứng dụng Web bán sữa được xây dựng bằng Spring Boot, sử dụng JSP cho giao diện và MySQL làm cơ sở dữ liệu.
 
-## 📋 Yêu cầu hệ thống
+## Công nghệ sử dụng
+- **Backend:** Java 11, Spring Boot 2.7.18
+- **Frontend:** JSP, JSTL, Spring Security Taglibs
+- **Cơ sở dữ liệu:** MySQL 8.0
+- **Quản lý thư viện:** Maven
 
-- **Java JDK 11**
-- **MySQL Server**
-- **Maven** (Đã đi kèm trong dự án qua `mvnw`)
+## Yêu cầu hệ thống
+- JDK 11
+- MySQL Server (đã tạo database tên `shopmilk`)
+- IDE (IntelliJ IDEA, Eclipse, VS Code,...)
 
-## 🛠 Hướng dẫn cài đặt và chạy dự án
+## Cấu hình hệ thống
+Trước khi chạy ứng dụng, hãy đảm bảo bạn đã cấu hình cơ sở dữ liệu trong file `src/main/resources/application.properties`:
 
-### 1. Cấu hình Cơ sở dữ liệu
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/shopmilk?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.username=root
+spring.datasource.password=your_password_here
+```
 
-- Mở MySQL (XAMPP, MySQL Workbench hoặc Command Line).
-- Tạo một database mới tên là `shopmilk`:
-  ```sql
-  CREATE DATABASE shopmilk;
-  ```
-- Mở file `src/main/resources/application.properties` để kiểm tra/chỉnh sửa cấu hình kết nối:
-  - `spring.datasource.username`: Tài khoản MySQL (mặc định là `root`).
-  - `spring.datasource.password`: Mật khẩu MySQL (mặc định để trống).
+*Lưu ý: Mặc định password đang để trống. Hãy thay đổi `root` và mật khẩu tương ứng với cấu hình MySQL của bạn.*
 
-### 2. Chạy ứng dụng
+## Cách chạy dự án
 
-Mở terminal tại thư mục gốc của dự án và chạy lệnh tương ứng:
+1.  **Mở terminal** tại thư mục gốc của dự án.
+2.  **Cài đặt các thư viện** (nếu cần):
+    ```bash
+    .\mvnw install
+    ```
+3.  **Chạy ứng dụng**:
+    ```bash
+    .\mvnw clean spring-boot:run
+    ```
+4.  **Truy cập ứng dụng**:
+    Sau khi ứng dụng khởi chạy thành công, bạn có thể truy cập tại địa chỉ:
+    `http://localhost:9090`
 
-- **Trên PowerShell hoặc Terminal VS Code:**
-  ```powershell
-  ./mvnw spring-boot:run
-  ```
-- **Trên Command Prompt (CMD):**
-  ```cmd
-  mvnw.cmd spring-boot:run
-  ```
+## Các tính năng chính
+- Xem danh sách sản phẩm sữa.
+- Chi tiết sản phẩm.
+- Đăng ký/Đăng nhập tài khoản.
+- Quản lý giỏ hàng và thanh toán.
+- Bảo mật với Spring Security.
 
-### 3. Truy cập ứng dụng
-
-Sau khi ứng dụng khởi chạy thành công, mở trình duyệt và truy cập:
-
-- **URL:** [http://localhost:9090](http://localhost:9090)
-
-## 🏗 Cấu trúc dự án chính
-
-- `src/main/java`: Mã nguồn Java (Controller, Service, Repository, Entity).
-- `src/main/resources`: File cấu hình và tài nguyên tĩnh.
-- `src/main/webapp`: Giao diện người dùng (JSP).
-
----
-
-**Lưu ý:** Nếu bạn thay đổi cấu trúc database, Hibernate sẽ tự động cập nhật bảng nhờ cấu hình `spring.jpa.hibernate.ddl-auto=update`.
+## Cấu trúc thư mục quan trọng
+- `src/main/java`: Mã nguồn Java (Controllers, Services, Repositories, Entities).
+- `src/main/resources/application.properties`: File cấu hình ứng dụng.
+- `src/main/webapp/WEB-INF/jsp`: Thư mục chứa các file giao diện JSP.

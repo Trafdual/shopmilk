@@ -26,34 +26,57 @@
        folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="/static/admin/css/skins/_all-skins.min.css">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body, .main-header .logo, .main-sidebar { font-family: 'Inter', sans-serif; }
+  /* Override AdminLTE skin để match màu Home */
+  .skin-blue .main-header .logo { background: #0c1a2e; }
+  .skin-blue .main-header .navbar { background: #0c1a2e; }
+  .skin-blue .main-sidebar { background: #0c1a2e; }
+  .skin-blue .sidebar-menu > li.active > a,
+  .skin-blue .sidebar-menu > li:hover > a { background: #1a73e8; }
+  .skin-blue .sidebar-menu > li > a { color: #b0bec5; }
+  .skin-blue .sidebar-menu > li > a:hover { color: #fff; }
+  .sidebar-menu .treeview-menu > li > a { color: #90a4ae !important; }
+  .sidebar-menu .treeview-menu > li.active > a { color: #fff !important; }
+  .main-header .logo span { color: #4fc3f7; font-weight: 700; }
+  .main-header .navbar .sidebar-toggle { color: #90caf9; }
+  body { background: #f4f6fb; }
+
+  .box { border: none; border-radius: 14px; box-shadow: 0 3px 14px rgba(0,0,0,0.09); margin-bottom: 22px; }
+  .box-header { background: #0c1a2e; color: #fff; border-radius: 14px 14px 0 0; padding: 14px 18px; }
+  .box-header .box-title { color: #fff; font-size: 16px; font-weight: 600; }
+  .box-body { border-radius: 0 0 14px 14px; padding: 20px; }
+  
+  table.dataTable thead th { background: #0c1a2e; color: #fff; border: none; font-weight: 500; }
+  .btn-add-new { background: #1a73e8; color: #fff; border-radius: 20px; font-size: 13px; font-weight: 500; padding: 6px 16px; transition: all 0.3s; }
+  .btn-add-new:hover { background: #1557b0; color: #fff; box-shadow: 0 4px 10px rgba(26,115,232,0.3); }
+</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
 		<jsp:include page="admin/header.jsp" />
 
-		<jsp:include page="admin/sidebar.jsp" />
+		<jsp:include page="admin/sidebar.jsp">
+			<jsp:param name="active" value="product"/>
+		</jsp:include>
 
-		<div class="content-wrapper">
+		<div class="content-wrapper" style="background:#f4f6fb;">
 			<!-- Content Header (Page header) -->
-			<section class="content-header">		
-				<h1>
-					Quản lý Sản Phẩm
-					<small>
-						<form action="addProduct">
-							<input type="submit" value="Thêm Sản Phẩm" />
-						</form>
-					</small>
-				</h1>
-				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Trang Chủ</a></li>
-					<li><a href="#">Quản lý Sản Phẩm</a></li>
+			<section class="content-header" style="background:#0c1a2e; padding: 16px 24px;">
+				<div style="display:flex; justify-content:space-between; align-items:center;">
+					<h1 style="color:#fff; font-size:20px; font-weight:700; margin:0;">
+						<i class="fa fa-cube" style="color:#4fc3f7; margin-right:8px;"></i>
+						Quản Lý Sản Phẩm
+					</h1>
+					<a href="addProduct" class="btn btn-add-new">
+						<i class="fa fa-plus"></i> Thêm Sản Phẩm Mới
+					</a>
+				</div>
+				<ol class="breadcrumb" style="background:transparent; margin:4px 0 0; padding:0;">
+					<li><a href="/admin" style="color:#90caf9;"><i class="fa fa-dashboard"></i> Trang Chủ</a></li>
+					<li class="active" style="color:#fff;">Sản Phẩm</li>
 				</ol>
 			</section>
 			
@@ -87,7 +110,7 @@
 												<td>${product.name}</td>
 												<td>${product.price} đ</td>
 												<td>${product.quantity}</td>
-												<td><img src="${product.image}" class="img-responsive"/></td>
+												<td><img src="${product.image}" onerror="this.onerror=null; this.src='https://cdn-files.hacom.vn/hacom/cdn/web/16042026/sua-bot-ensure-gold-vani-lon-400g-202104230836132948.jpg'" class="img-responsive"/></td>
 												
 												<td>
 													

@@ -1,114 +1,140 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="vi">
-<head>
+<html>
+  <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Shop Milk | Đăng Nhập</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- UI Libraries -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                        },
-                    },
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>ShopMilk | Đăng nhập</title>
+    <!-- Include Global Tailwind Config -->
+    <jsp:include page="website/head.jsp" />
+  </head>
+  <body
+    class="bg-gray-50 flex items-center justify-center min-h-screen relative overflow-hidden"
+  >
+    <!-- Background Decoration -->
+    <div
+      class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-light opacity-50 blur-[100px] z-0 pointer-events-none"
+    ></div>
+    <div
+      class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-100 opacity-50 blur-[100px] z-0 pointer-events-none"
+    ></div>
 
-    <style>
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: linear-gradient(135deg, #e0f2fe 0%, #fdfcf8 100%);
-        }
-    </style>
-</head>
-<body class="min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-w-md animate__animated animate__fadeInUp">
-        <div class="text-center mb-8">
-            <a href="home" class="inline-flex items-center space-x-2 group">
-                <div class="bg-primary-600 p-2 rounded-xl">
-                    <i data-lucide="milk" class="text-white w-8 h-8"></i>
-                </div>
-                <span class="text-3xl font-bold text-slate-800 tracking-tight">Shop<span class="text-primary-600">Milk</span></span>
-            </a>
-            <p class="text-slate-500 mt-2">Chào mừng bạn trở lại!</p>
-        </div>
+    <div
+      class="relative z-10 w-full max-w-md p-8 m-4 bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl rounded-3xl"
+    >
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+          Chào mừng quay lại
+        </h2>
+        <p class="text-gray-500 mt-2 text-sm">
+          Đăng nhập để tiếp tục mua sắm cùng ShopMilk
+        </p>
+      </div>
 
-        <div class="bg-white/70 backdrop-blur-xl border border-white/50 rounded-[2.5rem] shadow-2xl overflow-hidden">
-            <div class="p-8 md:p-10">
-                <h3 class="text-2xl font-bold text-slate-800 mb-8 text-center uppercase tracking-wider">Đăng Nhập</h3>
-                
-                <form method="post" action="${pageContext.request.contextPath}/perform_login" class="space-y-6">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1" for="inputEmailAddress">Email</label>
-                        <div class="relative group">
-                            <i data-lucide="mail" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-primary-600 transition-colors"></i>
-                            <input class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all outline-none text-slate-700" 
-                                   id="inputEmailAddress" type="text" name="username" placeholder="Nhập email của bạn" required />
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1" for="inputPassword">Mật khẩu</label>
-                        <div class="relative group">
-                            <i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-primary-600 transition-colors"></i>
-                            <input class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3 pl-12 pr-12 focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all outline-none text-slate-700" 
-                                   id="inputPassword" type="password" name="password" placeholder=" Nhập mật khẩu" required />
-                            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
-                                <i data-lucide="eye" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center justify-between text-sm">
-                        <label class="flex items-center space-x-2 cursor-pointer group">
-                            <input type="checkbox" id="rememberPasswordCheck" class="w-4 h-4 text-primary-600 bg-slate-100 border-slate-300 rounded focus:ring-primary-500">
-                            <span class="text-slate-500 group-hover:text-slate-700 transition-colors">Ghi nhớ đăng nhập</span>
-                        </label>
-                        <a href="#" class="text-primary-600 font-bold hover:underline">Quên mật khẩu?</a>
-                    </div>
-
-                    <button type="submit" class="w-full bg-primary-600 text-white font-bold py-4 rounded-2xl hover:bg-primary-700 transition-all shadow-xl shadow-primary-200 transform hover:-translate-y-1 active:scale-95">
-                        ĐĂNG NHẬP NGAY
-                    </button>
-                </form>
+      <form
+        method="post"
+        action="${pageContext.request.contextPath}/perform_login"
+        class="space-y-6"
+      >
+        <div>
+          <label
+            class="block text-sm font-semibold text-gray-700 mb-2"
+            for="inputEmailAddress"
+            >Email liên hệ</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+            >
+              <i class="ph ph-envelope text-gray-400 text-xl"></i>
             </div>
-            
-            <div class="bg-slate-50 py-6 text-center border-t border-slate-100">
-                <p class="text-sm text-slate-500">Chưa có tài khoản? 
-                    <a href="register" class="text-primary-600 font-bold hover:underline">Đăng ký thành viên</a>
-                </p>
+            <input
+              class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-brand-DEFAULT/30 focus:border-brand-DEFAULT outline-none transition-all placeholder-gray-400 text-gray-800 font-medium"
+              id="inputEmailAddress"
+              type="text"
+              name="username"
+              placeholder="Nhập địa chỉ email"
+              required
+            />
+          </div>
+        </div>
+
+        <div>
+          <label
+            class="block text-sm font-semibold text-gray-700 mb-2"
+            for="inputPassword"
+            >Mật khẩu</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+            >
+              <i class="ph ph-lock text-gray-400 text-xl"></i>
             </div>
+            <input
+              class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-brand-DEFAULT/30 focus:border-brand-DEFAULT outline-none transition-all placeholder-gray-400 text-gray-800 font-medium"
+              id="inputPassword"
+              type="password"
+              name="password"
+              placeholder="Nhập mật khẩu"
+              required
+            />
+          </div>
         </div>
-        
-        <div class="mt-8 text-center">
-            <p class="text-[10px] text-slate-400 uppercase tracking-widest">&copy; 2024 Shop Milk. Premium Experience.</p>
+
+        <div class="flex items-center justify-between">
+          <label class="flex items-center cursor-pointer group">
+            <div class="relative flex items-center">
+              <input
+                class="w-5 h-5 text-brand-DEFAULT bg-gray-100 border-gray-300 rounded focus:ring-brand-DEFAULT focus:ring-2 transition-all cursor-pointer"
+                id="rememberPasswordCheck"
+                type="checkbox"
+              />
+            </div>
+            <span
+              class="ml-2.5 text-sm font-semibold text-gray-600 group-hover:text-gray-800 transition-colors"
+              >Ghi nhớ đăng nhập</span
+            >
+          </label>
+          <a
+            class="text-sm font-bold text-brand-DEFAULT hover:text-brand-dark transition-colors"
+            href="password"
+            >Quên mật khẩu?</a
+          >
         </div>
+
+        <div class="mt-8 pt-4">
+          <button
+            type="submit"
+            class="w-full py-3.5 px-4 rounded-xl bg-brand-DEFAULT hover:bg-brand-dark hover:shadow-lg hover:-translate-y-0.5 text-white font-bold text-[1.1rem] transition-all active:scale-95 flex items-center justify-center gap-2"
+          >
+            <span>Đăng nhập</span>
+            <i class="ph ph-sign-in font-bold text-xl"></i>
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-8 mb-2 text-center text-sm font-medium text-gray-500">
+        <span>Chưa có tài khoản? </span>
+        <a href="register" class="text-brand-DEFAULT font-bold hover:underline"
+          >Đăng ký ngay</a
+        >
+      </div>
+
+      <!-- Optional return home link -->
+      <div class="mt-6 pt-6 border-t border-gray-100 flex justify-center">
+        <a
+          href="${pageContext.request.contextPath}/"
+          class="text-sm font-semibold text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-1.5 hover:-translate-x-1"
+        >
+          <i class="ph ph-arrow-left text-lg"></i>
+          <span>Trở về trang chủ</span>
+        </a>
+      </div>
     </div>
-
-    <script>
-        lucide.createIcons();
-    </script>
-</body>
+  </body>
 </html>

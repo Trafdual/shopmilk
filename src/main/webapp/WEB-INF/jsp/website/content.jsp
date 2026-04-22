@@ -1,169 +1,149 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- Best Sellers -->
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12 animate__animated animate__fadeInUp">
-            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Sản Phẩm Bán Chạy</h2>
-            <div class="w-24 h-1 bg-primary-600 mx-auto rounded-full"></div>
-            <p class="text-slate-500 mt-4 font-light">Những dòng sữa được tin dùng nhất bởi hàng ngàn khách hàng.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Hardcoded items as seen in original content.jsp, but modernized -->
-            <!-- Item 1 -->
-            <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp" data-wow-delay=".5s">
-                <div class="relative aspect-square overflow-hidden bg-slate-50">
-                    <img src="static/images/phone/suavina.jpg" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" alt="Milk">
-                    <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
-                        <a href="#" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
-                            <i data-lucide="eye" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
-                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                    <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase">Hot</span>
-                </div>
-                <div class="p-6 text-center">
-                    <div class="flex justify-center mb-2 text-yellow-400">
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                    </div>
-                    <h5 class="text-slate-800 font-bold mb-2 group-hover:text-primary-600 transition-colors">Sữa Bột Vinamilk</h5>
-                    <p class="text-primary-600 font-bold text-lg">500.000đ</p>
-                </div>
+<section class="py-16 lg:py-24 relative bg-milk">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section: BÁN CHẠY -->
+        <div class="mb-20">
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+                <h3 class="text-3xl lg:text-4xl font-extrabold text-dark tracking-tight mb-3">TOP BÁN CHẠY</h3>
+                <div class="w-24 h-1 bg-brand-DEFAULT mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-500 text-sm tracking-widest uppercase font-medium">Top 4 sản phẩm bán chạy nhất</p>
             </div>
 
-            <!-- Item 2 -->
-            <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp" data-wow-delay=".7s">
-                <div class="relative aspect-square overflow-hidden bg-slate-50">
-                    <img src="static/images/phone/ensure.jpg" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" alt="Milk">
-                    <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
-                        <a href="#" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
-                            <i data-lucide="eye" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
-                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <div class="flex justify-center mb-2 text-yellow-400">
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                    </div>
-                    <h5 class="text-slate-800 font-bold mb-2 group-hover:text-primary-600 transition-colors">Sữa Bột Ensure Úc</h5>
-                    <p class="text-primary-600 font-bold text-lg">500.000đ</p>
-                </div>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp" data-wow-delay=".9s">
-                <div class="relative aspect-square overflow-hidden bg-slate-50">
-                    <img src="static/images/phone/dielac.jpg" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" alt="Milk">
-                    <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
-                        <a href="#" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
-                            <i data-lucide="eye" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
-                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <div class="flex justify-center mb-2 text-yellow-400">
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                    </div>
-                    <h5 class="text-slate-800 font-bold mb-2 group-hover:text-primary-600 transition-colors">Sữa Bột Dielac</h5>
-                    <p class="text-primary-600 font-bold text-lg">500.000đ</p>
-                </div>
-            </div>
-
-            <!-- Item 4 -->
-            <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp" data-wow-delay="1.1s">
-                <div class="relative aspect-square overflow-hidden bg-slate-50">
-                    <img src="static/images/phone/pedia.jpg" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" alt="Milk">
-                    <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
-                        <a href="#" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
-                            <i data-lucide="eye" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
-                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <div class="flex justify-center mb-2 text-yellow-400">
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                    </div>
-                    <h5 class="text-slate-800 font-bold mb-2 group-hover:text-primary-600 transition-colors">Sữa Bột Pediasure</h5>
-                    <p class="text-primary-600 font-bold text-lg">500.000đ</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Most Viewed Gallery -->
-<section class="py-16 bg-secondary">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12 animate__animated animate__fadeInUp">
-            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Xem Nhiều Nhất</h2>
-            <div class="w-24 h-1 bg-primary-600 mx-auto rounded-full"></div>
-            <p class="text-slate-500 mt-4 font-light">Những sản phẩm đang thu hút sự quan tâm lớn từ cộng đồng.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <c:forEach var="product" items="${mostViews}">
-                <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp">
-                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-50 p-4">
-                        <a href="productDetail?cateID=${product.category.id}&productID=${product.id}">
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110">
-                        </a>
-                        <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
-                            <a href="productDetail?cateID=${product.category.id}&productID=${product.id}" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
-                                <i data-lucide="eye" class="w-5 h-5"></i>
+            <!-- Product Grid: Grid layout using Tailwind -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Hardcoded bestsellers matching old JSP to keep data structure -->
+                <!-- Item 1 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-5 bg-gray-50">
+                        <img src="static/images/phone/suavina.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Vinamilk" />
+                        <!-- Quick Actions overlay -->
+                        <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2">
+                                <i class="ph ph-eye text-xl"></i>
                             </a>
-                            <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
-                                <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2">
+                                <i class="ph ph-shopping-cart-simple text-xl"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <h6 class="text-slate-800 font-bold mb-2 h-12 overflow-hidden line-clamp-2 leading-tight">
-                            <a href="productDetail?cateID=${product.category.id}&productID=${product.id}" class="hover:text-primary-600 transition-colors">
-                                ${product.name}
-                            </a>
-                        </h6>
-                        <div class="flex items-center justify-between">
-                            <p class="text-primary-600 font-bold text-lg">${product.price}đ</p>
-                            <button class="text-slate-400 hover:text-red-500 transition-colors">
-                                <i data-lucide="heart" class="w-5 h-5"></i>
-                            </button>
+                    <div class="flex flex-col flex-grow text-center px-2">
+                        <div class="flex justify-center text-yellow-400 text-sm mb-2">
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                        </div>
+                        <a href="single.html" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">Sữa Bột Vinamilk</a>
+                        <div class="mt-auto pt-4 flex justify-center items-center">
+                            <span class="text-xl font-extrabold text-brand-DEFAULT">500.000đ</span>
                         </div>
                     </div>
                 </div>
-            </c:forEach>
+
+                <!-- Item 2 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-5 bg-gray-50">
+                        <img src="static/images/phone/ensure.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Ensure Úc" />
+                        <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
+                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center px-2">
+                        <div class="flex justify-center text-yellow-400 text-sm mb-2"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <a href="single.html" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">Sữa Bột Ensure Úc</a>
+                        <div class="mt-auto pt-4 flex justify-center items-center">
+                            <span class="text-xl font-extrabold text-brand-DEFAULT">500.000đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-5 bg-gray-50">
+                        <img src="static/images/phone/dielac.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Dielac" />
+                        <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
+                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center px-2">
+                        <div class="flex justify-center text-yellow-400 text-sm mb-2"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <a href="single.html" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">Sữa Bột Dielac</a>
+                        <div class="mt-auto pt-4 flex justify-center items-center">
+                            <span class="text-xl font-extrabold text-brand-DEFAULT">500.000đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-5 bg-gray-50">
+                        <img src="static/images/phone/pedia.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Pediasure" />
+                        <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
+                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center px-2">
+                        <div class="flex justify-center text-yellow-400 text-sm mb-2"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <a href="single.html" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">Sữa Bột Pediasure</a>
+                        <div class="mt-auto pt-4 flex justify-center items-center">
+                            <span class="text-xl font-extrabold text-brand-DEFAULT">500.000đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- Section: XEM NHIỀU NHẤT -->
+        <div class="mt-24">
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+                <h3 class="text-3xl lg:text-4xl font-extrabold text-dark tracking-tight mb-3">XEM NHIỀU NHẤT</h3>
+                <div class="w-24 h-1 bg-brand-DEFAULT mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-500 text-sm tracking-widest uppercase font-medium">Sản phẩm có lượt xem cao</p>
+            </div>
+
+            <!-- Dynamic Product Grid from ${mostViews} -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <c:forEach var="product" varStatus="status" items="${mostViews}">
+                    <div class="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-brand-DEFAULT/10 border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full">
+                        <!-- Image Box -->
+                        <div class="relative w-full aspect-square bg-gray-50 p-4 mb-5 mix-blend-multiply flex items-center justify-center overflow-hidden">
+                            <a href="productDetail?cateID=${product.category.id}&productID=${product.id}">
+                                <c:choose>
+                                    <c:when test="${not empty product.image}">
+                                        <img src="${product.image}" onerror="this.onerror=null; this.src='https://cdn-files.hacom.vn/hacom/cdn/web/16042026/sua-bot-ensure-gold-vani-lon-400g-202104230836132948.jpg'" class="object-contain max-h-full max-w-full drop-shadow-sm group-hover:scale-110 transition-transform duration-500 ease-out" alt="${product.name}" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="https://cdn-files.hacom.vn/hacom/cdn/web/16042026/sua-bot-ensure-gold-vani-lon-400g-202104230836132948.jpg" class="object-contain max-h-full max-w-full drop-shadow-sm group-hover:scale-110 transition-transform duration-500 ease-out" alt="${product.name}" />
+                                    </c:otherwise>
+                                </c:choose>
+                            </a>
+                            <!-- Quick actions overlay -->
+                            <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <a href="productDetail?cateID=${product.category.id}&productID=${product.id}" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
+                                <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-grow text-center px-2">
+                            <a href="productDetail?cateID=${product.category.id}&productID=${product.id}" class="text-lg font-bold text-gray-800 hover:text-brand-DEFAULT transition-colors mb-2 line-clamp-2">${product.name}</a>
+                            <div class="mt-auto pt-4 flex justify-center items-center">
+                                <span class="text-xl font-extrabold text-brand-DEFAULT">${product.price} VNĐ</span>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <c:if test="${empty mostViews}">
+                <div class="text-center py-12 text-gray-400">
+                    <i class="ph ph-package text-6xl mb-4 text-gray-300"></i>
+                    <p>Chưa có dữ liệu sản phẩm.</p>
+                </div>
+            </c:if>
+        </div>
+
     </div>
 </section>
-
-<script>
-    lucide.createIcons();
-</script>

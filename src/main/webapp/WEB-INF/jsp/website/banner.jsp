@@ -1,108 +1,68 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<section class="relative pt-8 pb-12 lg:pt-16 lg:pb-24 overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute inset-0 bg-milk z-[-2]"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-50 rounded-bl-[100px] z-[-1] hidden lg:block opacity-50"></div>
+    <div class="absolute top-20 right-20 w-64 h-64 bg-brand-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse z-[-1]"></div>
 
-<section class="relative bg-secondary overflow-hidden h-[calc(100vh-96px)] flex items-center">
-    <div class="container mx-auto px-4 h-full py-6 md:py-8">
-        <div class="flex flex-col lg:flex-row gap-8 h-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
             
-            <!-- Category Sidebar (Smart Height) -->
-            <div class="w-full lg:w-1/4 h-full hidden lg:block animate__animated animate__fadeInLeft">
-                <div class="bg-white/90 backdrop-blur-xl rounded-premium border border-white/50 p-6 premium-shadow h-full flex flex-col overflow-hidden">
-                    <h3 class="text-[10px] font-bold text-slate-400 mb-6 flex items-center uppercase tracking-[0.3em]">
-                        <i data-lucide="layers" class="w-4 h-4 mr-3 text-primary-500"></i>
-                        Danh Mục
-                    </h3>
-                    <ul class="space-y-1 flex-1 overflow-y-auto custom-scrollbar pr-2 mb-4">
-                        <c:forEach var="category" items="${categories}">
-                            <li>
-                                <a href="searchProduct?cateID=${category.id}" 
-                                   class="flex items-center justify-between p-3 rounded-2xl hover:bg-slate-50 transition-all group">
-                                    <span class="text-xs text-slate-600 group-hover:text-primary-700 font-medium">${category.name}</span>
-                                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-primary-400 transition-all"></i>
-                                </a>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                    
-                    <div class="mt-auto p-6 rounded-3xl bg-slate-900 text-white relative overflow-hidden shrink-0">
-                        <div class="relative z-10">
-                            <h4 class="luxury-text text-base italic">Special Offer</h4>
-                            <p class="text-[9px] text-slate-400 mb-4">Dành cho bạn hôm nay.</p>
-                            <button class="text-[10px] font-bold border-b border-primary-400 hover:text-primary-400 transition-colors uppercase tracking-widest">Khám phá</button>
-                        </div>
+            <!-- Sidebar Categories (Left) -->
+            <div class="w-full lg:w-1/4 z-10 hidden md:block">
+                <div class="bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl shadow-brand-DEFAULT/5 rounded-2xl overflow-hidden h-full">
+                    <div class="px-6 py-5 border-b border-gray-100/50 bg-gradient-to-r from-brand-50 to-transparent">
+                        <h3 class="text-sm font-bold text-gray-800 uppercase tracking-widest flex items-center">
+                            <i class="ph ph-list-bold text-brand-DEFAULT mr-2 text-lg"></i> Danh Mục
+                        </h3>
+                    </div>
+                    <div class="p-3">
+                        <ul class="space-y-1">
+                            <c:forEach var="category" items="${categories}">
+                                <li>
+                                    <a href="searchProduct?cateID=${category.id}" class="group flex items-center px-4 py-3 text-sm font-medium text-gray-600 rounded-xl hover:bg-brand-DEFAULT hover:text-white hover:shadow-md hover:shadow-brand-DEFAULT/20 transition-all select-none">
+                                        <i class="ph ph-caret-right text-gray-300 group-hover:text-white mr-3 transition-colors text-xs"></i>
+                                        ${category.name}
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Luxury Hero Swiper (Perfect Fit) -->
-            <div class="w-full lg:w-3/4 h-full animate__animated animate__fadeInRight">
-                <div class="swiper mainHeroSwiper rounded-premium overflow-hidden premium-shadow h-full group">
-                    <div class="swiper-wrapper h-full">
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide relative h-full">
-                            <img src="${pageContext.request.contextPath}/images/banner/luxury_hero.png" 
-                                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-[8000ms] group-hover:scale-110" alt="Luxury Milk">
-                            <div class="absolute inset-0 bg-slate-900/30"></div>
-                            <div class="absolute inset-0 flex items-center p-8 md:p-20 bg-gradient-to-r from-slate-900/60 to-transparent">
-                                <div class="max-w-md space-y-6">
-                                    <h2 class="luxury-text text-5xl md:text-7xl text-white italic leading-tight">
-                                        Tinh Túy <br><span class="text-primary-300 not-italic font-bold">Mỗi Ngày</span>
-                                    </h2>
-                                    <p class="text-white text-sm md:text-lg font-light opacity-90 max-w-xs">Sữa Organic chắt lọc tinh túy thiên nhiên cho sức khỏe gia đình bạn.</p>
-                                    <div class="flex space-x-4 pt-4">
-                                        <a href="allProduct" class="bg-primary-600 hover:bg-white hover:text-primary-900 text-white px-10 py-4 rounded-2xl font-bold transition-all shadow-xl">Mua Ngay</a>
-                                        <button class="bg-white/10 hover:bg-white/20 text-white px-10 py-4 rounded-2xl font-bold border border-white/30 backdrop-blur-md transition-all">Sản phẩm</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 2 -->
-                        <div class="swiper-slide relative h-full">
-                            <img src="https://images.unsplash.com/photo-1550583724-12558142c73d?auto=format&fit=crop&q=80&w=1920" 
-                                 class="absolute inset-0 w-full h-full object-cover" alt="Fresh Milk">
-                            <div class="absolute inset-0 bg-slate-900/40"></div>
-                            <div class="absolute inset-0 flex items-center justify-center text-center p-8">
-                                <div class="max-w-lg space-y-6">
-                                    <h2 class="luxury-text text-5xl md:text-6xl text-white italic">Hương Vị Sạch</h2>
-                                    <p class="text-slate-200 text-base md:text-xl font-light">100% Nguyên chất từ thiên nhiên.</p>
-                                    <a href="allProduct" class="inline-block bg-white text-slate-900 px-12 py-5 rounded-2xl font-bold hover:bg-primary-500 hover:text-white transition-all uppercase tracking-widest text-xs">Bộ Sưu Tập</a>
-                                </div>
-                            </div>
+            <!-- Hero Banner (Right) -->
+            <div class="w-full lg:w-3/4 flex-1">
+                <div class="relative w-full h-[400px] md:h-[500px] lg:h-[550px] rounded-[2rem] overflow-hidden shadow-2xl shadow-brand-DEFAULT/10 group">
+                    <!-- Banner Image with subtle zoom on hover -->
+                    <img src="static/images/slider/img3.jpg" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-in-out" alt="Banner Sữa">
+                    
+                    <!-- Overlay Dark/Gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent"></div>
+
+                    <!-- Content inside Banner -->
+                    <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 z-10 w-full md:w-3/4">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-bold tracking-widest text-white uppercase w-max mb-4">
+                            Khuyến mãi mới
+                        </span>
+                        <h2 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4 drop-shadow-sm">
+                            Đỉnh Cao Dinh Dưỡng<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-100 to-white">Cho Gia Đình Của Bạn</span>
+                        </h2>
+                        <p class="text-gray-200 text-sm md:text-base mb-8 max-w-lg leading-relaxed drop-shadow-sm">
+                            Khám phá hàng loạt các sản phẩm sữa chất lượng cao giúp tăng cường miễn dịch và phát triển toàn diện.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="allProduct" class="px-8 py-3.5 bg-brand-DEFAULT text-white text-sm font-bold uppercase tracking-wider rounded-xl hover:bg-white hover:text-brand-DEFAULT shadow-lg shadow-brand-DEFAULT/30 hover:shadow-xl transition-all active:scale-95 flex items-center justify-center">
+                                Xem Ngay <i class="ph ph-arrow-right-bold ml-2"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="swiper-button-next !text-white !w-10 !h-10 bg-white/10 hover:bg-white/30 backdrop-blur-md rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-all after:!text-sm"></div>
-                    <div class="swiper-button-prev !text-white !w-10 !h-10 bg-white/10 hover:bg-white/30 backdrop-blur-md rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-all after:!text-sm"></div>
-                    <div class="swiper-pagination !bottom-8"></div>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
-
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const swiper = new Swiper('.mainHeroSwiper', {
-            loop: true,
-            effect: 'fade',
-            autoplay: { delay: 6000, disableOnInteraction: false },
-            pagination: { el: '.swiper-pagination', clickable: true },
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        });
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-    });
-</script>
-
-<style>
-    .swiper-pagination-bullet { width: 30px; height: 2px; border-radius: 0; background: rgba(255,255,255,0.3); opacity: 1; transition: all 0.4s ease; }
-    .swiper-pagination-bullet-active { background: #fff; width: 60px; }
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-</style>

@@ -1,95 +1,99 @@
 <%@ page pageEncoding="utf-8"%>
 
-<footer class="bg-white border-t border-slate-100 pt-20 pb-12">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
-            <!-- Brand Column -->
-            <div class="space-y-8">
-                <a href="home" class="flex items-center space-x-4">
-                    <div class="bg-slate-900 p-3 rounded-2xl">
-                        <i data-lucide="milk" class="text-white w-6 h-6"></i>
-                    </div>
-                    <span class="luxury-text text-2xl font-bold text-slate-900 italic">Shop<span class="text-primary-600 not-italic">Milk</span></span>
-                </a>
-                <p class="text-sm leading-loose text-slate-500 font-light">
-                    Sứ mệnh mang đến sự thuần khiết từ thiên nhiên. Chúng tôi cam kết chất lượng Organic tốt nhất cho sức khỏe gia đình bạn.
-                </p>
-                <!-- Social Icons with explicit Lucide names -->
-                <div class="flex space-x-6">
-                    <a href="#" class="text-slate-400 hover:text-primary-600 transition-all duration-300 transform hover:scale-110">
-                        <i data-lucide="facebook" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-slate-400 hover:text-primary-600 transition-all duration-300 transform hover:scale-110">
-                        <i data-lucide="instagram" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-slate-400 hover:text-primary-600 transition-all duration-300 transform hover:scale-110">
-                        <i data-lucide="twitter" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-slate-400 hover:text-primary-600 transition-all duration-300 transform hover:scale-110">
-                        <i data-lucide="youtube" class="w-5 h-5"></i>
-                    </a>
-                </div>
-            </div>
+<footer class="bg-dark text-gray-300 py-16 border-t border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <!-- Brand Info -->
+      <div class="space-y-4">
+        <a href="${pageContext.request.contextPath}/home" class="inline-block">
+          <span
+            class="text-3xl font-extrabold tracking-tight text-brand-DEFAULT"
+            >Shop<span class="text-white">Milk</span></span
+          >
+        </a>
+        <p class="text-sm text-gray-400 max-w-xs leading-relaxed">
+          Đồng hành cùng sự phát triển của gia đình bạn. Chuyên cung cấp các
+          loại sữa nội & ngoại nhập chất lượng cao. Vì sức khỏe cộng đồng.
+        </p>
+        <p class="text-xs text-gray-500 pt-4">
+          Shop Milk &copy; 2026 | Designed with ❤️ by Nhóm 4
+        </p>
+      </div>
 
-            <!-- Explore Links -->
-            <div class="lg:pl-8">
-                <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-10">Khám Phá</h3>
-                <ul class="space-y-5 text-xs font-medium text-slate-600 uppercase tracking-widest">
-                    <li><a href="home" class="hover:text-primary-600 transition-colors">Trang chủ</a></li>
-                    <li><a href="allProduct" class="hover:text-primary-600 transition-colors">Tất cả sản phẩm</a></li>
-                    <li><a href="khuyenmai" class="hover:text-primary-600 transition-colors">Bộ sưu tập mới</a></li>
-                    <li><a href="contact" class="hover:text-primary-600 transition-colors">Liên hệ hỗ trợ</a></li>
-                </ul>
-            </div>
+      <!-- Links -->
+      <div class="space-y-4">
+        <h4 class="text-lg font-semibold text-white tracking-wide">Danh Mục</h4>
+        <ul class="space-y-2">
+          <li>
+            <a
+              href="${pageContext.request.contextPath}/about.html"
+              class="text-sm text-gray-400 hover:text-brand-light transition-colors flex items-center pr-2"
+              ><i class="ph ph-caret-right mr-2 text-brand-DEFAULT"></i> Giới
+              Thiệu</a
+            >
+          </li>
+          <li>
+            <a
+              href="${pageContext.request.contextPath}/allProduct"
+              class="text-sm text-gray-400 hover:text-brand-light transition-colors flex items-center pr-2"
+              ><i class="ph ph-caret-right mr-2 text-brand-DEFAULT"></i> Sản
+              Phẩm</a
+            >
+          </li>
+          <li>
+            <a
+              href="${pageContext.request.contextPath}/contact.html"
+              class="text-sm text-gray-400 hover:text-brand-light transition-colors flex items-center pr-2"
+              ><i class="ph ph-caret-right mr-2 text-brand-DEFAULT"></i> Liên
+              Hệ</a
+            >
+          </li>
+          <li>
+            <a
+              href="${pageContext.request.contextPath}/checkout.html"
+              class="text-sm text-gray-400 hover:text-brand-light transition-colors flex items-center pr-2"
+              ><i class="ph ph-caret-right mr-2 text-brand-DEFAULT"></i> Dịch
+              Vụ</a
+            >
+          </li>
+        </ul>
+      </div>
 
-            <!-- Policies -->
-            <div class="lg:pl-8">
-                <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-10">Dịch Vụ</h3>
-                <ul class="space-y-5 text-xs font-medium text-slate-600 uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-primary-600 transition-colors">Chính sách giao hàng</a></li>
-                    <li><a href="#" class="hover:text-primary-600 transition-colors">Bảo mật thông tin</a></li>
-                    <li><a href="#" class="hover:text-primary-600 transition-colors">Đổi trả sản phẩm</a></li>
-                    <li><a href="#" class="hover:text-primary-600 transition-colors">Câu hỏi thường gặp</a></li>
-                </ul>
-            </div>
-
-            <!-- Luxury Contact -->
-            <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
-                <h3 class="luxury-text text-xl italic text-slate-800 mb-6">Liên Hệ</h3>
-                <div class="space-y-6 text-sm">
-                    <div class="flex items-start space-x-4">
-                        <i data-lucide="map-pin" class="w-4 h-4 text-primary-500 mt-1"></i>
-                        <span class="text-slate-600 leading-relaxed font-light">123 Đường Sữa Tươi, Quận 1, TP. Hồ Chí Minh</span>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <i data-lucide="phone" class="w-4 h-4 text-primary-500"></i>
-                        <span class="text-slate-900 font-bold">0396 275 692</span>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <i data-lucide="mail" class="w-4 h-4 text-primary-500"></i>
-                        <span class="text-slate-600 font-medium">nhom4@gmail.com</span>
-                    </div>
-                </div>
-                <div class="mt-8 pt-6 border-t border-slate-200">
-                    <p class="text-[10px] text-slate-400 font-bold uppercase">Hỗ trợ 24/7</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="pt-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-            <p>&copy; 2024 L'atelier de Shop Milk. All Rights Reserved.</p>
-            <div class="flex space-x-8 mt-4 md:mt-0">
-                <a href="#" class="hover:text-primary-600 transition-colors">Terms</a>
-                <a href="#" class="hover:text-primary-600 transition-colors">Privacy</a>
-                <a href="#" class="hover:text-primary-600 transition-colors">Cookies</a>
-            </div>
-        </div>
+      <!-- Subscribe -->
+      <div class="space-y-4">
+        <h4 class="text-lg font-semibold text-white tracking-wide">
+          Nhận Thông Báo
+        </h4>
+        <p class="text-sm text-gray-400">
+          Đăng ký để nhận các chương trình khuyến mãi và kiến thức dinh dưỡng
+          mới nhất.
+        </p>
+        <form action="#" class="mt-4 sm:flex sm:max-w-md">
+          <label for="email-address" class="sr-only">Địa chỉ Email</label>
+          <div class="relative flex-grow">
+            <i
+              class="ph ph-envelope-simple absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg"
+            ></i>
+            <input
+              type="email"
+              name="email-address"
+              id="email-address"
+              autocomplete="email"
+              required
+              class="appearance-none min-w-0 w-full bg-gray-900 border border-gray-700/50 rounded-xl pl-10 text-sm py-2.5 px-4 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-DEFAULT focus:border-transparent transition-all"
+              placeholder="Nhập Email Của Bạn"
+            />
+          </div>
+          <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+            <button
+              type="submit"
+              class="w-full flex items-center justify-center bg-brand-DEFAULT border border-transparent rounded-xl py-2.5 px-5 text-sm font-medium text-white hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-DEFAULT focus:ring-offset-gray-900 transition-all active:scale-95"
+            >
+              Gửi <i class="ph ph-paper-plane-right ml-2"></i>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </footer>
-
-<script>
-    // Force re-initialization of all icons on the page
-    if(typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
-</script>

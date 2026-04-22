@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,47 +16,57 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepo orderRepo;
-	
-	@Autowired
-	private SessionFactory factory;
 
 	@Override
 	public Iterable<Order> findAll() {
-		// TODO Auto-generated method stub
-		return orderRepo.findAll();
+		return orderRepo.findAllByOrderByIdDesc();
 	}
 
 	@Override
-public Order findById(int id) {
-    return orderRepo.findById(id).orElse(null);
-}
+	public Order findById(int id) {
+		return orderRepo.findById(id).orElse(null);
+	}
 
 	@Override
 	public void save(Order order) {
-		// TODO Auto-generated method stub
 		orderRepo.save(order);
 	}
 
 	@Override
 	public void update(Order order) {
-		// TODO Auto-generated method stub
 		orderRepo.save(order);
 	}
 
+	// status=0: Chờ xác nhận
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<Order> getNewOrder() {
-		// TODO Auto-generated method stub
-		String hql = "FROM Order WHERE status = 0";
-		return factory.getCurrentSession().createQuery(hql).list();
+		return orderRepo.findByStatusOrderByIdDesc(0);
+	}
+
+	// status=2: Hoàn thành (tương thích cũ)
+	@Override
+	public List<Order> getCheckedOrder() {
+		return orderRepo.findByStatusOrderByIdDesc(2);
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public List<Order> getCheckedOrder() {
-		// TODO Auto-generated method stub
-		String hql = "FROM Order WHERE status = 1";
-		return factory.getCurrentSession().createQuery(hql).list();
+	public List<Order> getByStatus(int status) {
+		return orderRepo.findByStatusOrderByIdDesc(status);
+	}
+
+	@Override
+	public List<Object[]> getMonthlyRevenue() {
+		return orderRepo.getMonthlyRevenue();
+	}
+
+	@Override
+	public List<Object[]> getWeeklyRevenue() {
+		return orderRepo.getWeeklyRevenue();
+	}
+
+	@Override
+	public long countByStatus(int status) {
+		return orderRepo.countByStatus(status);
 	}
 
 }

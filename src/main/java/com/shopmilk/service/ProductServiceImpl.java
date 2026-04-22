@@ -71,14 +71,22 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product findByName(String name) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'findByName'");
+		return productRepo.findByName(name);
 	}
 
 	@Override
 	public List<Object> getByBestSeller(int topNumber) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getByBestSeller'");
+		// Delegate sang query native trong repo
+		return productRepo.getTopBestSellers(topNumber);
+	}
+
+	public long countProducts() {
+		return productRepo.count();
+	}
+
+	@Override
+	public List<Object[]> getProductStockAndSold(int limit) {
+		return productRepo.getProductStockAndSold(limit);
 	}
 
 }
