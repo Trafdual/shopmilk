@@ -2,7 +2,33 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<link href="static/css/jquery-ui/jquery-ui.css" rel="stylesheet">
+<!-- Ultra-Compact Luxury Header (Fixed Height: 96px) -->
+<header class="glass-header sticky top-0 z-50 w-full bg-white/80 backdrop-blur-xl border-b border-slate-100 h-24 overflow-hidden">
+    <!-- Top Bar (Minimal Hidden on Mobile) -->
+    <div class="bg-slate-900 text-white/60 py-1 text-[9px] font-bold uppercase tracking-[0.2em]">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <span class="flex items-center"><i data-lucide="phone" class="w-2.5 h-2.5 mr-2 text-primary-400"></i> Hotline: 0396 275 692</span>
+            <div class="flex items-center space-x-6">
+                <sec:authorize access="!isAuthenticated()">
+                    <a href="login" class="hover:text-white transition-colors">Đăng Nhập</a>
+                    <a href="register" class="hover:text-white transition-colors">Đăng Ký</a>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <%
+                        String username = "";
+                        Object principal = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                        if (principal instanceof org.springframework.security.core.userdetails.UserDetails) {
+                            username = ((User)principal).getFirstName();
+                        }
+                    %>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-primary-300">Chào, <%=username %></span>
+                        <a href="${pageContext.request.contextPath}/perform_logout" class="hover:text-red-400">Thoát</a>
+                    </div>
+                </sec:authorize>
+            </div>
+        </div>
+    </div>
 
 <div class="header">
 	<div class="top-header navbar navbar-default"

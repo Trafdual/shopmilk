@@ -1,176 +1,169 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!--new-->
-<div class="new">
-	<div class="container">
-		<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
-			<h3 class="title">BÁN CHẠY</h3>
-			<p>TOP 4 SẢN PHẨM BÁN CHẠY NHẤT</p>
-		</div>
-		<div class="new-info">
-			<div class="col-md-3 new-grid simpleCart_shelfItem wow flipInY animated"
-				data-wow-delay=".5s">
-				<div class="new-top">
-					<a href="single.html"><img src="static/images/phone/suavina.jpg"
-						class="img-responsive" alt="" /></a>
-					<div class="new-text">
-						<ul>
-							<li><a class="item_add" href="">Xem Chi Tiết </a></li>
-							<li><input type="number" class="item_quantity" min="1" value="1"></li>
-							<li><a href="">Thêm vào Giỏ </a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="new-bottom">
-					<h5>
-						<a class="name" href="single.html" style="font-family: Arial;">Sữa Bột Vinamilk</a>
-					</h5>
-					<div class="rating">
-						<span class="on">☆</span> <span class="on">☆</span> <span class="on">☆</span>
-						<span class="on">☆</span> <span class="on">☆</span>
-					</div>
-					<div class="ofr">
-						<p>
-							<span class="item_price">500.000đ</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div
-				class="col-md-3 new-grid new-mdl simpleCart_shelfItem wow flipInY animated"
-				data-wow-delay=".7s">
-				<div class="new-top">
-					<a href="single.html"><img src="static/images/phone/ensure.jpg"
-						class="img-responsive" alt="" /></a>
-					<div class="new-text">
-						<ul>
-							<li><a class="item_add" href="">Xem Chi Tiết </a></li>
-							<li><input type="number" class="item_quantity" min="1" value="1"></li>
-							<li><a href="">Thêm vào Giỏ </a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="new-bottom">
-					<h5>
-						<a class="name" href="single.html">Sữa Bột Ensure Úc</a>
-					</h5>
-					<div class="rating">
-						<span class="on">☆</span> <span class="on">☆</span> <span class="on">☆</span>
-						<span class="on">☆</span> <span class="on">☆</span>
-					</div>
-					<div class="ofr">
-						<p>
-							<span class="item_price">500.000đ</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div
-				class="col-md-3 new-grid new-mdl1 simpleCart_shelfItem wow flipInY animated"
-				data-wow-delay=".9s">
-				<div class="new-top">
-					<a href="single.html"><img src="static/images/phone/dielac.jpg"
-						class="img-responsive" alt="" /></a>
-					<div class="new-text">
-						<ul>
-							<li><a class="item_add" href="">Xem Chi Tiết </a></li>
-							<li><input type="number" class="item_quantity" min="1" value="1"></li>
-							<li><a href="">Thêm vào Giỏ </a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="new-bottom">
-					<h5>
-						<a class="name" href="single.html">Sữa Bột Dielac</a>
-					</h5>
-					<div class="rating">
-						<span class="on">☆</span> <span class="on">☆</span> <span class="on">☆</span>
-						<span class="on">☆</span> <span class="on">☆</span>
-					</div>
-					<div class="ofr">
-						<p>
-							<span class="item_price">500.000đ</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 new-grid simpleCart_shelfItem wow flipInY animated"
-				data-wow-delay="1.1s">
-				<div class="new-top">
-					<a href="single.html"><img src="static/images/phone/pedia.jpg"
-						class="img-responsive" alt="" /></a>
-					<div class="new-text">
-						<ul>
-							<li><a class="item_add" href="">Xem Chi Tiết </a></li>
-							<li><input type="number" class="item_quantity" min="1" value="1"></li>
-							<li><a href="">Thêm vào Giỏ </a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="new-bottom">
-					<h5>
-						<a class="name" href="single.html">Sữa Bột Pediasure</a>
-					</h5>
-					<div class="rating">
-						<span class="on">☆</span> <span class="on">☆</span> <span class="on">☆</span>
-						<span class="on">☆</span> <span class="on">☆</span>
-					</div>
-					<div class="ofr">
-						<p>
-							<span class="item_price">500.000đ</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-</div>
-<!--//new-->
-<!--gallery-->
-<div class="gallery">
-	<div class="container">
-		<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
-			<h3 class="title">XEM NHIỀU NHẤT</h3>
-			<p>SẢN PHẨM CÓ SỐ LƯỢT XEM NHIỀU NHẤT</p>
-		</div>
-		<div class="gallery-info">
-			<c:forEach var="product" varStatus="status" items="${mostViews}">
-				<div class="col-md-3 gallery-grid wow fadeInUp animated" data-wow-delay=".5s">
-					<a href="productDetail?cateID=${product.category.id}&productID=${product.id}">
-						<img src="${product.image}", width="100%", height="180px" />
-					</a>
-					<div class="gallery-text simpleCart_shelfItem" style="padding-top: 10px;">
-						<h6>
-							<a class="name" href="productDetail?cateID=${product.category.id}&productID=${product.id}">${product.name}</a>
-						</h6>
-						<p>
-							<span class="item_price">${product.price} VND</span>
-						</p>
-						<h4 class="sizes"></h4>
-						<ul>
-							<li>
-								<a href="#">
-									<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li>
-								<a class="item_add" href="#">
-									<span class="glyphicon glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<span class="glyphicon glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</c:forEach>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-</div>
-<!--//gallery-->
+<!-- Best Sellers -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 animate__animated animate__fadeInUp">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Sản Phẩm Bán Chạy</h2>
+            <div class="w-24 h-1 bg-primary-600 mx-auto rounded-full"></div>
+            <p class="text-slate-500 mt-4 font-light">Những dòng sữa được tin dùng nhất bởi hàng ngàn khách hàng.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Hardcoded items as seen in original content.jsp, but modernized -->
+            <!-- Item 1 -->
+            <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp" data-wow-delay=".5s">
+                <div class="relative aspect-square overflow-hidden bg-slate-50">
+                    <img src="static/images/phone/suavina.jpg" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" alt="Milk">
+                    <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
+                        <a href="#" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                    <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase">Hot</span>
+                </div>
+                <div class="p-6 text-center">
+                    <div class="flex justify-center mb-2 text-yellow-400">
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                    </div>
+                    <h5 class="text-slate-800 font-bold mb-2 group-hover:text-primary-600 transition-colors">Sữa Bột Vinamilk</h5>
+                    <p class="text-primary-600 font-bold text-lg">500.000đ</p>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp" data-wow-delay=".7s">
+                <div class="relative aspect-square overflow-hidden bg-slate-50">
+                    <img src="static/images/phone/ensure.jpg" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" alt="Milk">
+                    <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
+                        <a href="#" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <div class="flex justify-center mb-2 text-yellow-400">
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                    </div>
+                    <h5 class="text-slate-800 font-bold mb-2 group-hover:text-primary-600 transition-colors">Sữa Bột Ensure Úc</h5>
+                    <p class="text-primary-600 font-bold text-lg">500.000đ</p>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp" data-wow-delay=".9s">
+                <div class="relative aspect-square overflow-hidden bg-slate-50">
+                    <img src="static/images/phone/dielac.jpg" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" alt="Milk">
+                    <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
+                        <a href="#" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <div class="flex justify-center mb-2 text-yellow-400">
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                    </div>
+                    <h5 class="text-slate-800 font-bold mb-2 group-hover:text-primary-600 transition-colors">Sữa Bột Dielac</h5>
+                    <p class="text-primary-600 font-bold text-lg">500.000đ</p>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp" data-wow-delay="1.1s">
+                <div class="relative aspect-square overflow-hidden bg-slate-50">
+                    <img src="static/images/phone/pedia.jpg" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" alt="Milk">
+                    <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
+                        <a href="#" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <div class="flex justify-center mb-2 text-yellow-400">
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                    </div>
+                    <h5 class="text-slate-800 font-bold mb-2 group-hover:text-primary-600 transition-colors">Sữa Bột Pediasure</h5>
+                    <p class="text-primary-600 font-bold text-lg">500.000đ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Most Viewed Gallery -->
+<section class="py-16 bg-secondary">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 animate__animated animate__fadeInUp">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Xem Nhiều Nhất</h2>
+            <div class="w-24 h-1 bg-primary-600 mx-auto rounded-full"></div>
+            <p class="text-slate-500 mt-4 font-light">Những sản phẩm đang thu hút sự quan tâm lớn từ cộng đồng.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <c:forEach var="product" items="${mostViews}">
+                <div class="group bg-white rounded-premium border border-slate-100 premium-shadow overflow-hidden transition-all duration-300 hover:-translate-y-2 animate__animated animate__fadeInUp">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-50 p-4">
+                        <a href="productDetail?cateID=${product.category.id}&productID=${product.id}">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110">
+                        </a>
+                        <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
+                            <a href="productDetail?cateID=${product.category.id}&productID=${product.id}" class="p-3 bg-white rounded-full text-primary-600 hover:bg-primary-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
+                                <i data-lucide="eye" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="p-3 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
+                                <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h6 class="text-slate-800 font-bold mb-2 h-12 overflow-hidden line-clamp-2 leading-tight">
+                            <a href="productDetail?cateID=${product.category.id}&productID=${product.id}" class="hover:text-primary-600 transition-colors">
+                                ${product.name}
+                            </a>
+                        </h6>
+                        <div class="flex items-center justify-between">
+                            <p class="text-primary-600 font-bold text-lg">${product.price}đ</p>
+                            <button class="text-slate-400 hover:text-red-500 transition-colors">
+                                <i data-lucide="heart" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</section>
+
+<script>
+    lucide.createIcons();
+</script>

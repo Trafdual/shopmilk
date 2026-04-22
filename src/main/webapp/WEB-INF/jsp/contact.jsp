@@ -4,36 +4,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Shop Milk | Home</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<!--Custom Theme files -->
-<link href="static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="static/css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" href="static/css/flexslider.css" type="text/css" media="screen" />
-<!--//Custom Theme files -->
-<!--js-->
-<script src="static/js/jquery-1.11.1.min.js"></script>
-<script src="static/js/modernizr.custom.js"></script>
-<!--//js-->
-<!--animation-effect-->
-<link href="static/css/animate.min.css" rel="stylesheet"> 
-<script src="static/js/wow.min.js"></script>
-	<script>
-	 new WOW().init();
-	</script>
-<!--//animation-effect-->
-<!--start-smooth-scrolling-->
-<script type="text/javascript" src="static/js/move-top.js"></script>
-<script type="text/javascript" src="static/js/easing.js"></script>	
-<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$(".scroll").click(function(event){		
-				event.preventDefault();
-				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-			});
-		});
-</script>
-<!--//end-smooth-scrolling-->
+    <title>Shop Milk | Liên hệ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- UI Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            50: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: '#FDFCF8',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'premium': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/css">
+        .glass-header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #FDFCF8;
+        }
+        .premium-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+    </style>
+
+    <!-- Legacy styles -->
+    <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="static/css/flexslider.css" type="text/css" media="screen" />
+    
+    <!-- Scripts -->
+    <script src="static/js/jquery-1.11.1.min.js"></script>
+    <script src="static/js/wow.min.js"></script>
+    <script>new WOW().init();</script>
 </head>
 <body>
 	<!-- header -->
