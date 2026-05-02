@@ -1,4 +1,5 @@
 <%@ page pageEncoding="utf-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- Google Fonts: Outfit -->
@@ -240,6 +241,26 @@
 </style>
 
 <script>
+  // Kiểm tra trạng thái đăng nhập từ Spring Security
+  var isUserAuthenticated = false;
+  <sec:authorize access="isAuthenticated()">
+  isUserAuthenticated = true;
+  </sec:authorize>
+
+  // Chặn hành động thêm vào giỏ hàng khi chưa đăng nhập (Sử dụng capture phase)
+  document.addEventListener("submit", function (e) {
+    if (!isUserAuthenticated && e.target && e.target.nodeName === 'FORM') {
+      var cmd = e.target.querySelector('input[name="cmd"]');
+      // Nếu là form thêm vào giỏ hàng (không phải form bên trong minicart popup)
+      if (cmd && cmd.value === '_cart' && !e.target.closest("#PPMiniCart")) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        alert("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
+        window.location.href = "${pageContext.request.contextPath}/login";
+      }
+    }
+  }, true);
+
   // Global interceptor to redirect minicart submit button to the checkout page instead of PayPal
   document.addEventListener("submit", function (e) {
     if (e.target && e.target.closest && e.target.closest("#PPMiniCart")) {
