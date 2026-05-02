@@ -116,11 +116,12 @@ public class AdminController {
 	@RequestMapping(value = "/categoryManager/save", method = RequestMethod.POST)
 	public String saveCategory(ModelMap model, @ModelAttribute("categoryForm") Category category,
 			BindingResult validateForm) {
-		if (category.getName().trim().length() == 0) {
+		if (category.getName() == null || category.getName().trim().length() == 0) {
 			validateForm.rejectValue("name", "category", "Vui lòng nhập tên!");
 		}
 		if (validateForm.hasErrors()) {
 			model.addAttribute("message", "Vui lòng sửa lỗi!");
+			return "formCategory";
 		} else {
 			model.addAttribute("message", "Thêm mới thành công!");
 			categoryService.save(category);
@@ -137,13 +138,18 @@ public class AdminController {
 	@PostMapping("/saveChangeCategory")
 	public String saveChangeCategory(ModelMap model, @Validated @ModelAttribute("categoryForm") Category category,
 			BindingResult validateForm) {
-		if (category.getName().trim().length() == 0) {
+		if (category.getName() == null || category.getName().trim().length() == 0) {
 			validateForm.rejectValue("name", "category", "Vui lòng nhập tên!");
 		}
 		if (validateForm.hasErrors()) {
 			model.addAttribute("message", "Vui lòng sửa lỗi!");
+			return "formUpdateCategory";
 		} else {
-			categoryService.save(category);
+			Category existing = categoryService.findById(category.getId());
+			if (existing != null) {
+				existing.setName(category.getName());
+				categoryService.save(existing);
+			}
 		}
 		return "redirect:/admin/categoryManager";
 	}
@@ -174,7 +180,7 @@ public class AdminController {
 	public String saveProduct(ModelMap model, @ModelAttribute("productForm") Product product,
 			BindingResult validateForm, HttpServletRequest request,
 			@RequestParam(value = "category.id", required = false) Integer categoryId) {
-		if (product.getName().trim().length() == 0) {
+		if (product.getName() == null || product.getName().trim().length() == 0) {
 			validateForm.rejectValue("name", "product", "Vui lòng nhập tên!");
 		}
 		if (product.getPrice() < 0) {
@@ -189,6 +195,7 @@ public class AdminController {
 		if (validateForm.hasErrors()) {
 			model.addAttribute("message", "Vui lòng sửa lỗi!");
 			model.addAttribute("Categories", categoryService.findAll());
+			return "formProduct";
 		} else {
 			model.addAttribute("message", "Thêm mới thành công!");
 			if (categoryId != null) {
@@ -196,11 +203,18 @@ public class AdminController {
 			} else if (product.getCategory() != null && product.getCategory().getId() != null) {
 				product.setCategory(categoryService.findById(product.getCategory().getId()));
 			}
-			if (product.getImage() != null && !product.getImage().isEmpty()) {
-				product.setImage("static/images/phone/" + product.getImage());
+			String submittedImage = product.getImage();
+			if (submittedImage != null && !submittedImage.trim().isEmpty()) {
+				if (submittedImage.contains("fakepath")) {
+					String fileName = submittedImage.substring(submittedImage.lastIndexOf("\\") + 1);
+					product.setImage("static/images/phone/" + fileName);
+				} else if (!submittedImage.startsWith("static/")) {
+					product.setImage("static/images/phone/" + submittedImage);
+				}
 			} else {
 				product.setImage("static/images/phone/default.jpg");
 			}
+			product.setViews(0); // initialize views
 			productService.save(product);
 		}
 		return "redirect:/admin/productManager";
@@ -217,32 +231,61 @@ public class AdminController {
 	public String saveChangeProduct(ModelMap model, @ModelAttribute("productForm") Product product,
 			BindingResult validateForm, HttpServletRequest request,
 			@RequestParam(value = "category.id", required = false) Integer categoryId) {
-		if (product.getName().trim().length() == 0) {
+		
+		Product existing = productService.findById(product.getId());
+		if (existing == null) {
+			return "redirect:/admin/productManager";
+		}
+
+		if (product.getName() == null || product.getName().trim().length() == 0) {
 			validateForm.rejectValue("name", "product", "Vui lòng nhập tên!");
+		} else if (product.getName().length() > 50) {
+			validateForm.rejectValue("name", "product", "Tên sản phẩm không được vượt quá 50 ký tự!");
 		}
 		if (product.getPrice() < 0) {
-			validateForm.rejectValue("price", "product", "Giá không nhỏ hơn 0!");
-		}
-		if (product.getQuantity() < 0) {
-			validateForm.rejectValue("quantity", "product", "Số lượng không nhỏ hơn 0!");
-		}
-		if (product.getCategory() == null && categoryId == null) {
-			validateForm.rejectValue("category", "product", "Vui lòng chọn danh mục!");
-		}
-		if (validateForm.hasErrors()) {
-			model.addAttribute("message", "Vui lòng sửa lỗi!");
-			model.addAttribute("Categories", categoryService.findAll());
-		} else {
-			if (categoryId != null) {
-				product.setCategory(categoryService.findById(categoryId));
-			} else if (product.getCategory() != null && product.getCategory().getId() != null) {
-				product.setCategory(categoryService.findById(product.getCategory().getId()));
+				validateForm.rejectValue("price", "product", "Giá không nhỏ hơn 0!");
 			}
-			if (product.getImage() != null && !product.getImage().startsWith("static/")) {
-				product.setImage("static/images/phone/" + product.getImage());
+			if (product.getQuantity() < 0) {
+				validateForm.rejectValue("quantity", "product", "Số lượng không nhỏ hơn 0!");
 			}
-			productService.save(product);
-		}
+			if (product.getCategory() == null && categoryId == null) {
+				validateForm.rejectValue("category", "product", "Vui lòng chọn danh mục!");
+			}
+
+			if (validateForm.hasErrors()) {
+				model.addAttribute("message", "Vui lòng sửa lỗi!");
+				model.addAttribute("Categories", categoryService.findAll());
+				return "formUpdateProduct";
+			} else {
+				existing.setName(product.getName());
+				existing.setPrice(product.getPrice());
+				existing.setQuantity(product.getQuantity());
+
+				if (categoryId != null) {
+					existing.setCategory(categoryService.findById(categoryId));
+				} else if (product.getCategory() != null && product.getCategory().getId() != null) {
+					existing.setCategory(categoryService.findById(product.getCategory().getId()));
+				}
+
+				// Handle image string correctly (browser sends fakepath if not multipart)
+				String submittedImage = product.getImage();
+				if (submittedImage != null && !submittedImage.trim().isEmpty()) {
+					if (submittedImage.contains("fakepath")) {
+						String fileName = submittedImage.substring(submittedImage.lastIndexOf("\\") + 1);
+						existing.setImage("static/images/phone/" + fileName);
+					} else if (!submittedImage.startsWith("static/")) {
+						existing.setImage("static/images/phone/" + submittedImage);
+					}
+				}
+
+				try {
+					productService.save(existing);
+				} catch (Exception e) {
+					model.addAttribute("message", "Lỗi CSDL: Dữ liệu nhập vào không hợp lệ hoặc quá dài!");
+					model.addAttribute("Categories", categoryService.findAll());
+					return "formUpdateProduct";
+				}
+			}
 		return "redirect:/admin/productManager";
 	}
 

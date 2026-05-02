@@ -87,10 +87,12 @@
                     <div class="flex items-center space-x-2 text-gray-600 hover:text-brand-DEFAULT p-2 transition-colors rounded-full hover:bg-brand-50 active:scale-95">
                         <div class="relative">
                             <i class="ph ph-shopping-cart-simple text-2xl"></i>
+                            <!-- Badge số lượng - chỉ hiện khi có sản phẩm -->
+                            <span id="cartBadge" class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-0.5 hidden">0</span>
                         </div>
                         <div class="hidden sm:flex flex-col text-left">
                             <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Giỏ hàng</span>
-                            <span id="cartTotal" class="text-sm font-semibold text-gray-800">0 VNĐ (0)</span>
+                            <span id="cartTotal" class="text-sm font-semibold text-gray-800">0 đ (0)</span>
                         </div>
                     </div>
                 </div>

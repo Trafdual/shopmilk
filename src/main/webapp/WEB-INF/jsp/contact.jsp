@@ -116,70 +116,31 @@
 <script src="static/js/minicart.js"></script>
 <script>
 paypal.minicart.render({
-	strings: {
-    	button: "VNĐ",
-   		buttonAlt: "Tổng tiền:",
-   		discount: "Giảm giá:"
-	}
+  strings: {
+    button: "Đến Giỏ Hàng",
+    buttonAlt: "Tổng tiền:",
+    discount: "Giảm giá:"
+  }
 });
 
 window.onload = function() {
-	var items = paypal.minicart.cart.items(),
-		quantity = 0;
-	if(items.length > 0) {
-		for (var i = 0; i < items.length; i++) {
-			quantity += items[i].get('quantity');
-		}
-		if(quantity > 0) {
-			document.getElementById("cart-box").innerHTML =
-				'<a style="background-color: #DCDCDC; border: 1px solid #FFF; padding: 5px 21px;" href="order">ĐẶT HÀNG</a>';
-		}
-		document.getElementById("cartTotal").innerHTML = paypal.minicart.cart.total() + " VNĐ (" + quantity + ")";
-	} else {
-		document.getElementById("cartTotal").innerHTML = "0 VNĐ (0)";
-	}
+  if (typeof updateCartBadge === 'function') updateCartBadge();
 };
 
+paypal.minicart.cart.on('add', function() {
+  setTimeout(function() {
+    if (typeof updateCartBadge === 'function') updateCartBadge();
+  }, 150);
+});
+
 paypal.minicart.cart.on('remove', function() {
-	var items = this.items(),
-		quantity = 0,
-		product_name = '',
-		total = this.total();
-	for (var i = 0; i < items.length; i++) {
-		quantity += items[i].get('quantity');
-		
-	}
-	document.getElementById("cartTotal").innerHTML = total + " VNĐ" + " (" + quantity + ")";
-});
-
-paypal.minicart.cart.on('checkout', function(idx, product) {
-	alert('Check out !');
-	window.location.replace("home");
-});
-
-$('.clickey').click(function(e) {
-    e.stopPropagation();
-    
-	var items = paypal.minicart.cart.items(),
-		length = items.length,
-		count = 0,
-		price = 0,
-		productTotal = 0,
-		product_name = '',
-		i;
-	
-	for (i = 0; i < length; i++) {
-		count = items[i].get('quantity');
-		price = items[i].amount();
-		product_name = items[i].get('item_name');
-		productTotal = items[i].amount() * count
-    }
-
-	window.location.replace("order");
+  setTimeout(function() {
+    if (typeof updateCartBadge === 'function') updateCartBadge();
+  }, 150);
 });
 
 if (~window.location.search.indexOf('reset=true')) {
-	paypal.minicart.reset();
+  paypal.minicart.reset();
 }
 </script>
 </html>
