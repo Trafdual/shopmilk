@@ -83,6 +83,7 @@
                 </div>
 
                 <!-- Cart -->
+                <sec:authorize access="isAuthenticated()">
                 <div class="relative group cursor-pointer" onclick="window.location.replace('${pageContext.request.contextPath}/order')">
                     <div class="flex items-center space-x-2 text-gray-600 hover:text-brand-DEFAULT p-2 transition-colors rounded-full hover:bg-brand-50 active:scale-95">
                         <div class="relative">
@@ -96,6 +97,7 @@
                         </div>
                     </div>
                 </div>
+                </sec:authorize>
 
                 <!-- User Actions (Login/User Details) -->
                 <div class="flex items-center ml-2 border-l border-gray-200 pl-6 space-x-4">
