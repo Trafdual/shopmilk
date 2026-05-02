@@ -25,9 +25,17 @@
                             <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2">
                                 <i class="ph ph-eye text-xl"></i>
                             </a>
-                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2">
-                                <i class="ph ph-shopping-cart-simple text-xl"></i>
-                            </a>
+                            <form action="#" method="post" class="m-0 flex">
+                                <input type="hidden" name="cmd" value="_cart" />
+                                <input type="hidden" name="add" value="1" />
+                                <input type="hidden" name="item_name" value="Sữa Bột Vinamilk" />
+                                <input type="hidden" name="amount" value="500000" />
+                                <input type="hidden" name="currency_code" value="VND" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" name="submit" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2 flex items-center justify-center border-none">
+                                    <i class="ph ph-shopping-cart-simple text-xl"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="flex flex-col flex-grow text-center px-2">
@@ -47,7 +55,17 @@
                         <img src="static/images/phone/ensure.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Ensure Úc" />
                         <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
-                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                            <form action="#" method="post" class="m-0 flex">
+                                <input type="hidden" name="cmd" value="_cart" />
+                                <input type="hidden" name="add" value="1" />
+                                <input type="hidden" name="item_name" value="Sữa Bột Ensure Úc" />
+                                <input type="hidden" name="amount" value="500000" />
+                                <input type="hidden" name="currency_code" value="VND" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" name="submit" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2 flex items-center justify-center border-none">
+                                    <i class="ph ph-shopping-cart-simple text-xl"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="flex flex-col flex-grow text-center px-2">
@@ -65,7 +83,17 @@
                         <img src="static/images/phone/dielac.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Dielac" />
                         <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
-                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                            <form action="#" method="post" class="m-0 flex">
+                                <input type="hidden" name="cmd" value="_cart" />
+                                <input type="hidden" name="add" value="1" />
+                                <input type="hidden" name="item_name" value="Sữa Bột Dielac" />
+                                <input type="hidden" name="amount" value="500000" />
+                                <input type="hidden" name="currency_code" value="VND" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" name="submit" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2 flex items-center justify-center border-none">
+                                    <i class="ph ph-shopping-cart-simple text-xl"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="flex flex-col flex-grow text-center px-2">
@@ -83,7 +111,17 @@
                         <img src="static/images/phone/pedia.jpg" class="object-cover w-full h-full mix-blend-multiply group-hover:scale-110 transition-transform duration-500" alt="Sữa Bột Pediasure" />
                         <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <a href="single.html" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
-                            <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                            <form action="#" method="post" class="m-0 flex">
+                                <input type="hidden" name="cmd" value="_cart" />
+                                <input type="hidden" name="add" value="1" />
+                                <input type="hidden" name="item_name" value="Sữa Bột Pediasure" />
+                                <input type="hidden" name="amount" value="500000" />
+                                <input type="hidden" name="currency_code" value="VND" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" name="submit" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2 flex items-center justify-center border-none">
+                                    <i class="ph ph-shopping-cart-simple text-xl"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="flex flex-col flex-grow text-center px-2">
@@ -125,7 +163,17 @@
                             <!-- Quick actions overlay -->
                             <div class="absolute inset-x-0 bottom-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <a href="productDetail?cateID=${product.category.id}&productID=${product.id}" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-eye text-xl"></i></a>
-                                <a href="#" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2"><i class="ph ph-shopping-cart-simple text-xl"></i></a>
+                                <form action="#" method="post" class="m-0 flex">
+                                    <input type="hidden" name="cmd" value="_cart" />
+                                    <input type="hidden" name="add" value="1" />
+                                    <input type="hidden" name="item_name" value="${product.name}" />
+                                    <input type="hidden" name="amount" value="${product.price}" />
+                                    <input type="hidden" name="currency_code" value="VND" />
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button type="submit" name="submit" class="bg-white/90 backdrop-blur-md text-brand-DEFAULT shadow-lg p-3 rounded-full hover:bg-brand-DEFAULT hover:text-white transition-colors active:scale-95 mx-2 flex items-center justify-center border-none">
+                                        <i class="ph ph-shopping-cart-simple text-xl"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <div class="flex flex-col flex-grow text-center px-2">

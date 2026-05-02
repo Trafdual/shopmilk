@@ -28,6 +28,32 @@
        folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="static/admin/css/skins/_all-skins.min.css">
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body, .main-header .logo, .main-sidebar { font-family: 'Inter', sans-serif; }
+  /* Override AdminLTE skin để match màu Home */
+  .skin-blue .main-header .logo { background: #0c1a2e; }
+  .skin-blue .main-header .navbar { background: #0c1a2e; }
+  .skin-blue .main-sidebar { background: #0c1a2e; }
+  .skin-blue .sidebar-menu > li.active > a,
+  .skin-blue .sidebar-menu > li:hover > a { background: #1a73e8; }
+  .skin-blue .sidebar-menu > li > a { color: #b0bec5; }
+  .skin-blue .sidebar-menu > li > a:hover { color: #fff; }
+  .sidebar-menu .treeview-menu > li > a { color: #90a4ae !important; }
+  .sidebar-menu .treeview-menu > li.active > a { color: #fff !important; }
+  .main-header .logo span { color: #4fc3f7; font-weight: 700; }
+  .main-header .navbar .sidebar-toggle { color: #90caf9; }
+  body { background: #f4f6fb; }
+
+  .box { border: none; border-radius: 14px; box-shadow: 0 3px 14px rgba(0,0,0,0.09); margin-bottom: 22px; }
+  .box-header { background: #0c1a2e; color: #fff; border-radius: 14px 14px 0 0; padding: 14px 18px; }
+  .box-header .box-title { color: #fff; font-size: 16px; font-weight: 600; }
+  .box-body { border-radius: 0 0 14px 14px; padding: 20px; }
+  
+  .btn-add-new { background: #1a73e8; color: #fff; border-radius: 20px; font-size: 13px; font-weight: 500; padding: 6px 16px; transition: all 0.3s; border:none; }
+  .btn-add-new:hover { background: #1557b0; color: #fff; box-shadow: 0 4px 10px rgba(26,115,232,0.3); }
+</style>
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -42,28 +68,43 @@
 
 		<jsp:include page="admin/sidebar.jsp" />
 
-		<div class="content-wrapper">
-
-			<form:form modelAttribute=""></form:form>
+		<div class="content-wrapper" style="background:#f4f6fb;">
+			<!-- Content Header -->
+			<section class="content-header" style="background:#0c1a2e; padding: 16px 24px;">
+				<div style="display:flex; justify-content:space-between; align-items:center;">
+					<h1 style="color:#fff; font-size:20px; font-weight:700; margin:0;">
+						<i class="fa fa-plus-circle" style="color:#4fc3f7; margin-right:8px;"></i>
+						Thêm Mới Danh Mục
+					</h1>
+				</div>
+				<ol class="breadcrumb" style="position:static; float:none; background:transparent; margin:8px 0 0; padding:0;">
+					<li><a href="/admin" style="color:#90caf9;"><i class="fa fa-dashboard"></i> Trang Chủ</a></li>
+					<li><a href="categoryManager" style="color:#90caf9;">Danh Mục</a></li>
+					<li class="active" style="color:#fff;">Thêm Mới</li>
+				</ol>
+			</section>
 
 			<!-- Main content -->
-			<form action="categoryManager/save" method="POST">
-				<table>
-					<tr>
-						<th style="width: 150px; text-align: center;">ID</th>
-						<th style="width: 150px; text-align: center;">Name</th>
-					</tr>
-					<tr>
-						<td>
-							<input name="name" placeholder="Nhập tên Danh mục" value="${categories.name}" />
-						</td>
-					</tr>
-					<tr>
-						<td><input type="submit" value="Lưu dữu liệu" /></td>
-					</tr>
-				</table>
-			</form>
-
+			<section class="content">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="box">
+							<div class="box-body" style="padding: 30px;">
+                                <form action="categoryManager/save" method="POST">
+                                    <div class="form-group">
+                                        <label style="font-weight:600; color:#333; margin-bottom:8px;">Tên Danh Mục</label>
+                                        <input type="text" name="name" class="form-control" placeholder="Nhập tên Danh mục..." value="${categories.name}" style="border-radius:8px; padding:10px 15px; border:1px solid #ddd; box-shadow:none; height:auto;" required/>
+                                    </div>
+                                    <div class="form-group text-right" style="margin-top:24px; margin-bottom:0;">
+                                        <a href="categoryManager" class="btn btn-default" style="border-radius:20px; padding:6px 20px; font-weight:500; margin-right:10px; border-color:#ddd;">Hủy</a>
+                                        <button type="submit" class="btn btn-add-new" style="padding:6px 24px;"><i class="fa fa-save"></i> Lưu Dữ Liệu</button>
+                                    </div>
+                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->

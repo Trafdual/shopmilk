@@ -270,6 +270,9 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
           productPrice = 0,
           quantity = 0;
 
+        // Cập nhật badge
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+
         if (items.length > 0) {
           for (var i = 0; i < items.length; i++) {
             quantity = items[i].get("quantity");
@@ -300,29 +303,9 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
               '" />';
           }
 
-          var cartBox = document.getElementById("cart-box");
-          if (quantity > 0 && cartBox) {
-            cartBox.innerHTML =
-              '<a style="background-color: #DCDCDC; border: 1px solid #FFF; padding: 5px 21px;" href="order">ĐẶT HÀNG</a>';
-          }
-
           var noProductInCart = document.getElementById("noProductInCart");
           if (noProductInCart) {
             noProductInCart.value = items.length;
-          }
-
-          var topCartTotal = document.getElementById("cartTotal");
-          if (topCartTotal) {
-            topCartTotal.innerHTML =
-              Number(cartTotal).toLocaleString("vi-VN") +
-              " đ (" +
-              quantity +
-              ")";
-          }
-        } else {
-          var topCartTotal = document.getElementById("cartTotal");
-          if (topCartTotal) {
-            topCartTotal.innerHTML = "0 đ (0)";
           }
         }
 
@@ -391,28 +374,15 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     }
 
     paypal.minicart.cart.on("add", function () {
-      var items = this.items(),
-        quantity = 0,
-        price = 0,
-        total = this.total();
-
-      for (var i = 0; i < items.length; i++) {
-        quantity += items[i].get("quantity");
-        price = items[i].get("amount");
-      }
-      document.getElementById("cartTotal").innerHTML =
-        total + " VNĐ" + " (" + quantity + ")";
+      setTimeout(function() {
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+      }, 150);
     });
 
     paypal.minicart.cart.on("remove", function () {
-      var items = this.items(),
-        quantity = 0,
-        total = this.total();
-      for (var i = 0; i < items.length; i++) {
-        quantity += items[i].get("quantity");
-      }
-      document.getElementById("cartTotal").innerHTML =
-        total + " VNĐ" + " (" + quantity + ")";
+      setTimeout(function() {
+        if (typeof updateCartBadge === 'function') updateCartBadge();
+      }, 150);
     });
 
     if (~window.location.search.indexOf("reset=true")) {

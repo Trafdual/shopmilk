@@ -247,4 +247,36 @@
       window.location.href = "${pageContext.request.contextPath}/order";
     }
   });
+
+  // Global cart navbar updater - đọc từ localStorage của PayPal Minicart
+  // PayPal Minicart lưu: key='PPMiniCart', value=encodeURIComponent(JSON.stringify({value:[...items], expires:"..."}))
+  function updateCartBadge() {
+    try {
+      var badge   = document.getElementById('cartBadge');
+      var totalEl = document.getElementById('cartTotal');
+      var totalQty   = 0;
+      var totalPrice = 0;
+
+      if (window.paypal && window.paypal.minicart && window.paypal.minicart.cart) {
+        var cartItems = window.paypal.minicart.cart.items();
+        for (var i = 0; i < cartItems.length; i++) {
+          var qty   = parseInt(cartItems[i].get('quantity')) || 1;
+          var price = parseFloat(cartItems[i].get('amount'))  || 0;
+          totalQty   += qty;
+          totalPrice += price * qty;
+        }
+      }
+
+      if (totalQty > 0) {
+        if (badge)   { badge.textContent = totalQty > 99 ? '99+' : totalQty; badge.classList.remove('hidden'); }
+        if (totalEl) totalEl.textContent = totalPrice.toLocaleString('vi-VN') + ' \u0111 (' + totalQty + ')';
+      } else {
+        if (badge)   badge.classList.add('hidden');
+        if (totalEl) totalEl.textContent = '0 \u0111 (0)';
+      }
+    } catch(e) { /* silent */ }
+  }
+
+  // Expose global — mỗi trang gọi sau khi minicart.render() xong
+  window.updateCartBadge = updateCartBadge;
 </script>

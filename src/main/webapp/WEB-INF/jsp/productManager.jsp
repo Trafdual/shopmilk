@@ -74,7 +74,7 @@
 						<i class="fa fa-plus"></i> Thêm Sản Phẩm Mới
 					</a>
 				</div>
-				<ol class="breadcrumb" style="background:transparent; margin:4px 0 0; padding:0;">
+				<ol class="breadcrumb" style="position:static; float:none; background:transparent; margin:8px 0 0; padding:0;">
 					<li><a href="/admin" style="color:#90caf9;"><i class="fa fa-dashboard"></i> Trang Chủ</a></li>
 					<li class="active" style="color:#fff;">Sản Phẩm</li>
 				</ol>
