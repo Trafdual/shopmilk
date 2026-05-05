@@ -16,7 +16,7 @@
           loại sữa nội & ngoại nhập chất lượng cao. Vì sức khỏe cộng đồng.
         </p>
         <p class="text-xs text-gray-500 pt-4">
-          Shop Milk &copy; 2026 | Designed with ❤️ by Nhóm 4
+          Shop Milk &copy; 2026 | Designed with ❤️ by Nhóm 3
         </p>
       </div>
 

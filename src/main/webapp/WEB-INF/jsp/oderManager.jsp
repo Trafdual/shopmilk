@@ -378,7 +378,7 @@
 			</div>
 		</aside>
 		<footer style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
-			<strong>Copyright &copy; 2020 | Nhóm 4
+			<strong>Copyright &copy; 2026 | Nhóm 3
 			</strong>
 		</footer>
 		<!-- /.control-sidebar -->

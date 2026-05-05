@@ -45,7 +45,7 @@
 												class="img-circle" >
 										</div>
 										<h4>
-											Nhóm 4 <small><i class="fa fa-clock-o"></i> 2 hours</small>
+											Nhóm 3 <small><i class="fa fa-clock-o"></i> 2 hours</small>
 										</h4>
 										<p>Why not buy a new awesome theme?</p>
 								</a></li>
@@ -192,7 +192,7 @@
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
 						src="/static/admin/img/avatar04.png" class="user-image"
-						> <span class="hidden-xs">Nhóm 4</span>
+						> <span class="hidden-xs">Nhóm 3</span>
 				</a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
@@ -201,7 +201,7 @@
 							>
 
 							<p>
-								Nhóm 4 - Web Developer <small>2021</small>
+								Nhóm 3 - Web Developer <small>2021</small>
 							</p></li>
 						<!-- Menu Body -->
 						<li class="user-body">
