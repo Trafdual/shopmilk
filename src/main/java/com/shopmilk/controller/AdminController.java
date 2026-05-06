@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopmilk.entities.Category;
 import com.shopmilk.entities.Order;
@@ -164,8 +165,14 @@ public class AdminController {
 	}
 
 	@GetMapping("/product/{id}/delete")
-	public String deleteProduct(@PathVariable int id, ModelMap model) {
-		productService.delete(id);
+	public String deleteProduct(@PathVariable int id, RedirectAttributes redirectAttrs) {
+		try {
+			productService.delete(id);
+			redirectAttrs.addFlashAttribute("toastSuccess", "Xóa sản phẩm thành công!");
+		} catch (Exception e) {
+			redirectAttrs.addFlashAttribute("toastError",
+				"Không thể xóa sản phẩm này vì đã có trong đơn hàng. Hãy hủy các đơn hàng liên quan trước!");
+		}
 		return "redirect:/admin/productManager";
 	}
 
