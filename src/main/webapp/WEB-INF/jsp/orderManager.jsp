@@ -329,21 +329,26 @@
               </h3>
             </div>
             <div class="box-body table-responsive">
-              <form id="bulkActionForm" action="/admin/bulkUpdateOrderStatus" method="post">
-                <div class="bulk-action-wrapper">
-                  <span style="color:#666; font-size:13px; margin-right:8px;"><i class="fa fa-cogs"></i> Thao tác:</span>
-                  <select name="bulkStatus" class="bulk-select">
-                    <option value="" disabled selected>-- Chọn trạng thái mới --</option>
-                    <option value="0">Chuyển sang Chờ Xác Nhận</option>
-                    <option value="1">Chuyển sang Đang Giao</option>
-                    <option value="2">Chuyển sang Hoàn Thành</option>
-                    <option value="3">Chuyển sang Đã Hủy</option>
-                  </select>
-                  <button type="button" onclick="submitBulkAction()" class="btn-bulk-apply">
-                    <i class="fa fa-check"></i> Áp Dụng
-                  </button>
-                </div>
-                
+              <%-- Bulk control nằm NGOÀI form để DataTable không di chuyển mất --%>
+              <div class="bulk-action-wrapper">
+                <span style="color:#666; font-size:13px; margin-right:8px;"><i class="fa fa-cogs"></i> Thao tác:</span>
+                <select id="bulkStatusSelect" class="bulk-select">
+                  <option value="" disabled selected>-- Chọn trạng thái mới --</option>
+                  <option value="0">Chuyển sang Chờ Xác Nhận</option>
+                  <option value="1">Chuyển sang Đang Giao</option>
+                  <option value="2">Chuyển sang Hoàn Thành</option>
+                  <option value="3">Chuyển sang Đã Hủy</option>
+                </select>
+                <button type="button" onclick="submitBulkAction()" class="btn-bulk-apply">
+                  <i class="fa fa-check"></i> Áp Dụng
+                </button>
+              </div>
+
+              <%-- Form ẩn - chỉ chứa hidden inputs, không chứa DataTable --%>
+              <form id="bulkActionForm" action="/admin/bulkUpdateOrderStatus" method="post" style="display:none;">
+                <input type="hidden" id="hiddenBulkStatus" name="bulkStatus" value="">
+              </form>
+              
                 <table id="orderTable" class="table table-bordered table-striped table-hover">
                   <thead>
                     <tr>
@@ -463,41 +468,65 @@
 <script src="/static/admin/fastclick/fastclick.js"></script>
 <script src="/static/admin/js/app.min.js"></script>
 <script>
+var dtTable;
 $(function() {
-  var table = $('#orderTable').DataTable({
+  dtTable = $('#orderTable').DataTable({
     "language": {
       "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
     },
-    "order": [[1, "desc"]], // column 1 is # (ID)
+    "order": [[1, "desc"]],
     "pageLength": 15,
     "columnDefs": [
-      { "orderable": false, "targets": 0 }, // disable sorting on checkbox column
-      { "type": "num", "targets": 1 } // force column 1 to be sorted as a number
+      { "orderable": false, "targets": 0 },
+      { "type": "num", "targets": 1 }
     ]
   });
 
-  // Handle select all checkbox
+  // Select all: chỉ áp dụng cho các row đang hiển thị
   $('#selectAll').on('click', function(){
-     // Get all rows with search applied
-     var rows = table.rows({ 'search': 'applied' }).nodes();
-     // Check/uncheck checkboxes for all rows in the table
-     $('input[type="checkbox"].order-checkbox', rows).prop('checked', this.checked);
+    var rows = dtTable.rows({ 'search': 'applied' }).nodes();
+    $('input.order-checkbox', rows).prop('checked', this.checked);
   });
 });
 
 function submitBulkAction() {
-  var checkedBoxes = $('.order-checkbox:checked');
-  if (checkedBoxes.length === 0) {
-    alert('Vui lòng chọn ít nhất một đơn hàng!');
-    return;
-  }
-  var status = $('select[name="bulkStatus"]').val();
-  if (!status) {
+  // Lấy status từ select nằm ngoài DataTable
+  var status = $('#bulkStatusSelect').val();
+  if (status === null || status === '') {
     alert('Vui lòng chọn trạng thái muốn cập nhật!');
     return;
   }
-  if (confirm('Bạn có chắc chắn muốn thay đổi trạng thái cho ' + checkedBoxes.length + ' đơn hàng đã chọn?')) {
-    $('#bulkActionForm').submit();
+
+  // Lấy TẤT CẢ checked checkboxes (kể cả trang bị DataTable ẩn)
+  var checkedIds = [];
+  if (dtTable) {
+    dtTable.rows().nodes().each(function(row) {
+      var cb = $('input.order-checkbox:checked', row);
+      if (cb.length) checkedIds.push(cb.val());
+    });
+  }
+  // Fallback phòng khi dtTable chưa khởi tạo
+  $('.order-checkbox:checked').each(function() {
+    var v = $(this).val();
+    if (checkedIds.indexOf(v) === -1) checkedIds.push(v);
+  });
+
+  if (checkedIds.length === 0) {
+    alert('Vui lòng chọn ít nhất một đơn hàng!');
+    return;
+  }
+
+  if (confirm('Bạn có chắc chắn muốn thay đổi trạng thái cho ' + checkedIds.length + ' đơn hàng đã chọn?')) {
+    var form = $('#bulkActionForm');
+    // Gán bulkStatus vào hidden input
+    $('#hiddenBulkStatus').val(status);
+    // Xóa orderIds cũ (nếu đã gọi trước đó)
+    form.find('input[name="orderIds"]').remove();
+    // Thêm từng orderId
+    $.each(checkedIds, function(i, id) {
+      form.append($('<input>').attr({ type: 'hidden', name: 'orderIds', value: id }));
+    });
+    form.submit();
   }
 }
 </script>

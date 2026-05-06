@@ -71,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product findByName(String name) {
-		return productRepo.findByName(name);
+		return productRepo.findFirstByNameOrderByIdAsc(name);
 	}
 
 	@Override

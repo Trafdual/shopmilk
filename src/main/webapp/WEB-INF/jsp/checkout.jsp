@@ -364,11 +364,24 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
         url: "/order",
         method: "post",
         data: $("#orderForm").serialize(),
-        success: function (res) {
-          toastr.success("Đặt hàng thành công", { timeOut: 5000 });
-          setTimeout(() => {
+        success: function () {
+          toastr.success("Đặt hàng thành công", { timeOut: 2000 });
+          try {
+            paypal.minicart.reset(); // xóa hết giỏ hàng
+            if (typeof updateCartBadge === "function") updateCartBadge();
+          } catch (e) {}
+          setTimeout(function () {
             window.location.href = "/home";
-          }, 1000);
+          }, 900);
+        },
+        error: function (xhr) {
+          // Nếu server trả 400 với message (ResponseStatusException), ưu tiên hiện message đó
+          var msg = "Đặt hàng thất bại, vui lòng thử lại";
+          try {
+            if (xhr && xhr.responseJSON && xhr.responseJSON.message) msg = xhr.responseJSON.message;
+            else if (xhr && xhr.responseText) msg = xhr.responseText;
+          } catch (e) {}
+          toastr.error(msg);
         },
       });
     }
