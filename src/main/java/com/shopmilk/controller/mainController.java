@@ -128,23 +128,34 @@ public class mainController {
 	}
 
 	@PostMapping("/order")
-	public String addOrder(@ModelAttribute("orderForm") Order order,
+	public org.springframework.http.ResponseEntity<String> addOrder(@ModelAttribute("orderForm") Order order,
 			ModelMap model, HttpServletRequest request) {
-		// SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		// Validate cart & stock BEFORE creating the order
+		int noProduct = Integer.parseInt(request.getParameter("noProductInCart"));
+		for (int i = 1; i <= noProduct; i++) {
+			Product product = productService.findByName(request.getParameter("productName" + i));
+			if (product == null) {
+				throw new org.springframework.web.server.ResponseStatusException(
+						org.springframework.http.HttpStatus.BAD_REQUEST,
+						"Sản phẩm không tồn tại");
+			}
+			int noProductInCart = Integer.parseInt(request.getParameter("productQuantity" + i));
+			if (product.getQuantity() < noProductInCart) {
+				throw new org.springframework.web.server.ResponseStatusException(
+						org.springframework.http.HttpStatus.BAD_REQUEST,
+						"Số lượng sản phẩm trong kho không đủ");
+			}
+		}
+
 		order.setDate(new Date());
-		System.out.println("Tên: " + order.getCustomerName() + " Địa chỉ: " + order.getAddress());
 		orderService.save(order);
 
-		int noProduct = Integer.parseInt(request.getParameter("noProductInCart"));
 		for (int i = 1; i <= noProduct; i++) {
 			Product product = productService.findByName(request.getParameter("productName" + i));
 			int noProductInCart = Integer.parseInt(request.getParameter("productQuantity" + i));
 
-			int noProductInStock = product.getQuantity();
-			if (noProductInStock > noProductInCart || noProductInStock == noProductInCart) {
-				product.setQuantity(product.getQuantity() - noProductInCart);
-				productService.update(product);
-			}
+			product.setQuantity(product.getQuantity() - noProductInCart);
+			productService.update(product);
 
 			long total = product.getPrice() * noProductInCart;
 			OrderDetail orderDetail = new OrderDetail();
@@ -155,7 +166,8 @@ public class mainController {
 			orderDetail.setAmount(total);
 			detailService.save(orderDetail);
 		}
-		return "redirect:/home";
+
+		return org.springframework.http.ResponseEntity.ok("OK");
 	}
 
 	@GetMapping("/contact")

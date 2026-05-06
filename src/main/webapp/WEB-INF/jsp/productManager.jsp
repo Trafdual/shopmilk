@@ -51,10 +51,46 @@
   table.dataTable thead th { background: #0c1a2e; color: #fff; border: none; font-weight: 500; }
   .btn-add-new { background: #1a73e8; color: #fff; border-radius: 20px; font-size: 13px; font-weight: 500; padding: 6px 16px; transition: all 0.3s; }
   .btn-add-new:hover { background: #1557b0; color: #fff; box-shadow: 0 4px 10px rgba(26,115,232,0.3); }
+
+  /* ===== TOAST ===== */
+  #toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .toast-msg {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 300px;
+    max-width: 420px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .toast-msg.show { opacity: 1; transform: translateX(0); }
+  .toast-msg.hide { opacity: 0; transform: translateX(60px); }
+  .toast-success { background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%); }
+  .toast-error   { background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%); }
+  .toast-icon { font-size: 20px; flex-shrink: 0; }
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
+
+	<!-- Toast container -->
+	<div id="toast-container"></div>
 
 		<jsp:include page="admin/header.jsp" />
 
@@ -349,6 +385,33 @@
 				"info" : true,
 				"autoWidth" : false
 			});
+
+			// ===== Toast helper =====
+			function showToast(message, type) {
+				var icon = type === 'success' ? '&#10003;' : '&#9888;';
+				var cls  = type === 'success' ? 'toast-success' : 'toast-error';
+				var id   = 'toast-' + Date.now();
+				var html = '<div id="' + id + '" class="toast-msg ' + cls + '">' +
+					'<span class="toast-icon">' + icon + '</span>' +
+					'<span>' + message + '</span>' +
+					'</div>';
+				$('#toast-container').append(html);
+				setTimeout(function(){ $('#' + id).addClass('show'); }, 30);
+				setTimeout(function(){ removeToast(id); }, 4500);
+			}
+			window.removeToast = function(id) {
+				var el = $('#' + id);
+				el.addClass('hide').removeClass('show');
+				setTimeout(function(){ el.remove(); }, 400);
+			};
+
+			// Đọc flash attributes từ server
+			<c:if test="${not empty toastError}">
+				showToast('${toastError}', 'error');
+			</c:if>
+			<c:if test="${not empty toastSuccess}">
+				showToast('${toastSuccess}', 'success');
+			</c:if>
 		});
 	</script>
 </body>

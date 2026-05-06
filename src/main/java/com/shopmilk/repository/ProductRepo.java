@@ -23,8 +23,8 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     // Tìm theo category và khoảng giá
     List<Product> findByCategoryIdAndPriceBetween(int categoryId, long from, long to);
 
-    // Tìm sản phẩm theo tên chính xác
-    Product findByName(String name);
+    // Tìm sản phẩm theo tên chính xác (có thể trùng tên, nên lấy bản ghi đầu tiên theo id)
+    Product findFirstByNameOrderByIdAsc(String name);
 
     // Top N sản phẩm bán chạy nhất (tổng quantity từ order_detail, đơn đã hoàn thành)
     @Query(nativeQuery = true, value =
